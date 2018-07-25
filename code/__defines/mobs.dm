@@ -283,3 +283,6 @@
 #define AURA_TYPE_LIFE   "Life"
 
 #define SPECIES_BLOOD_DEFAULT 560
+
+//Some mob icon layering defines
+#define BODY_LAYER		-100

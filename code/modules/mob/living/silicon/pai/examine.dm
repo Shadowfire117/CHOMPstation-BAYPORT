@@ -9,6 +9,13 @@
 		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
 	msg += "\n*---------*"
 
+	msg += attempt_vr(src,"examine_bellies",args) //VOREStation Edit
+
+	// VOREStation Edit: Start
+	if(ooc_notes)
+		msg += "<span class = 'deptradio'>OOC Notes:</span> <a href='?src=\ref[src];ooc_notes=1'>\[View\]</a>\n"
+	// VOREStation Edit: End
+
 	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
 
 	if (pose)

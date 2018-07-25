@@ -281,6 +281,69 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 
 	. = jointext(.,null)
 
+// Moved from /datum/preferences/proc/copy_to()
+/datum/category_item/player_setup_item/general/body/copy_to_mob(var/mob/living/carbon/human/character)
+	// Copy basic values
+	character.r_eyes	= pref.r_eyes
+	character.g_eyes	= pref.g_eyes
+	character.b_eyes	= pref.b_eyes
+	character.h_style	= pref.h_style
+	character.r_hair	= pref.r_hair
+	character.g_hair	= pref.g_hair
+	character.b_hair	= pref.b_hair
+	character.f_style	= pref.f_style
+	character.r_facial	= pref.r_facial
+	character.g_facial	= pref.g_facial
+	character.b_facial	= pref.b_facial
+	character.r_skin	= pref.r_skin
+	character.g_skin	= pref.g_skin
+	character.b_skin	= pref.b_skin
+	character.s_tone	= pref.s_tone
+	character.h_style	= pref.h_style
+	character.f_style	= pref.f_style
+	character.b_type	= pref.b_type
+
+	// Destroy/cyborgize organs and limbs.
+	for(var/name in list(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_ARM, BP_R_ARM, BP_L_FOOT, BP_R_FOOT, BP_L_LEG, BP_R_LEG, BP_GROIN, BP_CHEST))
+		var/status = pref.organ_data[name]
+		var/obj/item/organ/external/O = character.organs_by_name[name]
+		if(O)
+			if(status == "amputated")
+				O.remove_rejuv()
+			else if(status == "cyborg")
+				if(pref.rlimb_data[name])
+					O.robotize(pref.rlimb_data[name])
+				else
+					O.robotize()
+
+	for(var/name in list(BP_HEART,BP_EYES,BP_LUNGS,BP_LIVER,BP_KIDNEYS,BP_BRAIN))
+		var/status = pref.organ_data[name]
+		if(!status)
+			continue
+		var/obj/item/organ/I = character.internal_organs_by_name[name]
+		if(I)
+			if(status == "assisted")
+				I.mechassist()
+			else if(status == "mechanical")
+				I.robotize()
+			else if(status == "digital")
+				I.digitize()
+
+	for(var/N in character.organs_by_name)
+		var/obj/item/organ/external/O = character.organs_by_name[N]
+		O.markings.Cut()
+
+	for(var/M in pref.body_markings)
+		var/datum/sprite_accessory/marking/mark_datum = GLOB.body_marking_styles_list[M]
+		var/mark_color = "[pref.body_markings[M]]"
+
+		for(var/BP in mark_datum.body_parts)
+			var/obj/item/organ/external/O = character.organs_by_name[BP]
+			if(O)
+				O.markings[M] = list("color" = mark_color, "datum" = mark_datum)
+
+	return
+
 /datum/category_item/player_setup_item/general/body/proc/has_flag(var/datum/species/mob_species, var/flag)
 	return mob_species && (mob_species.appearance_flags & flag)
 
@@ -664,3 +727,5 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 	else
 		//this shouldn't happen
 		pref.f_style = GLOB.facial_hair_styles_list["Shaved"]
+
+

@@ -1066,6 +1066,16 @@
 			else
 				holder.icon_state = "hudsyndicate"
 			hud_list[SPECIALROLE_HUD] = holder
+
+	if(LAZYLEN(hud_list) && has_huds)
+		var/image/holder = hud_list
+		var/new_y_offset = 32 * (size_multiplier - 1)
+		for(var/index = 1 to hud_list.len)
+			holder.pixel_y = new_y_offset
+			hud_list = holder
+
+	attempt_vr(src,"handle_hud_list_vr",list()) //VOREStation Add - Custom HUDs.
+
 	hud_updateflag = 0
 
 /mob/living/carbon/human/handle_stunned()

@@ -105,6 +105,17 @@ var/list/_client_preferences_by_type
 		sound_to(preference_mob, sound(null, repeat = 0, wait = 0, volume = 0, channel = GLOB.lobby_sound_channel))
 		sound_to(preference_mob, sound(null, repeat = 0, wait = 0, volume = 0, channel = GLOB.ambience_sound_channel))
 
+//VOREStation Add - Need to put it here because it should be ordered riiiight here.
+/datum/client_preference/eating_noises
+	description = "Eating Noises"
+	key = "EATING_NOISES"
+
+/datum/client_preference/digestion_noises
+	description = "Digestion Noises"
+	key = "DIGEST_NOISES"
+//VOREStation Add End
+
+
 /datum/client_preference/ghost_ears
 	description ="Ghost ears"
 	key = "CHAT_GHOSTEARS"

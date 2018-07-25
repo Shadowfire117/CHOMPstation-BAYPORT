@@ -104,3 +104,16 @@ datum/preferences
 			return TOPIC_REFRESH
 
 	return ..()
+
+/datum/category_item/player_setup_item/general/basic/proc/get_genders()
+	var/datum/species/S
+	if(pref.species)
+		S = all_species[pref.species]
+	else
+		S = all_species[SPECIES_HUMAN]
+	var/list/possible_genders = S.genders
+	if(!pref.organ_data || pref.organ_data[BP_CHEST] != "cyborg")
+		return possible_genders
+	possible_genders = possible_genders.Copy()
+	possible_genders |= NEUTER
+	return possible_genders

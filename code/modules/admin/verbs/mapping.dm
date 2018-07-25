@@ -333,3 +333,19 @@ var/list/debug_verbs = list (
 
 /proc/get_zas_image(var/turf/T, var/icon_state)
 	return image_repository.atom_image(T, 'icons/misc/debug_group.dmi', icon_state, plane = ABOVE_TURF_PLANE, layer = ABOVE_TILE_LAYER)
+
+
+
+//This proc is intended to detect lag problems relating to communication procs
+var/global/say_disabled = 0
+/client/proc/disable_communication()
+	set category = "Mapping"
+	set name = "Disable all communication verbs"
+
+	usr << "<font color='red'>Proc disabled.</font>"
+
+	/*say_disabled = !say_disabled
+	if(say_disabled)
+		message_admins("[src.ckey] used 'Disable all communication verbs', killing all communication methods.")
+	else
+		message_admins("[src.ckey] used 'Disable all communication verbs', restoring all communication methods.")*/

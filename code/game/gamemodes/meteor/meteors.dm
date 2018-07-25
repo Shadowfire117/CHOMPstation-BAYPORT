@@ -172,6 +172,7 @@
 
 /obj/effect/meteor/Bump(atom/A)
 	..()
+	if(attempt_vr(src,"Bump_vr",list(A))) return //VOREStation Edit - allows meteors to be deflected by baseball bats
 	if(A && !QDELETED(src))	// Prevents explosions and other effects when we were deleted by whatever we Bumped() - currently used by shields.
 		ram_turf(get_turf(A))
 		get_hit() //should only get hit once per move attempt

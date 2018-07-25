@@ -73,7 +73,7 @@
 	src.icon_state = "body_scanner_0"
 	return
 
-/obj/machinery/bodyscanner/attackby(obj/item/grab/normal/G, user as mob)
+/obj/machinery/bodyscanner/attackby(var/obj/item/grab/G, user as mob)
 	if(!istype(G))
 		return ..()
 	var/mob/M = G.affecting

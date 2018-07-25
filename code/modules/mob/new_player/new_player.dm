@@ -319,6 +319,9 @@
 	if(job.is_restricted(client.prefs, src))
 		return
 
+	if(!attempt_vr(src,"spawn_checks_vr",list())) return 0 // VOREStation Insert
+
+
 	var/datum/spawnpoint/spawnpoint = job_master.get_spawnpoint_for(client, job.title)
 	var/turf/spawn_turf = pick(spawnpoint.turfs)
 	if(job.latejoin_at_spawnpoints)
@@ -433,6 +436,7 @@
 	src << browse(jointext(dat, null), "window=latechoices;size=450x640;can_close=1")
 
 /mob/new_player/proc/create_character(var/turf/spawn_turf)
+	if (!attempt_vr(src,"spawn_checks_vr",list())) return 0 // VOREStation Insert
 	spawning = 1
 	close_spawn_windows()
 

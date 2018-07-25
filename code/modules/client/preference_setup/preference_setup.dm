@@ -77,6 +77,10 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	for(var/datum/category_group/player_setup_category/PS in categories)
 		PS.save_preferences(S)
 
+/datum/category_collection/player_setup_collection/proc/copy_to_mob(var/mob/living/carbon/human/C)
+	for(var/datum/category_group/player_setup_category/PS in categories)
+		PS.copy_to_mob(C)
+
 /datum/category_collection/player_setup_collection/proc/update_setup(var/savefile/preferences, var/savefile/character)
 	for(var/datum/category_group/player_setup_category/PS in categories)
 		. = PS.update_setup(preferences, character) || .

@@ -55,6 +55,11 @@
 
 	var/obj/screen/movable/ability_master/ability_master = null
 
+
+	var/datum/plane_holder/plane_holder = null
+	var/list/vis_enabled = null		// List of vision planes that should be graphically visible (list of their VIS_ indexes).
+	var/list/planes_visible = null	// List of atom planes that are logically visible/interactable (list of actual plane numbers).
+
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).

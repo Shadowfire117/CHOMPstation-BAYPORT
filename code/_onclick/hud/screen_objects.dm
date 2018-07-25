@@ -375,7 +375,7 @@
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(3)
 		else
-			return 0
+			return attempt_vr(src,"Click_vr",list(location,control,params)) //VOREStation Add - Additional things.
 	return 1
 
 /obj/screen/inventory/Click()

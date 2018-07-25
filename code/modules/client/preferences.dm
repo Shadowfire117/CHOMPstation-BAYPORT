@@ -107,6 +107,7 @@ datum/preferences
 	else if(href_list["reload"])
 		load_preferences()
 		load_character()
+		attempt_vr(client.prefs_vr,"load_vore","") //VOREStation Edit
 		sanitize_preferences()
 	else if(href_list["load"])
 		if(!IsGuestKey(usr.key))
@@ -114,6 +115,7 @@ datum/preferences
 			return 1
 	else if(href_list["changeslot"])
 		load_character(text2num(href_list["changeslot"]))
+		attempt_vr(client.prefs_vr,"load_vore","") //VOREStation Edit
 		sanitize_preferences()
 		close_load_dialog(usr)
 	else if(href_list["resetslot"])

@@ -137,9 +137,11 @@ Please contact me on #coderbus IRC. ~Carn x
 #define HANDCUFF_LAYER			23
 #define L_HAND_LAYER			24
 #define R_HAND_LAYER			25
-#define FIRE_LAYER				26		//If you're on fire
-#define TARGETED_LAYER			27		//BS12: Layer for the target overlay from weapon targeting system
-#define TOTAL_LAYERS			27
+#define WING_LAYER				26		//VOREStation edit. Simply move this up a number if things are added.
+#define TAIL_LAYER_ALT			27		//VOREStation edit. Simply move this up a number if things are added.
+#define FIRE_LAYER				28		//If you're on fire
+#define TARGETED_LAYER			29		//BS12: Layer for the target overlay from weapon targeting system
+#define TOTAL_LAYERS			29
 //////////////////////////////////
 
 /mob/living/carbon/human
@@ -751,6 +753,57 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)
 		queue_icon_update()
 
+/mob/living/carbon/human/proc/animate_wing_reset(var/update_icons=1)
+	if(stat != DEAD)
+		set_wing_state("[species.get_wing(src)]_idle[rand(0,9)]")
+	else
+		set_wing_state("[species.get_wing(src)]_static")
+		toggle_wing_vr(FALSE)
+
+	if(update_icons)
+		queue_icon_update()
+
+
+/mob/living/carbon/human/proc/update_wing_showing(var/update_icons=1)
+	overlays_standing[WING_LAYER] = null
+
+	var/species_wing = species.get_wing(src)
+
+	if(species_wing && !(wear_suit && wear_suit.flags_inv & HIDETAIL))
+		var/icon/wing_s = get_wing_icon()
+		overlays_standing[WING_LAYER] = image(wing_s, icon_state = "[species_wing]_s")
+		animate_wing_reset(0)
+
+	if(update_icons)
+		queue_icon_update()
+
+/mob/living/carbon/human/proc/get_wing_icon()
+	var/icon_key = "[species.get_race_key(src)][r_skin][g_skin][b_skin][r_hair][g_hair][b_hair]"
+	var/icon/wing_icon = wing_icon_cache[icon_key]
+	if(!wing_icon)
+		//generate a new one
+		var/species_wing_anim = species.get_wing_animation(src)
+		if(!species_wing_anim) species_wing_anim = 'icons/effects/species.dmi'
+		wing_icon = new/icon(species_wing_anim)
+		wing_icon.Blend(rgb(r_skin, g_skin, b_skin), species.wing_blend)
+		// The following will not work with animated wings.
+		var/use_species_wing = species.get_wing_hair(src)
+		if(use_species_wing)
+			var/icon/hair_icon = icon('icons/effects/species.dmi', "[species.get_wing(src)]_[use_species_wing]")
+			hair_icon.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			wing_icon.Blend(hair_icon, ICON_OVERLAY)
+		wing_icon_cache[icon_key] = wing_icon
+
+	return wing_icon
+
+
+/mob/living/carbon/human/proc/set_wing_state(var/t_state)
+	var/image/wing_overlay = overlays_standing[WING_LAYER]
+
+	if(wing_overlay && species.get_wing_animation(src))
+		wing_overlay.icon_state = t_state
+		return wing_overlay
+	return null
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi
@@ -784,6 +837,7 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[SURGERY_LEVEL] = total
 	if(update_icons)
 		queue_icon_update()
+
 
 //Human Overlays Indexes/////////
 #undef MUTATIONS_LAYER

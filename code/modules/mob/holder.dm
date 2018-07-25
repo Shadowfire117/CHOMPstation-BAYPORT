@@ -17,7 +17,7 @@ var/list/holder_mob_icon_cache = list()
 		slot_r_hand_str = 'icons/mob/onmob/items/righthand_holder.dmi',
 		)
 	pixel_y = 8
-
+	var/mob/living/held_mob
 	var/last_holder
 
 /obj/item/weapon/holder/New()
