@@ -278,7 +278,10 @@
 
 /obj/item/pupscrubber/New()
 	..()
-	flags |= NOBLUDGEON
+/*
+//								    	****************************************************************************************************
+//                                    *****Scrubbing is undefined. R is defined but is not used in code due to scrubbing not being a var*****
+//					                  *********************************************************************************************************
 
 /obj/item/pupscrubber/attack_self(mob/user)
 	var/mob/living/silicon/robot.R = user
@@ -290,6 +293,7 @@
 		R.scrubbing = FALSE
 		enabled = FALSE
 		icon_state = "scrub0"
+*/
 
 /obj/item/weapon/gun/energy/taser/mounted/cyborg/ertgun //Not a taser, but it's being used as a base so it takes energy and actually works.
 	name = "disabler"

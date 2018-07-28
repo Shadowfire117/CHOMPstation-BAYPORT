@@ -120,7 +120,7 @@
 						var/mob/living/silicon/robot/R = owner
 						R.cell.charge += 25*compensation
 					else
-						owner.nutrition += 4.5*compensation
+//						owner.nutrition += 4.5*compensation 						************Nutrition does not exist as defined var to Owner************
 				to_update = TRUE
 
 				continue
@@ -140,16 +140,25 @@
 				var/mob/living/silicon/robot/R = owner
 				R.cell.charge += 25*damage_gain
 			if(offset) // If any different than default weight, multiply the % of offset.
-				owner.nutrition += offset*(4.5*(damage_gain)/difference) //4.5 nutrition points per health point. Normal same size 100+100 health prey with average weight would give 900 points if the digestion was instant. With all the size/weight offset taxes plus over time oxyloss+hunger taxes deducted with non-instant digestion, this should be enough to not leave the pred starved.
+//				owner.nutrition += offset*(4.5*(damage_gain)/difference) //4.5 nutrition points per health point. Normal same size 100+100 health prey with average weight would give 900 points if the digestion was instant. With all the size/weight offset taxes plus over time oxyloss+hunger taxes deducted with non-instant digestion, this should be enough to not leave the pred starved.
 			else
-				owner.nutrition += 4.5*(damage_gain)/difference
+//				owner.nutrition += 4.5*(damage_gain)/difference
+
+
+//				************Nutrition does not exist as defined var to Owner************
+
+
+
 
 
 //////////////////////////// DM_ABSORB ////////////////////////////
+
+//						************Nutrition does not exist as defined var to M************
+
 	else if(digest_mode == DM_ABSORB)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 			if(prob(10)) //Less often than gurgles. People might leave this on forever.
 				play_sound = pick(digestion_sounds)
 
@@ -164,7 +173,14 @@
 				absorb_living(M)
 				to_update = TRUE
 
+
 //////////////////////////// DM_UNABSORB ////////////////////////////
+
+
+
+
+//						************Still Nutrition being a problem*********
+
 	else if(digest_mode == DM_UNABSORB)
 
 		for (var/target in touchable_mobs)
@@ -177,11 +193,18 @@
 				owner.nutrition -= 100
 				to_update = TRUE
 
+
+
 //////////////////////////// DM_DRAIN ////////////////////////////
+
+
+//				*************Still Nutrition***********
+
+
 	else if(digest_mode == DM_DRAIN)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 
 			if(prob(10)) //Less often than gurgles. People might leave this on forever.
 				play_sound = pick(digestion_sounds)
@@ -191,11 +214,19 @@
 				M.nutrition = (M.nutrition * 0.95)
 				owner.nutrition += oldnutrition
 
+
+
 //////////////////////////// DM_SHRINK ////////////////////////////
+
+
+
+
+//				************Didn't know you can shrink people for nutrition. I do now. Anyways, NUTRITION.**********
+
 	else if(digest_mode == DM_SHRINK)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 
 			if(prob(10)) //Infinite gurgles!
 				play_sound = pick(digestion_sounds)
@@ -208,11 +239,17 @@
 					M.nutrition = (M.nutrition * 0.95)
 					owner.nutrition += oldnutrition
 
+
+
 //////////////////////////// DM_GROW ////////////////////////////
+
+
+//               *********************Apparently, growing others will drain your nutrition. Also the problem is .Nutrition.**************
+
 	else if(digest_mode == DM_GROW)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 
 			if(prob(10))
 				play_sound = pick(digestion_sounds)
@@ -222,11 +259,17 @@
 				if(M.nutrition >= 100)
 					owner.nutrition = (owner.nutrition * 0.95)
 
+
+
 //////////////////////////// DM_SIZE_STEAL ////////////////////////////
+
+
+//                       *******************Nutritiooooonnnnnn...*********************
+
 	else if(digest_mode == DM_SIZE_STEAL)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 
 			if(prob(10))
 				play_sound = pick(digestion_sounds)
@@ -240,14 +283,21 @@
 					M.nutrition = (M.nutrition * 0.95)
 					owner.nutrition += oldnutrition
 
+
+
 ///////////////////////////// DM_HEAL /////////////////////////////
+
+
+//**********************I also didn't know you can give Nutrition like this. Holy heck. We can explain how things work in our wiki after fixing the nutrition var and none will be the wiser************
+
+
 	else if(digest_mode == DM_HEAL)
 
 		if(prob(50)) //Wet heals! The secret is you can leave this on for gurgle noises for fun.
 			play_sound = pick(digestion_sounds)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 
 			if(M.stat == DEAD)
 				continue
@@ -261,6 +311,9 @@
 			else if(owner.nutrition > 90 && (M.nutrition <= 400))
 				owner.nutrition -= 1
 				M.nutrition += 1
+
+
+
 
 /////////////////////////// DM_TRANSFORM ///////////////////////////
 	else if(digest_mode == DM_TRANSFORM)

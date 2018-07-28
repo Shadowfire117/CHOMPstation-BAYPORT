@@ -122,7 +122,6 @@ var/global/list/tf_egg_types = list(
 	"Human"			= /obj/structure/closet/secure_closet/egg/human,
 	"Slime"			= /obj/structure/closet/secure_closet/egg/slime,
 	"Egg"			= /obj/structure/closet/secure_closet/egg,
-	"Xenochimera"	= /obj/structure/closet/secure_closet/egg/scree,
 	"Xenomorph"		= /obj/structure/closet/secure_closet/egg/xenomorph)
 
 var/global/list/edible_trash = list(/obj/item/trash,

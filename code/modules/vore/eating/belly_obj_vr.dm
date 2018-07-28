@@ -46,7 +46,7 @@
 	//List of slots that stripping handles strips
 	var/tmp/static/list/slots = list(slot_back,slot_handcuffed,slot_l_store,slot_r_store,slot_wear_mask,slot_l_hand,slot_r_hand,slot_wear_id,slot_glasses,slot_gloves,slot_head,slot_shoes,slot_belt,slot_wear_suit,slot_w_uniform,slot_s_store,slot_l_ear,slot_r_ear)
 
-	var/tmp/mob/living/owner					// The mob whose belly this is.
+	var/tmp/mob/living/carbon/owner					// The mob whose belly this is.
 	var/tmp/digest_mode = DM_HOLD				// Current mode the belly is set to from digest_modes (+transform_modes if human)
 	var/tmp/tf_mode = DM_TRANSFORM_REPLICA		// Current transformation mode.
 	var/tmp/next_process = 0					// Waiting for this SSbellies times_fired to process again.
@@ -222,8 +222,13 @@
 		return 0 // They weren't in this belly anyway
 
 	//Place them into our drop_location
-	M.forceMove(drop_location())
+
+
+//	M.forceMove(drop_location())             ********Drop_location proc isn't defined********
 	items_preserved -= M
+
+
+
 
 	//Special treatment for absorbed prey
 	if(istype(M,/mob/living))
@@ -302,8 +307,8 @@
 			raw_messages = struggle_messages_inside
 		if("dmo")
 			raw_messages = digest_messages_owner
-		if("dmp")
-			raw_messages = digest_messages_prey
+//		if("dmp")                                        **************
+//			raw_messages = digest_messages_prey
 		if("em")
 			raw_messages = examine_messages
 
@@ -431,6 +436,10 @@
 //Digest a single item
 //Receives a return value from digest_act that's how much nutrition
 //the item should be worth
+
+
+
+
 /obj/belly/proc/digest_item(var/obj/item/item)
 	var/digested = item.digest_act(src, owner)
 	if(!digested)
@@ -440,6 +449,9 @@
 		if(isrobot(owner))
 			var/mob/living/silicon/robot/R = owner
 			R.cell.charge += (50 * digested)
+
+
+
 
 //Determine where items should fall out of us into.
 //Typically just to the owner's location.
