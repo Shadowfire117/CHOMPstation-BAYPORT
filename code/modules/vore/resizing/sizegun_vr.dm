@@ -52,35 +52,32 @@
 	var/size_examine = (size_set_to*100)
 	user << "<span class='info'>It is currently set at [size_examine]%</span>"
 
+
+
+
 //----------------------------
 // Xray laser beam effects
 //----------------------------
 
 
 
-/*
-
-*************Light_range and light_power are not defined vars for these children nor from its parents************
-***************Will do later************
-
-
 /obj/effect/projectile/xray/tracer
 	icon_state = "xray"
-	light_range = 2
-	light_power = 0.5
-	light_color = "#00CC33"
+//	light_range = 2
+//	light_power = 0.5
+//	light_color = "#00CC33"
 
 /obj/effect/projectile/xray/muzzle
 	icon_state = "muzzle_xray"
-	light_range = 2
-	light_power = 0.5
-	light_color = "#00CC33"
+//	light_range = 2
+//	light_power = 0.5
+//	light_color = "#00CC33"
 
 /obj/effect/projectile/xray/impact
 	icon_state = "impact_xray"
-	light_range = 2
-	light_power = 0.5
-	light_color = "#00CC33"
+//	light_range = 2
+//	light_power = 0.5
+//	light_color = "#00CC33"
 
 
 
@@ -114,4 +111,3 @@
 			H.update_icons()
 		else
 			return 1
-*/

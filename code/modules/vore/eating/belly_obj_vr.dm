@@ -367,7 +367,7 @@
 	//Drop all items into the belly.
 	if(config.items_survive_digestion)
 		for(var/obj/item/W in M)
-			if(istype(W,/obj/item/organ/internal/mmi_holder/posibrain))
+			if(istype(W,/obj/item/organ/internal/posibrain))
 				var/obj/item/organ/internal/mmi_holder/MMI = W
 				var/atom/movable/brain = MMI.removed()
 				if(brain)

@@ -79,7 +79,9 @@
 	if(!target_gender)
 		target_gender = O.gender
 
-	return (M.gender != target_gender || M.identifying_gender != target_gender)
+//	return (M.gender != target_gender || M.identifying_gender != target_gender)
+	return (M.gender != target_gender)
+
 
 /obj/belly/proc/change_gender(var/mob/living/carbon/human/M, target_gender, message=0)
 	var/mob/living/carbon/human/O = owner
@@ -90,7 +92,7 @@
 		target_gender = O.gender
 
 	M.gender = target_gender
-	M.identifying_gender = target_gender
+//	M.identifying_gender = target_gender
 	if(target_gender == FEMALE)
 		M.f_style = "Shaved"
 	M.dna.SetUIState(DNA_UI_GENDER,M.gender!=MALE,1)
