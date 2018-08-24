@@ -785,7 +785,7 @@ var/global/list/damage_icon_parts = list()
 		var/species_wing_anim = species.get_wing_animation(src)
 		if(!species_wing_anim) species_wing_anim = 'icons/effects/species.dmi'
 		wing_icon = new/icon(species_wing_anim)
-		wing_icon.Blend(rgb(r_skin, g_skin, b_skin), species.wing_blend)
+//		wing_icon.Blend(rgb(r_skin, g_skin, b_skin), species.wing_blend) TODO: Disabled wing coloring for now - Jon
 		// The following will not work with animated wings.
 		var/use_species_wing = species.get_wing_hair(src)
 		if(use_species_wing)

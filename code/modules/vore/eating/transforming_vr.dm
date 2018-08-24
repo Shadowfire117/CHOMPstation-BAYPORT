@@ -222,7 +222,7 @@
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_colour
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_hair
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_gender
-		M.verbs -=  /mob/living/carbon/human/proc/regenerate
+//		M.verbs -=  /mob/living/carbon/human/proc/regenerate Temporarily removing regenerate - Jon
 		M.verbs -=  /mob/living/proc/set_size
 
 	M.species = O.species
@@ -245,7 +245,7 @@
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_colour
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_hair
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_gender
-		M.verbs +=  /mob/living/carbon/human/proc/regenerate
+//		M.verbs +=  /mob/living/carbon/human/proc/regenerate Temporarily removing regenerate - Jon
 		M.verbs +=  /mob/living/proc/set_size
 		M.shapeshifter_select_shape()
 

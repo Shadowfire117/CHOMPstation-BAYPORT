@@ -56,7 +56,7 @@
 	if(nif)
 		uninstall()
 		nif = null
-	GLOB.qdel_null(stat_line)
+	QDEL_NULL_LIST(stat_line)
 	return ..()
 
 //Called when the software is installed in the NIF
@@ -309,9 +309,9 @@
 	Insert directly into brain.\""
 
 	stored = /datum/nifsoft/package/mining
-
+/
 /datum/nifsoft/package/mining
-	software = list(/datum/nifsoft/material,/datum/nifsoft/spare_breath)
+	software = list(/datum/nifsoft/mesons,/datum/nifsoft/spare_breath)
 
 /obj/item/weapon/storage/box/nifsofts_mining
 	name = "mining nifsoft disks"

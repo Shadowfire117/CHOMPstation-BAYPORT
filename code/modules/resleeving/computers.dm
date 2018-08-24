@@ -16,7 +16,7 @@
 	var/synthetic_capable = 1
 	var/obj/item/weapon/disk/transcore/disk
 
-/obj/machinery/computer/transhuman/resleeving/initialize()
+/obj/machinery/computer/transhuman/resleeving/Initialize()
 	. = ..()
 	updatemodules()
 
@@ -261,7 +261,7 @@
 					pod = input(usr,"Select a growing pod to use", "Pod selection") as anything in pods
 
 				//Already doing someone.
-					if(pod.occupant)
+				if(pod.occupant)
 					temp = "Error: Growpod is currently occupied."
 
 				//Not enough materials.

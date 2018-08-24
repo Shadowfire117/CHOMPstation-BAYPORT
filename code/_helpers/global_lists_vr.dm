@@ -141,11 +141,11 @@ var/global/list/edible_trash = list(/obj/item/trash,
 				/obj/item/weapon/spacecash,
 				/obj/item/broken_device,
 				/obj/item/weapon/corncob,
-				/obj/item/weapon/paperplane,
+//				/obj/item/weapon/paperplane, These don't exist in Bay - Jon
 				/obj/item/weapon/pen,
 				/obj/item/weapon/photo,
 				/obj/item/weapon/storage/glass_ornament,
-				/obj/item/weapon/storage/box/wings,
+//				/obj/item/weapon/storage/box/wings, These don't exist in Bay - Jon
 				/obj/item/weapon/storage/box/matches,
 				/obj/item/weapon/storage/fancy/cigarettes,
 				/obj/item/weapon/storage/fancy/egg_box,

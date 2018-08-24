@@ -26,7 +26,7 @@
 		load_settings()
 
 	Destroy()
-		GLOB.qdel_null_list(brainmobs)
+		QDEL_NULL_LIST(brainmobs)
 		return ..()
 
 	activate()
@@ -49,7 +49,7 @@
 			nif.human.verbs |= /mob/living/carbon/human/proc/nme
 
 	uninstall()
-		GLOB.qdel_null_list(brainmobs)
+		QDEL_NULL_LIST(brainmobs)
 		if((. = ..()) && nif && nif.human) //Sometimes NIFs are deleted outside of a human
 			nif.human.verbs -= /mob/living/carbon/human/proc/nsay
 			nif.human.verbs -= /mob/living/carbon/human/proc/nme
@@ -211,7 +211,7 @@
 		brainmob.container = src
 		brainmob.stat = 0
 		brainmob.silent = FALSE
-		GLOB.dead_mob_list -= brainmob
+		GLOB.dead_mob_list_ -= brainmob
 		brainmob.add_language(LANGUAGE_GALCOM)
 		brainmobs |= brainmob
 
@@ -273,7 +273,7 @@
 
 /mob/living/carbon/brain/caught_soul/Login()
 	..()
-	plane_holder.set_vis(VIS_AUGMENTED, TRUE)
+	//plane_holder.set_vis(VIS_AUGMENTED, TRUE)
 
 /mob/living/carbon/brain/caught_soul/Destroy()
 	if(soulcatcher)

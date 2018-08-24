@@ -159,45 +159,45 @@
 	if(client && feral >= 10) // largely a copy of handle_hallucinations() without the fake attackers. Unlike hallucinations, only fires once - if they're still feral they'll get hit again anyway.
 		spawn(rand(200,500)/(feral/10))
 			if(!feral) return //just to avoid fuckery in the event that they un-feral in the time it takes for the spawn to proc
-				//Tick down the duration
+			
+			//Tick down the duration
+			hallucination_duration = max(0, hallucination_duration - 1)
+			if(chem_effects[CE_MIND] > 0)
 				hallucination_duration = max(0, hallucination_duration - 1)
-				if(chem_effects[CE_MIND] > 0)
-					hallucination_duration = max(0, hallucination_duration - 1)
+			
+			//Adjust power if we have some chems that affect it
+			if(chem_effects[CE_MIND] < 0)
+				hallucination_power = min(hallucination_power++, 50)
+			if(chem_effects[CE_MIND] < -1)
+				hallucination_power = hallucination_power++
+			if(chem_effects[CE_MIND] > 0)
+				hallucination_power = max(hallucination_power - chem_effects[CE_MIND], 0)
+			
+			//See if hallucination is gone
+			if(!hallucination_power)
+				hallucination_duration = 0
+				return
+			if(!hallucination_duration)
+				hallucination_power = 0
+				return
+			if(!client || stat || world.time < next_hallucination)
+				return
+			if(chem_effects[CE_MIND] > 0 && prob(chem_effects[CE_MIND]*40)) //antipsychotics help
+				return
+			var/hall_delay = rand(10,20) SECONDS
 
-				//Adjust power if we have some chems that affect it
-				if(chem_effects[CE_MIND] < 0)
-					hallucination_power = min(hallucination_power++, 50)
-				if(chem_effects[CE_MIND] < -1)
-					hallucination_power = hallucination_power++
-				if(chem_effects[CE_MIND] > 0)
-					hallucination_power = max(hallucination_power - chem_effects[CE_MIND], 0)
-
-				//See if hallucination is gone
-				if(!hallucination_power)
-					hallucination_duration = 0
-					return
-				if(!hallucination_duration)
-					hallucination_power = 0
-					return
-
-				if(!client || stat || world.time < next_hallucination)
-					return
-				if(chem_effects[CE_MIND] > 0 && prob(chem_effects[CE_MIND]*40)) //antipsychotics help
-					return
-				var/hall_delay = rand(10,20) SECONDS
-
-				if(hallucination_power < 50)
-					hall_delay *= 2
-				next_hallucination = world.time + hall_delay
-				var/list/candidates = list()
-				for(var/T in subtypesof(/datum/hallucination/))
-					var/datum/hallucination/H = new T
-					if(H.can_affect(src))
-						candidates += H
-				if(candidates.len)
-					var/datum/hallucination/H = pick(candidates)
-					H.holder = src
-					H.activate()
+			if(hallucination_power < 50)
+				hall_delay *= 2
+			next_hallucination = world.time + hall_delay
+			var/list/candidates = list()
+			for(var/T in subtypesof(/datum/hallucination/))
+				var/datum/hallucination/H = new T
+				if(H.can_affect(src))
+					candidates += H
+			if(candidates.len)
+				var/datum/hallucination/H = pick(candidates)
+				H.holder = src
+				H.activate()
 	return
 
 
@@ -257,7 +257,7 @@
 	if(!ishuman(src))
 		return //If you're not a human you don't have permission to do this.
 	var/mob/living/carbon/human/C = src
-	var/obj/item/weapon/grab/G = src.get_active_hand()
+	var/obj/item/grab/G = src.get_active_hand()
 	if(!istype(G))
 		to_chat(C, "<span class='warning'>You must be grabbing a creature in your active hand to absorb them.</span>")
 		return
@@ -267,7 +267,7 @@
 		to_chat(src, "<span class='warning'>\The [T] is not able to be drained.</span>")
 		return
 
-	if(G.state != NORM_NECK)
+	if(G.current_grab.state_name != NORM_NECK)
 		to_chat(C, "<span class='warning'>You must have a tighter grip to drain this creature.</span>")
 		return
 
@@ -308,7 +308,7 @@
 				log_attack(C,T,"Succubus drained")
 				return
 
-		if(!do_mob(src, T, 50) || G.state != NORM_NECK) //One drain tick every 5 seconds.
+		if(!do_mob(src, T, 50) || G.current_grab.state_name != NORM_NECK) //One drain tick every 5 seconds.
 			to_chat(src, "<span class='warning'>Your draining of [T] has been interrupted!</span>")
 			C.absorbing_prey = 0
 			return
@@ -320,7 +320,7 @@
 	if(!ishuman(src))
 		return //If you're not a human you don't have permission to do this.
 
-	var/obj/item/weapon/grab/G = src.get_active_hand()
+	var/obj/item/grab/G = src.get_active_hand()
 	if(!istype(G))
 		to_chat(src, "<span class='warning'>You must be grabbing a creature in your active hand to drain them.</span>")
 		return
@@ -330,7 +330,7 @@
 		to_chat(src, "<span class='warning'>\The [T] is not able to be drained.</span>")
 		return
 
-	if(G.state != NORM_NECK)
+	if(G.current_grab.state_name != NORM_NECK)
 		to_chat(src, "<span class='warning'>You must have a tighter grip to drain this creature.</span>")
 		return
 
@@ -400,7 +400,7 @@
 				log_attack(src,T,"Succubus drained (lethal)")
 				return
 
-		if(!do_mob(src, T, 50) || G.state != NORM_NECK) //One drain tick every 5 seconds.
+		if(!do_mob(src, T, 50) || G.current_grab.state_name != NORM_NECK) //One drain tick every 5 seconds.
 			to_chat(src, "<span class='warning'>Your draining of [T] has been interrupted!</span>")
 			absorbing_prey = 0
 			return
@@ -412,7 +412,7 @@
 	if(!ishuman(src))
 		return //If you're not a human you don't have permission to do this.
 	var/mob/living/carbon/human/C = src
-	var/obj/item/weapon/grab/G = src.get_active_hand()
+	var/obj/item/grab/G = src.get_active_hand()
 	if(!istype(G))
 		to_chat(C, "<span class='warning'>You must be grabbing a creature in your active hand to feed them.</span>")
 		return
@@ -422,7 +422,7 @@
 		to_chat(src, "<span class='warning'>\The [T] is not able to be fed.</span>")
 		return
 
-	if(!G.state) //This should never occur. But alright
+	if(!G.current_grab.state_name) //This should never occur. But alright
 		return
 
 	if(C.absorbing_prey)
@@ -461,7 +461,7 @@
 				C.feed_grabbed_to_self_falling_nom(T,C) //Reused this proc instead of making a new one to cut down on code usage.
 				return
 
-		if(!do_mob(src, T, 50) || !G.state) //One drain tick every 5 seconds.
+		if(!do_mob(src, T, 50) || !G.current_grab.state_name) //One drain tick every 5 seconds.
 			to_chat(src, "<span class='warning'>Your feeding of [T] has been interrupted!</span>")
 			C.absorbing_prey = 0
 			return
@@ -498,6 +498,8 @@
 
 	return target
 
+
+// TODO: This won't work, dunno why this exists - Jon
 //Human test for shreddability, returns the mob if they can be shredded.
 /mob/living/carbon/human/vore_shred_time = 10 SECONDS
 /mob/living/carbon/human/can_shred()
@@ -506,7 +508,7 @@
 	if(!istype(G))
 		to_chat(src,"<span class='warning'>You have to have a very strong grip on someone first!</span>")
 		return FALSE
-	if(G.state != /obj/item/grab)
+	if(G.current_grab.state_name != /obj/item/grab)
 		to_chat(src,"<span class='warning'>You must have a tighter grip to severely damage this creature!</span>")
 		return FALSE
 

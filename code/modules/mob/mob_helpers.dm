@@ -677,3 +677,7 @@ proc/is_blind(A)
 			if(!mob.mind)
 				return
 			return mob.mind.initial_email_login["login"]
+
+//Recalculates what planes this mob can see using their plane_holder, for humans this is checking slots, for others, could be whatever.
+/mob/proc/recalculate_vis()
+	return

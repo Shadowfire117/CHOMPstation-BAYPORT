@@ -113,6 +113,8 @@
 			if(H.client)
 				H.client.screen |= GLOB.global_hud.meson
 
+// Material scanners are now depricated.
+/*
 /datum/nifsoft/material
 	name = "Material Scanner"
 	desc = "Similar to the worn Optical Material Scanner Goggles, these allow you to see objects through walls."
@@ -130,7 +132,7 @@
 			var/mob/living/carbon/human/H = nif.human
 			H.sight |= SEE_OBJS
 			if(H.client)
-				H.client.screen |= GLOB.global_hud.material
+				H.client.screen |= GLOB.global_hud.material*/ 
 
 /datum/nifsoft/thermals
 	name = "Thermal Scanner"

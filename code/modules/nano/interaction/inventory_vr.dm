@@ -24,9 +24,9 @@
 /var/global/datum/topic_state/commlink_state/commlink_state = new()
 
 /datum/topic_state/commlink_state/can_use_topic(var/src_object, var/mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.nif && H.nif.stat == NIF_WORKING && H.nif.comm == src_object)
-			return user.shared_nano_interaction()
+	//if(ishuman(user))
+		//var/mob/living/carbon/human/H = user
+		//if(H.nif && H.nif.stat == NIF_WORKING && H.nif.comm == src_object) // Unable to find nif.comm so disabled for now - Jon
+		//	return user.shared_nano_interaction()
 
 	return STATUS_CLOSE

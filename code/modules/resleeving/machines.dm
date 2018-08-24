@@ -69,8 +69,8 @@
 			I.mechassist()
 		else if(status == 2) //Mechanical organ
 			I.robotize()
-		else if(status == 3) //Digital organ
-			I.digitize()
+//		else if(status == 3) //Digital organ
+//			I.digitize() // Digitize doesn't exist anymore - Jon
 
 	occupant = H
 
@@ -84,8 +84,8 @@
 	H.original_player = current_project.ckey
 
 	//Apply genetic modifiers
-	for(var/modifier_type in R.genetic_modifiers)
-		H.add_modifier(modifier_type)
+//	for(var/modifier_type in R.genetic_modifiers)
+//		H.add_modifier(modifier_type) // Genetics Modifiers don't exist - Jon
 
 	//Apply damage
 	H.adjustCloneLoss((H.getMaxHealth() - config.health_threshold_dead)*0.75)
@@ -113,7 +113,7 @@
 		H.custom_species = current_project.speciesname
 
 	//Suiciding var
-	H.suiciding = 0
+//	H.suiciding = 0 // Suiciding commited suicide - Jon
 
 	//Making double-sure this is not set
 	H.mind = null
@@ -123,7 +123,7 @@
 	attempting = 0
 	return 1
 
-/obj/machinery/clonepod/transhuman/process()
+/obj/machinery/clonepod/transhuman/Process()
 
 	var/visible_message = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
@@ -486,7 +486,7 @@
 	if(default_part_replacement(user, W))
 		return
 	if(istype(W, /obj/item/grab))
-		var/obj/item/weapon/grab/G = W
+		var/obj/item/grab/G = W
 		if(!ismob(G.affecting))
 			return
 		for(var/mob/living/carbon/slime/M in range(1, G.affecting))
@@ -498,26 +498,26 @@
 			qdel(G)
 			src.updateUsrDialog()
 			return //Don't call up else we'll get attack messsages
-	if(istype(W, /obj/item/device/sleevecard))
+	// Disabled because I removed sleevecard due to compile errors - Jon
+	/*if(istype(W, /obj/item/device/sleevecard))
 		var/obj/item/device/sleevecard/C = W
 		user.unEquip(C)
 		C.removePersonality()
 		qdel(C)
 		sleevecards++
 		to_chat(user,"<span class='notice'>You store \the [C] in \the [src].</span>")
-		return
-
+		return */
 	return ..()
 
 /obj/machinery/transhuman/resleever/proc/putmind(var/datum/transhuman/mind_record/MR, mode = 1, var/mob/living/carbon/human/override = null)
 	if((!occupant || !istype(occupant) || occupant.stat >= DEAD) && mode == 1)
 		return 0
-
+	/*
 	if(mode == 2 && sleevecards) //Card sleeving
 		var/obj/item/device/sleevecard/card = new /obj/item/device/sleevecard(get_turf(src))
 		card.sleeveInto(MR)
 		sleevecards--
-		return 1
+		return 1*/
 
 	//If we're sleeving a subtarget, briefly swap them to not need to duplicate tons of code.
 	var/mob/living/carbon/human/original_occupant

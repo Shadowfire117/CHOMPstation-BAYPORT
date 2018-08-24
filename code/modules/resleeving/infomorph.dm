@@ -99,10 +99,12 @@ var/list/infomorph_emotions = list(
 	add_language(LANGUAGE_EAL, 1)
 	add_language(LANGUAGE_SIGN, 0)
 
-	verbs += /mob/living/silicon/infomorph/proc/choose_verbs
+
+// Verbs have been removed for now, due to the verbs having compile errors too much for me to bother with atm. - Jon
+//	verbs += /mob/living/silicon/infomorph/proc/choose_verbs
 	verbs += /mob/living/proc/hide
-	verbs += /mob/living/silicon/infomorph/proc/fold_out
-	verbs += /mob/living/silicon/infomorph/proc/fold_in
+//	verbs += /mob/living/silicon/infomorph/proc/fold_out
+//	verbs += /mob/living/silicon/infomorph/proc/fold_in
 
 	software = default_infomorph_software.Copy()
 /*
@@ -176,6 +178,7 @@ var/list/infomorph_emotions = list(
 	ghostize()
 	qdel(src)
 
+/* Disabled this for now, little too complicated for my little brain to handle - Jon
 ///////////// CAMERAS AND RECORDS
 /mob/living/silicon/infomorph/verb/reset_record_view()
 	set category = "Card Commands"
@@ -190,7 +193,7 @@ var/list/infomorph_emotions = list(
 	SSnano.update_uis(src)
 	usr << "<span class='notice'>You reset your record-viewing software.</span>"
 
-/*
+
 /mob/living/silicon/infomorph/proc/switchCamera(var/obj/machinery/camera/C)
 	if (!C)
 		src.unset_machine()
@@ -211,7 +214,7 @@ var/list/infomorph_emotions = list(
 	src.reset_view(null)
 	src.unset_machine()
 	src.cameraFollow = null
-*/
+
 ////////////// MOBILE CODE
 /mob/living/silicon/infomorph/proc/fold_out()
 	set category = "Card Commands"
@@ -244,11 +247,11 @@ var/list/infomorph_emotions = list(
 					H.visible_message("<span class='danger'>\The [src] explodes out of \the [H]'s [affecting.name] in shower of gore!</span>")
 					break
 		holder.drop_from_inventory(card)
-	/*
+
 	if(src.client)
 		src.client.perspective = EYE_PERSPECTIVE
 		src.client.eye = src
-	*/
+
 	src.forceMove(get_turf(card))
 	card.forceMove(src)
 	card.screen_loc = null
@@ -281,11 +284,11 @@ var/list/infomorph_emotions = list(
 	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
 
 	src.stop_pulling()
-	/*
+
 	if(client)
 		client.perspective = EYE_PERSPECTIVE
 		client.eye = card
-	*/
+
 	//stop resting
 	resting = 0
 
@@ -330,7 +333,7 @@ var/list/infomorph_emotions = list(
 	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
 
 	verbs -= /mob/living/silicon/infomorph/proc/choose_verbs
-
+*/
 /mob/living/silicon/infomorph/lay_down()
 	set name = "Rest"
 	set category = "IC"

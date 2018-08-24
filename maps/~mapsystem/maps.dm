@@ -111,6 +111,12 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/supply_currency_name = "Credits"
 	var/supply_currency_name_short = "Cr."
 
+	// VOREStation Edit - Persistence!
+	var/datum/spawnpoint/spawnpoint_died = /datum/spawnpoint/arrivals 	// Used if you end the round dead.
+	var/datum/spawnpoint/spawnpoint_left = /datum/spawnpoint/arrivals 	// Used if you end the round at centcom.
+	var/datum/spawnpoint/spawnpoint_stayed = /datum/spawnpoint/cryo 	// Used if you end the round on the station.
+	// VOREStation Edit End
+
 	//Factions prefs stuff
 	var/list/citizenship_choices = list(
 		"Earth",

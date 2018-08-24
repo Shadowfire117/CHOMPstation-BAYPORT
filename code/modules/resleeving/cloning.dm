@@ -19,7 +19,7 @@
 	var/loading = 0 // Nice loading text
 
 
-/obj/machinery/computer/cloning/initialize()
+/obj/machinery/computer/cloning/Initialize()
 	. = ..()
 	updatemodules()
 
@@ -74,7 +74,7 @@
 			user << "You insert [W]."
 			updateUsrDialog()
 			return*/
-	else if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		var/obj/machinery/clonepod/P = M.connecting
 		if(P && !(P in pods))
@@ -505,24 +505,33 @@
 	modifier_lower_bound = round(modifier_lower_bound * clone_sickness_length, 1)
 	modifier_upper_bound = round(modifier_upper_bound * clone_sickness_length, 1)
 
-	H.add_modifier(H.species.cloning_modifier, rand(modifier_lower_bound, modifier_upper_bound))
+	H.apply_damage(rand(modifier_lower_bound, modifier_upper_bound), CLONE)
 
 	// Modifier that doesn't do anything.
 //	H.add_modifier(/datum/modifier/cloned)
 
 	// This is really stupid.
-	for(var/modifier_type in R.genetic_modifiers)
-		H.add_modifier(modifier_type)
+//	for(var/modifier_type in R.genetic_modifiers)
+//		H.add_modifier(modifier_type) // If it's really stupid then explain what this does, I don't know what the fuck this does - Jon
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
 	H.flavor_texts = R.flavor.Copy()
-	H.suiciding = 0
+//	H.suiciding = 0 // Suicide is deprecated - Jon
 	attempting = 0
 	return 1
 
+//From humans.dm moved here cause dependency - Jon
+//Used for new human mobs created by cloning/goleming/etc.
+/mob/living/carbon/human/proc/set_cloned_appearance()
+	f_style = "Shaved"
+	if(dna.species == "Human") //no more xenos losing ears/tentacles
+		h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
+//	all_underwear.Cut() // Can't be bothered looking for an alternative - Jon
+	regenerate_icons()
+
 //Grow clones to maturity then kick them out.  FREELOADERS
-/obj/machinery/clonepod/process()
+/obj/machinery/clonepod/Process()
 
 	var/visible_message = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/meat/meat in range(1, src))
@@ -618,7 +627,7 @@
 				connected = null
 			else
 				anchored = 1
-			playsound(src, W.usesound, 100, 1)
+			//playsound(src, W.usesound, 100, 1) Usesound deprecated - Jon
 			if(anchored)
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else

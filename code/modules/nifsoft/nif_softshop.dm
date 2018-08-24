@@ -19,12 +19,12 @@
 	opacity = 0
 	var/datum/entopic/entopic
 
-/obj/machinery/vending/nifsoft_shop/initialize()
+/obj/machinery/vending/nifsoft_shop/Initialize()
 	. = ..()
 	entopic = new(aholder = src, aicon = icon, aicon_state = "beacon")
 
 /obj/machinery/vending/nifsoft_shop/Destroy()
-	GLOB.qdel_null(entopic)
+	QDEL_NULL(entopic)
 	return ..()
 
 /obj/machinery/vending/nifsoft_shop/power_change()

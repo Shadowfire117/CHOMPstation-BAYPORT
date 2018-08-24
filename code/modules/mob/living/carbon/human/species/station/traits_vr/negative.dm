@@ -105,7 +105,7 @@
 	..(S,H)
 	for(var/obj/item/organ/external/O in H.organs)
 		O.min_broken_damage *= 0.5
-		O.min_bruised_damage *= 0.5
+//		O.min_bruised_damage *= 0.5 // Deprecated I think - Jon
 
 /datum/trait/lightweight
 	name = "Lightweight"

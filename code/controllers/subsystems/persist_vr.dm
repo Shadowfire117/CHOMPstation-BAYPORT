@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(persist)
 
 /datum/controller/subsystem/persist/fire(var/resumed = FALSE)
 	update_department_hours(resumed)
-
+/*
 // Do PTO Accruals
 /datum/controller/subsystem/persist/proc/update_department_hours(var/resumed = FALSE)
 	if(!config.time_off)
@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(persist)
 		query.Execute()
 
 		if (MC_TICK_CHECK)
-			return
+			return*/
 
 // This proc tries to find the job datum of an arbitrary mob.
 /datum/controller/subsystem/persist/proc/detect_job(var/mob/M)

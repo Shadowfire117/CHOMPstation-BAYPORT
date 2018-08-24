@@ -165,6 +165,10 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 		. += "[PI.content(user)]<br>"
 	. += "</td></tr></table>"
 
+/datum/category_group/player_setup_category/proc/copy_to_mob(var/mob/living/carbon/human/C)
+	for(var/datum/category_item/player_setup_item/PI in items)
+		PI.copy_to_mob(C)
+
 /datum/category_group/player_setup_category/occupation_preferences/content(var/mob/user)
 	for(var/datum/category_item/player_setup_item/PI in items)
 		. += "[PI.content(user)]<br>"
@@ -217,6 +221,12 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 */
 /datum/category_item/player_setup_item/proc/update_setup(var/savefile/preferences, var/savefile/character)
 	return 0
+
+/*
+* Called when the item is asked to apply its per character settings to a new mob.
+*/
+/datum/category_item/player_setup_item/proc/copy_to_mob(var/mob/living/carbon/human/C)
+	return
 
 /datum/category_item/player_setup_item/proc/content()
 	return

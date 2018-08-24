@@ -104,8 +104,8 @@ You can also set the stat of a NIF to NIF_TEMPFAIL without any issues to disable
 //Destructor cleans up references
 /obj/item/device/nif/Destroy()
 	human = null
-	GLOB.qdel_null_list(nifsofts)
-//	GLOB.qdel_null(comm) // Commlink has been removed :V - Jon
+	QDEL_NULL_LIST(nifsofts)
+//	QDEL_NULL_LIST(comm) // Commlink has been removed :V - Jon
 	nifsofts_life.Cut()
 	return ..()
 
@@ -154,7 +154,7 @@ You can also set the stat of a NIF to NIF_TEMPFAIL without any issues to disable
 /obj/item/device/nif/proc/unimplant(var/mob/living/carbon/human/H)
 	var/datum/nifsoft/soulcatcher/SC = imp_check(NIF_SOULCATCHER)
 	if(SC) //Clean up stored people, this is dirty but the easiest way.
-		GLOB.qdel_null_list(SC.brainmobs)
+		QDEL_NULL_LIST(SC.brainmobs)
 		SC.brainmobs = list()
 	stat = NIF_PREINSTALL
 //	vis_update()
@@ -548,11 +548,11 @@ You can also set the stat of a NIF to NIF_TEMPFAIL without any issues to disable
 	if(!planeid)
 		return
 	planes_visible -= planeid
-/* Serves no purpose at the moment, just returns null. - Jon
+
 /obj/item/device/nif/proc/vis_update()
 	if(human)
 		human.recalculate_vis()
-*/
+
 // Alternate NIFs
 /obj/item/device/nif/bad
 	name = "bootleg NIF"

@@ -326,8 +326,8 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 				I.mechassist()
 			else if(status == "mechanical")
 				I.robotize()
-			else if(status == "digital")
-				I.digitize()
+/*			else if(status == "digital") // I'm gonna say no... I have no fucking idea what digitize does - Jon
+				I.digitize()*/
 
 	for(var/N in character.organs_by_name)
 		var/obj/item/organ/external/O = character.organs_by_name[N]
