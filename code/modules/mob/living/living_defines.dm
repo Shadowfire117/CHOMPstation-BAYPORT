@@ -51,5 +51,3 @@
 	var/obj/screen/cells = null
 
 	var/last_resist = 0
-
-	var/list/hud_list		//Holder for health hud, status hud, wanted hud, etc (not like inventory slots)

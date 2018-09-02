@@ -106,7 +106,7 @@
 		if(4075 to 10000) // Four or more people.
 			message = "<span class='warning'>[t_He] [t_is] so absolutely stuffed that you aren't sure how it's possible to move. [t_He] can't seem to swell any bigger. The surface of [t_his] belly looks sorely strained!</span>\n"
 	return message
-
+/*
 //For OmniHUD records access for appropriate models
 /proc/hasHUD_vr(mob/living/carbon/human/H, hudtype)
 	if(H.nif)
@@ -118,7 +118,7 @@
 				if(H.nif.flag_check(NIF_V_AR_MEDICAL,NIF_FLAGS_VISION))
 					return TRUE
 
-/*	if(istype(H.glasses, /obj/item/clothing/glasses/omnihud))
+	if(istype(H.glasses, /obj/item/clothing/glasses/omnihud))
 		var/obj/item/clothing/glasses/omnihud/omni = H.glasses
 		switch(hudtype)
 			if("security")
@@ -127,9 +127,9 @@
 			if("medical")
 				if(omni.mode == "med" || omni.mode == "best")
 					return TRUE
-*/
-	return FALSE
 
+	return FALSE*/
+	
 /mob/living/carbon/human/proc/examine_pickup_size(mob/living/H)
 	var/message = ""
 	if(istype(H) && (H.get_effective_size() - src.get_effective_size()) >= 0.50)
@@ -142,6 +142,8 @@
 		message = "<font color='red'>They are small enough that you could easily trample them!</font>\n"
 	return message
 
+/*
 /mob/living/carbon/human/proc/examine_nif(mob/living/carbon/human/H)
 	if(nif && nif.examine_msg) //If you have one set, anyway.
 		return "<span class='notice'>[nif.examine_msg]</span>\n"
+*/
