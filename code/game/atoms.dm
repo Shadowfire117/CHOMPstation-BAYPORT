@@ -548,3 +548,13 @@ its easier to just keep the beam vertical.
 
 /atom/proc/get_color()
 	return color
+
+// Chompstation add - Compatibility for vore drop location.
+/atom/proc/drop_location()
+	var/atom/L = loc
+	if(!L)
+		return null
+	return L.AllowDrop() ? L : get_turf(L)
+
+/atom/proc/AllowDrop()
+	return FALSE

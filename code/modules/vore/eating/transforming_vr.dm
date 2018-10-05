@@ -13,7 +13,7 @@
 	M.g_eyes = O.g_eyes
 	M.b_eyes = O.b_eyes
 	M.update_eyes()
-	M.update_icons_body()
+	M.update_icons()
 	if(message)
 		to_chat(M, "<span class='notice'>You feel lightheaded and drowsy...</span>")
 		to_chat(O, "<span class='notice'>You feel warm as you make subtle changes to your captive's body.</span>")
@@ -66,7 +66,7 @@
 	M.b_skin = O.b_skin
 	for(var/obj/item/organ/external/Z in M.organs)
 		Z.sync_colour_to_human(M)
-	M.update_icons_body()
+	M.update_icons()
 	if(message)
 		to_chat(M, "<span class='notice'>Your body tingles all over...</span>")
 		to_chat(O, "<span class='notice'>You tingle as you make noticeable changes to your captive's body.</span>")
@@ -79,7 +79,9 @@
 	if(!target_gender)
 		target_gender = O.gender
 
-	return (M.gender != target_gender || M.identifying_gender != target_gender)
+//	return (M.gender != target_gender || M.identifying_gender != target_gender)
+	return (M.gender != target_gender)
+
 
 /obj/belly/proc/change_gender(var/mob/living/carbon/human/M, target_gender, message=0)
 	var/mob/living/carbon/human/O = owner
@@ -90,12 +92,12 @@
 		target_gender = O.gender
 
 	M.gender = target_gender
-	M.identifying_gender = target_gender
+//	M.identifying_gender = target_gender
 	if(target_gender == FEMALE)
 		M.f_style = "Shaved"
 	M.dna.SetUIState(DNA_UI_GENDER,M.gender!=MALE,1)
 	M.sync_organ_dna()
-	M.update_icons_body()
+	M.update_icons()
 	if(message)
 		to_chat(M, "<span class='notice'>Your body feels very strange...</span>")
 		to_chat(O, "<span class='notice'>You feel strange as you alter your captive's gender.</span>")
@@ -220,7 +222,7 @@
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_colour
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_hair
 		M.verbs -=  /mob/living/carbon/human/proc/shapeshifter_select_gender
-		M.verbs -=  /mob/living/carbon/human/proc/regenerate
+//		M.verbs -=  /mob/living/carbon/human/proc/regenerate Temporarily removing regenerate - Jon
 		M.verbs -=  /mob/living/proc/set_size
 
 	M.species = O.species
@@ -233,7 +235,7 @@
 	for(var/obj/item/organ/external/Z in M.organs)//Just in case.
 		Z.sync_colour_to_human(M)
 	M.fixblood()
-	M.update_icons_body()
+	M.update_icons()
 	M.update_tail_showing()
 	if(message)
 		to_chat(M, "<span class='notice'>You lose sensation of your body, feeling only the warmth of everything around you... </span>")
@@ -243,7 +245,7 @@
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_colour
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_hair
 		M.verbs +=  /mob/living/carbon/human/proc/shapeshifter_select_gender
-		M.verbs +=  /mob/living/carbon/human/proc/regenerate
+//		M.verbs +=  /mob/living/carbon/human/proc/regenerate Temporarily removing regenerate - Jon
 		M.verbs +=  /mob/living/proc/set_size
 		M.shapeshifter_select_shape()
 

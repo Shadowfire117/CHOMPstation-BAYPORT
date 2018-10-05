@@ -87,7 +87,7 @@
 		var/obj/item/grab/G = I
 
 		//Has to be aggressive grab, has to be living click-er and non-silicon grabbed
-		if((G.state >= NORM_AGGRESSIVE) && (isliving(user) && !issilicon(G.affecting)))
+		if((G.current_grab.state_name >= NORM_AGGRESSIVE) && (isliving(user) && !issilicon(G.affecting)))
 
 			var/mob/living/attacker = user  // Typecast to living
 
@@ -280,7 +280,7 @@
 //
 // Clearly super important. Obviously.
 //
-/mob/living/proc/lick(var/mob/living/tasted in GLOB.living_mobs(1))
+/mob/living/proc/lick(var/mob/living/tasted in SSmobs.mob_list)
 	set name = "Lick"
 	set category = "IC"
 	set desc = "Lick someone nearby!"

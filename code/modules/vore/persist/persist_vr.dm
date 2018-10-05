@@ -15,24 +15,24 @@
 
 // Handle people leaving due to round ending.
 /hook/roundend/proc/persist_locations()
-	for(var/mob/Player in human_mob_list)
+	for(var/mob/Player in GLOB.player_list)
 		if(!Player.mind || isnewplayer(Player))
 			continue // No mind we can do nothing, new players we care not for
 		else if(Player.stat == DEAD)
-			if(istype(Player,/mob/observer/dead))
-				var/mob/observer/dead/O = Player
+			if(istype(Player,/mob/observer/ghost))
+				var/mob/observer/ghost/O = Player
 				if(O.started_as_observer)
 					continue // They are just a pure observer, ignore
 			// Died and were not cloned - Respawn at centcomm
-			persist_interround_data(Player, using_map.spawnpoint_died)
+			persist_interround_data(Player, GLOB.using_map.spawnpoint_died)
 		else
 			var/turf/playerTurf = get_turf(Player)
 			if(isAdminLevel(playerTurf.z))
 				// Evac'd - Next round they arrive on the shuttle.
-				persist_interround_data(Player, using_map.spawnpoint_left)
+				persist_interround_data(Player, GLOB.using_map.spawnpoint_left)
 			else
 				// Stayed on station, go to dorms
-				persist_interround_data(Player, using_map.spawnpoint_stayed)
+				persist_interround_data(Player, GLOB.using_map.spawnpoint_stayed)
 	return 1
 
 /**
@@ -81,11 +81,11 @@
 	if(!prefs)
 		WARNING("Persist (PID): Skipping [occupant] for persisting, as they have no prefs.")
 		return
-
+/*
 	//This one doesn't rely on persistence prefs
 	if(ishuman(occupant) && occupant.stat != DEAD)
 		persist_nif_data(occupant, prefs)
-
+*/
 	if(!prefs.persistence_settings)
 		return // Persistence disabled by preference settings
 
@@ -223,6 +223,7 @@
 * towards future shenanigans such as upgradable NIFs or different types or things of that nature,
 * without invoking the need for a bunch of different save file variables.
 */
+/*
 /proc/persist_nif_data(var/mob/living/carbon/human/H,var/datum/preferences/prefs)
 	if(!istype(H))
 		crash_with("Persist (NIF): Given a nonhuman: [H]")
@@ -256,4 +257,4 @@
 	var/savefile/S = new /savefile(prefs.path)
 	if(!S) WARNING ("Persist (NIF): Couldn't load NIF save savefile? [prefs.real_name]")
 	S.cd = "/character[prefs.default_slot]"
-	nif_prefs.save_character(S)
+	nif_prefs.save_character(S)*/

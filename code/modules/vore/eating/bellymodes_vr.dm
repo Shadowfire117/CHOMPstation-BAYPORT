@@ -145,11 +145,20 @@
 				owner.nutrition += 4.5*(damage_gain)/difference
 
 
+//				************Nutrition does not exist as defined var to Owner************
+
+
+
+
+
 //////////////////////////// DM_ABSORB ////////////////////////////
+
+//						************Nutrition does not exist as defined var to M************
+
 	else if(digest_mode == DM_ABSORB)
 
 		for (var/target in touchable_mobs)
-			var/mob/living/M = target
+			var/mob/living/carbon/M = target
 			if(prob(10)) //Less often than gurgles. People might leave this on forever.
 				play_sound = pick(digestion_sounds)
 
@@ -164,7 +173,14 @@
 				absorb_living(M)
 				to_update = TRUE
 
+
 //////////////////////////// DM_UNABSORB ////////////////////////////
+
+
+
+
+//						************Still Nutrition being a problem*********
+
 	else if(digest_mode == DM_UNABSORB)
 
 		for (var/target in touchable_mobs)
@@ -177,7 +193,14 @@
 				owner.nutrition -= 100
 				to_update = TRUE
 
+
+
 //////////////////////////// DM_DRAIN ////////////////////////////
+
+
+//				*************Still Nutrition***********
+
+
 	else if(digest_mode == DM_DRAIN)
 
 		for (var/target in touchable_mobs)
@@ -191,7 +214,12 @@
 				M.nutrition = (M.nutrition * 0.95)
 				owner.nutrition += oldnutrition
 
+
+
 //////////////////////////// DM_SHRINK ////////////////////////////
+
+
+
 	else if(digest_mode == DM_SHRINK)
 
 		for (var/target in touchable_mobs)
@@ -208,7 +236,12 @@
 					M.nutrition = (M.nutrition * 0.95)
 					owner.nutrition += oldnutrition
 
+
+
 //////////////////////////// DM_GROW ////////////////////////////
+
+
+
 	else if(digest_mode == DM_GROW)
 
 		for (var/target in touchable_mobs)
@@ -222,7 +255,12 @@
 				if(M.nutrition >= 100)
 					owner.nutrition = (owner.nutrition * 0.95)
 
+
+
 //////////////////////////// DM_SIZE_STEAL ////////////////////////////
+
+
+
 	else if(digest_mode == DM_SIZE_STEAL)
 
 		for (var/target in touchable_mobs)
@@ -240,7 +278,14 @@
 					M.nutrition = (M.nutrition * 0.95)
 					owner.nutrition += oldnutrition
 
+
+
 ///////////////////////////// DM_HEAL /////////////////////////////
+
+
+//**********************I also didn't know you can give Nutrition like this. Holy heck. We can explain how things work in our wiki after fixing the nutrition var and none will be the wiser************
+
+
 	else if(digest_mode == DM_HEAL)
 
 		if(prob(50)) //Wet heals! The secret is you can leave this on for gurgle noises for fun.
@@ -261,6 +306,9 @@
 			else if(owner.nutrition > 90 && (M.nutrition <= 400))
 				owner.nutrition -= 1
 				M.nutrition += 1
+
+
+
 
 /////////////////////////// DM_TRANSFORM ///////////////////////////
 	else if(digest_mode == DM_TRANSFORM)

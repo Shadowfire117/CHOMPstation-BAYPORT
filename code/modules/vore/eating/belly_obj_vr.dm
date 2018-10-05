@@ -46,7 +46,7 @@
 	//List of slots that stripping handles strips
 	var/tmp/static/list/slots = list(slot_back,slot_handcuffed,slot_l_store,slot_r_store,slot_wear_mask,slot_l_hand,slot_r_hand,slot_wear_id,slot_glasses,slot_gloves,slot_head,slot_shoes,slot_belt,slot_wear_suit,slot_w_uniform,slot_s_store,slot_l_ear,slot_r_ear)
 
-	var/tmp/mob/living/owner					// The mob whose belly this is.
+	var/tmp/mob/living/carbon/owner					// The mob whose belly this is.
 	var/tmp/digest_mode = DM_HOLD				// Current mode the belly is set to from digest_modes (+transform_modes if human)
 	var/tmp/tf_mode = DM_TRANSFORM_REPLICA		// Current transformation mode.
 	var/tmp/next_process = 0					// Waiting for this SSbellies times_fired to process again.
@@ -222,8 +222,13 @@
 		return 0 // They weren't in this belly anyway
 
 	//Place them into our drop_location
-	M.forceMove(drop_location())
+
+
+//	M.forceMove(drop_location())             ********Drop_location proc isn't defined********
 	items_preserved -= M
+
+
+
 
 	//Special treatment for absorbed prey
 	if(istype(M,/mob/living))
@@ -302,8 +307,8 @@
 			raw_messages = struggle_messages_inside
 		if("dmo")
 			raw_messages = digest_messages_owner
-		if("dmp")
-			raw_messages = digest_messages_prey
+//		if("dmp")                                        **************
+//			raw_messages = digest_messages_prey
 		if("em")
 			raw_messages = examine_messages
 
@@ -362,7 +367,7 @@
 	//Drop all items into the belly.
 	if(config.items_survive_digestion)
 		for(var/obj/item/W in M)
-			if(istype(W,/obj/item/organ/internal/mmi_holder/posibrain))
+			if(istype(W,/obj/item/organ/internal/posibrain))
 				var/obj/item/organ/internal/mmi_holder/MMI = W
 				var/atom/movable/brain = MMI.removed()
 				if(brain)
@@ -431,6 +436,10 @@
 //Digest a single item
 //Receives a return value from digest_act that's how much nutrition
 //the item should be worth
+
+
+
+
 /obj/belly/proc/digest_item(var/obj/item/item)
 	var/digested = item.digest_act(src, owner)
 	if(!digested)
@@ -441,6 +450,9 @@
 			var/mob/living/silicon/robot/R = owner
 			R.cell.charge += (50 * digested)
 
+
+
+
 //Determine where items should fall out of us into.
 //Typically just to the owner's location.
 /obj/belly/drop_location()
@@ -450,8 +462,8 @@
 	//Sketchy fallback for safety, put them somewhere safe.
 	else
 		log_debug("[src] (\ref[src]) doesn't have an owner, and dropped someone at a latespawn point!")
-		var/fallback = pick(latejoin)
-		return get_turf(fallback)
+		var/datum/spawnpoint/spawnpoint = GLOB.using_map.default_spawn
+		return get_turf(spawnpoint)
 
 //Yes, it's ""safe"" to drop items here
 /obj/belly/AllowDrop()

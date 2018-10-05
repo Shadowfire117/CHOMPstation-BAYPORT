@@ -41,12 +41,12 @@ var/image/gurgled_overlay = image('icons/effects/sludgeoverlay_vr.dmi')
 	..()
 	if(gurgled)
 		decontaminate()
-
+/* //Gonna have to find an alternative way - Jon
 /obj/item/device/pda/can_use() //Get your rice bowl ready.
 	if(gurgled)
 		return FALSE
 	else
-		return ..()
+		return ..()*/
 
 /obj/structure/sink/attackby(obj/item/O as obj, mob/user as mob) //Wash the soggy item before it can interact with the sink.
 	if(O.gurgled)

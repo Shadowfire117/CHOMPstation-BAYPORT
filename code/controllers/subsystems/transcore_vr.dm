@@ -52,11 +52,11 @@ SUBSYSTEM_DEF(transcore)
 		//We're in a human, at least.
 		var/mob/living/carbon/human/H = imp.loc
 		BITSET(H.hud_updateflag, BACKUP_HUD)
-
+/*
 		if(H == imp.imp_in && H.mind && H.stat < DEAD)
 			SStranscore.m_backup(H.mind,H.nif)
 			persist_nif_data(H)
-
+*/
 		if(MC_TICK_CHECK)
 			return
 
@@ -128,7 +128,7 @@ SUBSYSTEM_DEF(transcore)
 		MR = backed_up[mind.name]
 		MR.last_update = world.time
 		MR.one_time = one_time
-
+		/*
 		//Pass a 0 to not change NIF status (because the elseif is checking for null)
 		if(nif)
 			MR.nif_path = nif.type
@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(transcore)
 			MR.nif_path = null
 			MR.nif_durability = null
 			MR.nif_software = null
-			MR.nif_savedata = null
+			MR.nif_savedata = null */
 
 	else
 		MR = new(mind, mind.current, add_to_db = TRUE, one_time = one_time)

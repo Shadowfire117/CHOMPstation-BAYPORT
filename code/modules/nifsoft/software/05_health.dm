@@ -12,7 +12,7 @@
 		arscreen = new(nif)
 
 	Destroy()
-		GLOB.qdel_null(arscreen)
+		QDEL_NULL_LIST(arscreen)
 		return ..()
 
 	activate()
@@ -50,7 +50,7 @@
 		if((. = ..()))
 			a_drain = initial(a_drain)
 			mode = initial(mode)
-			nif.human.Stasis(0)
+			//nif.human.Stasis(0) // Stasis is deprecated - Jon
 
 	life()
 		if((. = ..()))
@@ -92,9 +92,9 @@
 				//Patient critical - emergency stasis
 				if(mode >= 3)
 					if(HP_percent <= 0)
-						H.Stasis(3)
+						H.Paralyse(3)
 					if(HP_percent > 0.2)
-						H.Stasis(0)
+						H.Paralyse(0)
 						nif.notify("Ending emergency stasis.",TRUE)
 						mode = 2
 

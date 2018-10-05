@@ -133,10 +133,10 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 		holder_default = holder_type
 	if(!istype(M))
 		return 0
-	if(isanimal(M))
+/*	if(isanimal(M)) // Polaris made simple_animals not so simple, on Baystation they're fucking simple that none of them have hands. - Jon
 		var/mob/living/simple_animal/SA = M
 		if(!SA.has_hands)
-			return 0
+			return 0*/
 	if(M.buckled)
 		to_chat(usr,"<span class='notice'>You have to unbuckle \the [M] before you pick them up.</span>")
 		return 0
@@ -311,7 +311,7 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 					//If they are a human, do damage (doesn't hurt other mobs...?)
 					if(Ht)
 						for(var/obj/item/organ/external/I in Ht.organs)
-							I.take_damage(calculated_damage, 0) // 5 damage min, 26.25 damage max, depending on size & RNG. If they're only stepped on once, the damage will (probably not...) heal over time.
+							I.take_general_damage(calculated_damage, 0) // 5 damage min, 26.25 damage max, depending on size & RNG. If they're only stepped on once, the damage will (probably not...) heal over time.
 						Ht.drip(0.1)
 						log_attack(src,tmob,"Crushed underfoot (run, about [calculated_damage] damage)")
 
@@ -323,7 +323,7 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 					//If they are a human, do damage (doesn't hurt other mobs...?)
 					if(Ht)
 						for(var/obj/item/organ/I in Ht.organs)
-							I.take_damage(calculated_damage, 0)
+							I.take_general_damage(calculated_damage, 0)
 						Ht.drip(3)
 						log_attack(src,tmob,"Crushed underfoot (walk, about [calculated_damage] damage)")
 

@@ -107,6 +107,15 @@ var/global/list/datum/dna/gene/dna_genes[0]
 	var/s_base = ""
 	var/list/body_markings = list()
 
+	// VOREStation
+	var/custom_species
+	var/base_species = "Human"
+	var/list/species_traits = list()
+	var/blood_color = "#A10808"
+	// VOREStation
+
+
+
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
 /datum/dna/proc/Clone()
