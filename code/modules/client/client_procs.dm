@@ -200,6 +200,13 @@
 
 	if(holder)
 		src.control_freak = 0 //Devs need 0 for profiler access
+
+	hook_vr("client_new",list(src)) //VOREStation Code
+
+	if(config.newplayer_warning)
+		if(isnum(player_age) && player_age == 0)
+			log_and_message_admins("PARANOIA: [key_name(src)] has connected here for the first time.")
+
 	//////////////
 	//DISCONNECT//
 	//////////////

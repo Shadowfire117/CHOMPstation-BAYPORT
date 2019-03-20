@@ -10,7 +10,7 @@
 
 /mob/living/proc/insidePanel()
 	set name = "Vore Panel"
-	set category = "IC"
+	set category = "VORE"
 
 	var/datum/vore_look/picker_holder = new()
 	picker_holder.loop = picker_holder

@@ -40,6 +40,7 @@
 			M.init_vore()
 
 	//Return 1 to hook-caller
+	to_chat(M,"Vore Setup successful")
 	return 1
 
 /mob/living/proc/init_vore()
@@ -322,7 +323,7 @@
 //
 /mob/living/proc/escapeOOC()
 	set name = "OOC Escape"
-	set category = "OOC"
+	set category = "VORE"
 
 	//You're in a belly!
 	if(isbelly(loc))
@@ -352,6 +353,7 @@
 		log_and_message_admins("[key_name(src)] used the OOC escape button to get out of [key_name(pred)] (BORG) ([pred ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[pred.x];Y=[pred.y];Z=[pred.z]'>JMP</a>" : "null"])")
 		belly.go_out(src) //Just force-ejects from the borg as if they'd clicked the eject button.
 */
+
 	//You're in an AI hologram!
 	else if(istype(loc, /obj/effect/overlay/aiholo))
 		var/obj/effect/overlay/aiholo/holo = loc
@@ -445,6 +447,9 @@
 		log_attack(user,pred,"Forced to eat [key_name(prey)]")
 	return 1
 
+
+
+/* // NO MORE DARN STUPID OVERRIDE. - Jon
 //
 // Magical pred-air breathing for inside preds
 // overrides a proc defined on atom called by breathe.dm
@@ -468,6 +473,7 @@
     gas = list(
         "oxygen" = 21,
         "nitrogen" = 79)
+*/
 
 // Procs for micros stuffed into boots and the like to escape from them
 /mob/living/proc/escape_clothes(obj/item/clothing/C)
@@ -613,6 +619,6 @@
 
 /mob/living/proc/switch_scaling()
 	set name = "Switch scaling mode"
-	set category = "Preferences"
+	set category = "VORE"
 	set desc = "Switch sharp/fuzzy scaling for current mob."
 	appearance_flags ^= PIXEL_SCALE

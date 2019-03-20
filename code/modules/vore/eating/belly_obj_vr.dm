@@ -224,7 +224,7 @@
 	//Place them into our drop_location
 
 
-//	M.forceMove(drop_location())             ********Drop_location proc isn't defined********
+	M.forceMove(drop_location())
 	items_preserved -= M
 
 
@@ -307,8 +307,8 @@
 			raw_messages = struggle_messages_inside
 		if("dmo")
 			raw_messages = digest_messages_owner
-//		if("dmp")                                        **************
-//			raw_messages = digest_messages_prey
+		if("dmp")
+			raw_messages = digest_messages_prey
 		if("em")
 			raw_messages = examine_messages
 

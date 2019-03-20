@@ -313,7 +313,7 @@
 				if(!find_control_computer(urgent=1))
 					return
 
-			despawn_occupant()
+			despawn_occupant(occupant)
 
 // This function can not be undone; do not call this unless you are sure
 // Also make sure there is a valid control computer
@@ -332,7 +332,18 @@
 
 // This function can not be undone; do not call this unless you are sure
 // Also make sure there is a valid control computer
-/obj/machinery/cryopod/proc/despawn_occupant()
+/obj/machinery/cryopod/proc/despawn_occupant(var/mob/to_despawn)
+
+	// VOREStation
+	hook_vr("despawn", list(to_despawn, src))
+	if(isliving(to_despawn))
+		var/mob/living/L = to_despawn
+		for(var/belly in L.vore_organs)
+			var/obj/belly/B = belly
+			for(var/mob/living/sub_L in B)
+				despawn_occupant(sub_L)
+	// VOREStation
+
 	//Drop all items into the pod.
 	for(var/obj/item/W in occupant)
 		occupant.drop_from_inventory(W)
