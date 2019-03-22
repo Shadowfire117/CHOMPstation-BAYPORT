@@ -42,7 +42,7 @@
 		set_stat(CONSCIOUS)
 		setOxyLoss(0)
 	else
-		health = maxHealth - getFireLoss() - getBruteLoss() // Oxyloss is not part of health as it represents AIs backup power. AI is immune against ToxLoss as it is machine.
+		health = maxHealth - getFireLoss() - getBruteLoss() - getDigestLoss() //Chompstation edit - Adding new damtype // Oxyloss is not part of health as it represents AIs backup power. AI is immune against ToxLoss as it is machine.
 
 /mob/living/silicon/ai/rejuvenate()
 	..()

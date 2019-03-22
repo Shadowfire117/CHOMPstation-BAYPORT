@@ -76,7 +76,7 @@
 		health = maxHealth
 		set_stat(CONSCIOUS)
 	else
-		health = maxHealth - getFireLoss() - getBruteLoss()
+		health = maxHealth - getFireLoss() - getBruteLoss() - getDigestLoss() //Chompstation edit - Adding new damtype
 	setOxyLoss(0)
 	setToxLoss(0)
 

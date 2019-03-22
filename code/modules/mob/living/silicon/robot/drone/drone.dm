@@ -284,7 +284,7 @@ var/list/mob_hat_cache = list()
 		health = 35
 		set_stat(CONSCIOUS)
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = 35 - (getBruteLoss() + getFireLoss() + getDigestLoss()) //Chompstation edit - Adding new damtype
 	return
 
 //Easiest to check this here, then check again in the robot proc.
