@@ -26,6 +26,8 @@
 			adjustHalLoss(damage * blocked_mult(blocked))
 		if(ELECTROCUTE)
 			electrocute_act(damage, used_weapon, 1.0, def_zone)
+		if(DIGEST)
+			adjustDigestLoss(damage * blocked_mult(blocked))
 
 	updatehealth()
 	return 1
