@@ -76,7 +76,7 @@
 
 	src.blinded = null
 
-	health = maxHealth - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss())
+	health = maxHealth - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss() + getDigestLoss()) //Chompstation ADD: Allows xenobiologicals to be digested
 
 	if(health < 0 && stat != DEAD)
 		death()
@@ -91,6 +91,7 @@
 		adjustFireLoss(-1)
 		adjustCloneLoss(-1)
 		adjustBruteLoss(-1)
+		adjustDigestLoss(-1) //Chompstation ADD: Heals digestion damage too
 
 	if (src.stat == DEAD)
 		src.lying = 1

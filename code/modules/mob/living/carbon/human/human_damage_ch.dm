@@ -8,15 +8,13 @@
 	adjustDigestLoss(getDigestLoss()-amount)
 
 /mob/living/carbon/human/adjustDigestLoss(var/amount)
-	var/heal = (amount < 0)
+	var/heal = amount < 0
 	amount = abs(amount)
+
 	var/list/pick_organs = organs.Copy()
 	while(amount > 0 && pick_organs.len)
 		var/obj/item/organ/external/E = pick(pick_organs)
 		pick_organs -= E
-		if(!istype(E))
-			continue
-
 		if(heal)
 			amount -= E.remove_digest_damage(amount)
 		else
