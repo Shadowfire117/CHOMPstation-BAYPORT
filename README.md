@@ -6,7 +6,7 @@
 
 [Website](https://chompstation13.com) - [Code](http://github.com/CHOMPstation/CHOMPstation-BAYPORT/) - [Discord](https://chompstation13.com/discord)
 
-# This repository is experimental, and is still being developed on
+# This repository is still in development, expect things to be non-functional
 
 ---
 
