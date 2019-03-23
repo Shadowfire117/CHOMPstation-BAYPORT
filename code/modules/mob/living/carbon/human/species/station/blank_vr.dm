@@ -13,7 +13,7 @@
 
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/punch, /datum/unarmed_attack/bite)
 
-	blurb = "This is a custom species where you can assign various species traits to them as you wish, to \
+	description = "This is a custom species where you can assign various species traits to them as you wish, to \
 	create a (hopefully) balanced species. You will see the options to customize them on the VORE tab once \
 	you select and set this species as your species. Please look at the VORE tab if you select this species."
 

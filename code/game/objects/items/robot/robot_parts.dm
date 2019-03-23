@@ -124,7 +124,6 @@
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
 	var/parts = list()
-	var/created_name = ""
 
 /obj/item/robot_parts/robot_suit/New()
 	..()

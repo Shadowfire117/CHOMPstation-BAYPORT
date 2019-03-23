@@ -420,7 +420,7 @@
 		if(H.species.lightweight == 1)
 			H.Weaken(3)
 			return
-	var/armor_block = run_armor_check(T, "melee")
+	var/armor_block = get_armor_key(T, "melee")
 //	T.stun_effect_act(stun, agony, hit_zone, src)
 	if(prob(33))
 		T.apply_effect(3, WEAKEN, armor_block)

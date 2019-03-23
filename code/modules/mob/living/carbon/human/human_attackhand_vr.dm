@@ -1,6 +1,3 @@
-/mob/living/carbon/human
-	var/datum/unarmed_attack/default_attack
-
 /mob/living/carbon/human/verb/check_attacks()
 	set name = "Check Attacks"
 	set category = "IC"

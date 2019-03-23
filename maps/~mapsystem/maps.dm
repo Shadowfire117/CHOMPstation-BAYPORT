@@ -125,8 +125,8 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 		"Gaia",
 		"Moghes",
 		"Ahdomai",
-		"Qerrbalak"
-	
+		"Qerrbalak" )
+
 	var/list/available_cultural_info = list(
 		TAG_HOMEWORLD = list(
 			HOME_SYSTEM_MARS,
