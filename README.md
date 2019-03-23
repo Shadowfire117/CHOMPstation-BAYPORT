@@ -1,6 +1,12 @@
-# baystation12
+# Chompstation - Bayport Update
 
-[Website](http://baystation12.net/) - [Code](http://github.com/Baystation12/Baystation12/) - [IRC](irc://irc.sorcery.net/#codershuttle)
+[![Build Status](https://travis-ci.org/CHOMPstation/CHOMPstation.svg?branch=master)](https://travis-ci.org/CHOMPstation/CHOMPstation-BAYPORT)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/CHOMPstation/CHOMPstation-BAYPORT.svg)](http://isitmaintained.com/project/CHOMPstation/CHOMPstation "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/CHOMPstation/CHOMPstation-BAYPORT.svg)](http://isitmaintained.com/project/CHOMPstation/CHOMPstation-BAYPORT "Percentage of issues still open")
+
+[Website](https://chompstation13.com) - [Code](http://github.com/CHOMPstation/CHOMPstation-BAYPORT/) - [Discord](https://chompstation13.com/discord)
+
+# This repository is still in development, expect things to be non-functional
 
 ---
 

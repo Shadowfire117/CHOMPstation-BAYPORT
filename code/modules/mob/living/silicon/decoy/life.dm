@@ -12,4 +12,4 @@
 		health = 100
 		set_stat(CONSCIOUS)
 	else
-		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getDigestLoss() //Chompstation edit - Adding new damtype

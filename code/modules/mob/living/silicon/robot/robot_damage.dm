@@ -3,7 +3,7 @@
 		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = maxHealth - (getBruteLoss() + getFireLoss())
+	health = maxHealth - (getBruteLoss() + getFireLoss() + getDigestLoss()) //Chompstation edit - Adding new damtype
 	return
 
 /mob/living/silicon/robot/getBruteLoss()
