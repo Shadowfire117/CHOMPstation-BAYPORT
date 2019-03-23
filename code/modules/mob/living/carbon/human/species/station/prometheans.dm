@@ -125,6 +125,7 @@ var/datum/species/shapeshifter/promethean/prometheans
 		H.adjustFireLoss(-heal_rate)
 		H.adjustOxyLoss(-heal_rate)
 		H.adjustToxLoss(-heal_rate)
+		H.adjustDigestLoss(-heal_rate) //Chompstation ADD: Prometheans heal digestion damage.
 		return 1
 
 /datum/species/shapeshifter/promethean/get_blood_colour(var/mob/living/carbon/human/H)

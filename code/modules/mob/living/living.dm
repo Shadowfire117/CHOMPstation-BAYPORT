@@ -196,7 +196,7 @@ default behaviour is:
 		health = 100
 		set_stat(CONSCIOUS)
 	else
-		health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - getHalLoss() - getDigestLoss() //Chompstation edit - Adding new damtype
+		health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - getHalLoss() - getDigestLoss() //CHopmpstation ADD: Adds digestion as a health-affected damage type.
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually

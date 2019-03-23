@@ -6,7 +6,7 @@
 		set_stat(CONSCIOUS)
 		return
 
-	health = maxHealth - getBrainLoss() - getDigestLoss() //Chompstation edit - Adding new damtype
+	health = maxHealth - (getBrainLoss() + getDigestLoss()) //CHopmpstation ADD: Adds digestion as a health-affected damage type.
 
 	//TODO: fix husking
 	if(((maxHealth - getFireLoss()) < config.health_threshold_dead) && stat == DEAD)
