@@ -9,10 +9,6 @@ SUBSYSTEM_DEF(supply)
 	var/points = 50
 	var/points_per_process = 1
 	var/points_per_slip = 2
-	var/material_buy_prices = list(
-		/material/platinum = 5,
-		/material/phoron = 5
-	) //Should only contain material datums, with values the profit per sheet sold.
 	var/point_sources = list()
 	var/pointstotalsum = 0
 	var/pointstotal = 0
@@ -25,30 +21,33 @@ SUBSYSTEM_DEF(supply)
 	//shuttle movement
 	var/movetime = 1200
 	var/datum/shuttle/autodock/ferry/supply/shuttle
-	//Material descriptions are added automatically; add to material_buy_prices instead.
 	var/list/point_source_descriptions = list(
 		"time" = "Base station supply",
 		"manifest" = "From exported manifests",
 		"crate" = "From exported crates",
-		"virology" = "From uploaded antibody data",
+		"virology_antibodies" = "From uploaded antibody data",
+		"virology_dishes" = "From exported virus dishes",
 		"gep" = "From uploaded good explorer points",
 		"total" = "Total" // If you're adding additional point sources, add it here in a new line. Don't forget to put a comma after the old last line.
 	)
+	//virus dishes uniqueness
+	var/list/sold_virus_strains = list()
 
 /datum/controller/subsystem/supply/Initialize()
 	. = ..()
 	ordernum = rand(1,9000)
 
 	//Build master supply list
-	for(var/decl/hierarchy/supply_pack/sp in cargo_supply_pack_root.children)
+	var/decl/hierarchy/supply_pack/root = decls_repository.get_decl(/decl/hierarchy/supply_pack)
+	for(var/decl/hierarchy/supply_pack/sp in root.children)
 		if(sp.is_category())
-			for(var/decl/hierarchy/supply_pack/spc in sp.children)
+			for(var/decl/hierarchy/supply_pack/spc in sp.get_descendents())
+				spc.setup()
 				master_supply_list += spc
 
-	for(var/material_type in material_buy_prices)
-		var/material/material = material_type //False typing
-		var/material_name = initial(material.name)
-		point_source_descriptions[material_name] = "From exported [material_name]"
+	for(var/material/mat in SSmaterials.materials)
+		if(mat.sale_price > 0)
+			point_source_descriptions[mat.display_name] = "From exported [mat.display_name]"
 
 // Just add points over time.
 /datum/controller/subsystem/supply/fire()
@@ -104,24 +103,33 @@ SUBSYSTEM_DEF(supply)
 						continue
 
 					// Sell materials
-					if(istype(A, /obj/item/stack))
-						var/obj/item/stack/P = A
-						var/material/material = P.get_material()
-						if(material_buy_prices[material.type])
-							material_count[material.type] += P.get_amount()
+					if(istype(A, /obj/item/stack/material))
+						var/obj/item/stack/material/P = A
+						if(P.material && P.material.sale_price > 0)
+							material_count[P.material.display_name] += P.get_amount() * P.material.sale_price * P.matter_multiplier
+						if(P.reinf_material && P.reinf_material.sale_price > 0)
+							material_count[P.reinf_material.display_name] += P.get_amount() * P.reinf_material.sale_price * P.matter_multiplier * 0.5
 						continue
 
 					// Must sell ore detector disks in crates
 					if(istype(A, /obj/item/weapon/disk/survey))
 						var/obj/item/weapon/disk/survey/D = A
 						add_points_from_source(round(D.Value() * 0.005), "gep")
+
+					// Sell virus dishes.
+					if(istype(A, /obj/item/weapon/virusdish))
+						//Obviously the dish must be unique and never sold before.
+						var/obj/item/weapon/virusdish/dish = A
+						if(dish.analysed && istype(dish.virus2) && dish.virus2.uniqueID)
+							if(!(dish.virus2.uniqueID in sold_virus_strains))
+								add_points_from_source(5, "virology_dishes")
+								sold_virus_strains += dish.virus2.uniqueID
+
 			qdel(AM)
 
 	if(material_count.len)
 		for(var/material_type in material_count)
-			var/profit = material_count[material_type] * material_buy_prices[material_type]
-			var/material/material = material_type //False typing.
-			add_points_from_source(profit, initial(material.name))
+			add_points_from_source(material_count[material_type], material_type)
 
 //Buyin
 /datum/controller/subsystem/supply/proc/buy()

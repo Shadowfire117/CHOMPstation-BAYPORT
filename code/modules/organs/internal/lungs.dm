@@ -11,7 +11,7 @@
 	relative_size = 60
 
 	var/active_breathing = 1
-
+	var/has_gills = FALSE
 	var/breath_type
 	var/exhale_type
 	var/list/poison_types
@@ -27,8 +27,11 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 5
 	var/breathing = 0
-	var/last_failed_breath
+	var/last_successful_breath
 	var/breath_fail_ratio // How badly they failed a breath. Higher is worse.
+
+/obj/item/organ/internal/lungs/proc/can_drown()
+	return (is_broken() || !has_gills)
 
 /obj/item/organ/internal/lungs/proc/remove_oxygen_deprivation(var/amount)
 	var/last_suffocation = oxygen_deprivation
@@ -116,10 +119,11 @@
 		last_int_pressure = breath_pressure
 		return
 	var/datum/gas_mixture/environment = loc.return_air_for_internal_lifeform()
+	var/ext_pressure = environment && environment.return_pressure() // May be null if, say, our owner is in nullspace
 	var/int_pressure_diff = abs(last_int_pressure - breath_pressure)
-	var/ext_pressure_diff = abs(last_ext_pressure - environment.return_pressure()) * owner.get_pressure_weakness()
+	var/ext_pressure_diff = abs(last_ext_pressure - ext_pressure) * owner.get_pressure_weakness()
 	if(int_pressure_diff > max_pressure_diff && ext_pressure_diff > max_pressure_diff)
-		var/lung_rupture_prob = isrobotic() ? prob(30) : prob(60) //Robotic lungs are less likely to rupture.
+		var/lung_rupture_prob = BP_IS_ROBOTIC(src) ? prob(30) : prob(60) //Robotic lungs are less likely to rupture.
 		if(!is_bruised() && lung_rupture_prob) //only rupture if NOT already ruptured
 			rupture()
 
@@ -128,7 +132,7 @@
 	if(!owner)
 		return 1
 
-	if(!breath)
+	if(!breath || (max_damage <= 0))
 		breath_fail_ratio = 1
 		handle_failed_breath()
 		return 1
@@ -137,7 +141,7 @@
 	check_rupturing(breath_pressure)
 
 	var/datum/gas_mixture/environment = loc.return_air_for_internal_lifeform()
-	last_ext_pressure = environment.return_pressure()
+	last_ext_pressure = environment && environment.return_pressure()
 	last_int_pressure = breath_pressure
 	if(breath.total_moles == 0)
 		breath_fail_ratio = 1
@@ -160,7 +164,10 @@
 	// Not enough to breathe
 	if(inhale_efficiency < 1)
 		if(prob(20) && active_breathing)
-			owner.emote("gasp")
+			if(inhale_efficiency < 0.8)
+				owner.emote("gasp")
+			else if(prob(20))
+				to_chat(owner, SPAN_WARNING("It's hard to breathe..."))
 		breath_fail_ratio = 1 - inhale_efficiency
 		failed_inhale = 1
 	else
@@ -184,7 +191,7 @@
 	// Pass reagents from the gas into our body.
 	// Presumably if you breathe it you have a specialized metabolism for it, so we drop/ignore breath_type. Also avoids
 	// humans processing thousands of units of oxygen over the course of a round for the sole purpose of poisoning vox.
-	var/ratio = (robotic >= ORGAN_ROBOT) ? 0.66 : 1
+	var/ratio = BP_IS_ROBOTIC(src)? 0.66 : 1
 	for(var/gasname in breath.gas - breath_type)
 		var/breathed_product = gas_data.breathed_product[gasname]
 		if(breathed_product)
@@ -200,13 +207,10 @@
 
 	// Were we able to breathe?
 	var/failed_breath = failed_inhale || failed_exhale
-	if(failed_breath)
-		if(isnull(last_failed_breath))
-			last_failed_breath = world.time
-	else
-		last_failed_breath = null
+	if(!failed_breath)
+		last_successful_breath = world.time
 		owner.adjustOxyLoss(-5 * inhale_efficiency)
-		if(robotic < ORGAN_ROBOT && species.breathing_sound && is_below_sound_pressure(get_turf(owner)))
+		if(!BP_IS_ROBOTIC(src) && species.breathing_sound && is_below_sound_pressure(get_turf(owner)))
 			if(breathing || owner.shock_stage >= 10)
 				sound_to(owner, sound(species.breathing_sound,0,0,0,5))
 				breathing = 0
@@ -230,7 +234,7 @@
 		else
 			owner.emote(pick("shiver","twitch"))
 
-	if(damage || owner.chem_effects[CE_BREATHLOSS] || world.time > last_failed_breath + 2 MINUTES)
+	if(damage || owner.chem_effects[CE_BREATHLOSS] || world.time > last_successful_breath + 2 MINUTES)
 		owner.adjustOxyLoss(HUMAN_MAX_OXYLOSS*breath_fail_ratio)
 
 	owner.oxygen_alert = max(owner.oxygen_alert, 2)
@@ -238,7 +242,7 @@
 
 /obj/item/organ/internal/lungs/proc/handle_temperature_effects(datum/gas_mixture/breath)
 	// Hot air hurts :(
-	if((breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1) && !(COLD_RESISTANCE in owner.mutations))
+	if((breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1) && !(MUTATION_COLD_RESISTANCE in owner.mutations))
 		var/damage = 0
 		if(breath.temperature <= species.cold_level_1)
 			if(prob(20))
@@ -298,7 +302,7 @@
 	if(owner.failed_last_breath || !active_breathing)
 		return "no respiration"
 
-	if(robotic == ORGAN_ROBOT)
+	if(BP_IS_ROBOTIC(src))
 		if(is_bruised())
 			return "malfunctioning fans"
 		else

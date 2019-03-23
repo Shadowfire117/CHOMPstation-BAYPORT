@@ -24,13 +24,21 @@
 	icon_state = "seeds"
 	density = 1
 	anchored = 1
-	use_power = 1
 	idle_power_usage = 100
 
-	var/seeds_initialized = 0 // Map-placed ones break if seeds are loaded right at the start of the round, so we do it on the first interaction
 	var/list/datum/seed_pile/piles = list()
 	var/list/starting_seeds = list()
 	var/list/scanner = list() // What properties we can view
+
+/obj/machinery/seed_storage/Initialize(var/mapload)
+	. = ..()
+	for(var/typepath in starting_seeds)
+		var/amount = starting_seeds[typepath]
+		if(isnull(amount))
+			amount = 1
+		for (var/i = 1 to amount)
+			var/O = new typepath
+			add(O)
 
 /obj/machinery/seed_storage/random // This is mostly for testing, but I guess admins could spawn it
 	name = "Random seed storage"
@@ -41,108 +49,108 @@
 	name = "Garden seed storage"
 	scanner = list("stats")
 	starting_seeds = list(
-		/obj/item/seeds/ambrosiavulgarisseed = 30,
-		/obj/item/seeds/appleseed = 30,
-		/obj/item/seeds/bananaseed = 30,
-		/obj/item/seeds/berryseed = 30,
-		/obj/item/seeds/blueberryseed = 30,
-		/obj/item/seeds/cabbageseed = 30,
-		/obj/item/seeds/carrotseed = 30,
-		/obj/item/seeds/chantermycelium = 30,
-		/obj/item/seeds/cherryseed = 30,
-		/obj/item/seeds/chiliseed = 30,
-		/obj/item/seeds/cocoapodseed = 30,
-		/obj/item/seeds/cornseed = 30,
-		/obj/item/seeds/peanutseed = 30,
-		/obj/item/seeds/replicapod = 30,
-		/obj/item/seeds/eggplantseed = 30,
-		/obj/item/seeds/amanitamycelium = 30,
-		/obj/item/seeds/glowshroom = 30,
-		/obj/item/seeds/grapeseed = 30,
-		/obj/item/seeds/grassseed = 30,
-		/obj/item/seeds/harebell = 30,
-		/obj/item/seeds/lavenderseed = 30,
-		/obj/item/seeds/lemonseed = 30,
-		/obj/item/seeds/libertymycelium = 30,
-		/obj/item/seeds/limeseed = 30,
-		/obj/item/seeds/mtearseed = 30,
-		/obj/item/seeds/nettleseed = 30,
-		/obj/item/seeds/orangeseed = 30,
-		/obj/item/seeds/plumpmycelium = 30,
-		/obj/item/seeds/poppyseed = 30,
-		/obj/item/seeds/potatoseed = 30,
-		/obj/item/seeds/onionseed = 30,
-		/obj/item/seeds/garlicseed = 30,
-		/obj/item/seeds/pumpkinseed = 30,
-		/obj/item/seeds/reishimycelium = 30,
-		/obj/item/seeds/riceseed = 30,
-		/obj/item/seeds/soyaseed = 30,
-		/obj/item/seeds/peppercornseed = 30,
-		/obj/item/seeds/sugarcaneseed = 30,
-		/obj/item/seeds/sunflowerseed = 30,
-		/obj/item/seeds/shandseed = 30,
-		/obj/item/seeds/tobaccoseed = 30,
-		/obj/item/seeds/tomatoseed = 30,
-		/obj/item/seeds/towermycelium = 30,
-		/obj/item/seeds/watermelonseed = 30,
-		/obj/item/seeds/wheatseed = 30,
-		/obj/item/seeds/whitebeetseed = 30,
-		/obj/item/seeds/algaeseed = 30
+		/obj/item/seeds/ambrosiavulgarisseed = 15,
+		/obj/item/seeds/appleseed = 15,
+		/obj/item/seeds/bananaseed = 15,
+		/obj/item/seeds/berryseed = 15,
+		/obj/item/seeds/blueberryseed = 15,
+		/obj/item/seeds/cabbageseed = 15,
+		/obj/item/seeds/carrotseed = 15,
+		/obj/item/seeds/chantermycelium = 15,
+		/obj/item/seeds/cherryseed = 15,
+		/obj/item/seeds/chiliseed = 15,
+		/obj/item/seeds/cocoapodseed = 15,
+		/obj/item/seeds/cornseed = 15,
+		/obj/item/seeds/peanutseed = 15,
+		/obj/item/seeds/replicapod = 15,
+		/obj/item/seeds/eggplantseed = 15,
+		/obj/item/seeds/amanitamycelium = 15,
+		/obj/item/seeds/glowshroom = 15,
+		/obj/item/seeds/grapeseed = 15,
+		/obj/item/seeds/grassseed = 15,
+		/obj/item/seeds/harebell = 15,
+		/obj/item/seeds/lavenderseed = 15,
+		/obj/item/seeds/lemonseed = 15,
+		/obj/item/seeds/libertymycelium = 15,
+		/obj/item/seeds/limeseed = 15,
+		/obj/item/seeds/mtearseed = 15,
+		/obj/item/seeds/nettleseed = 15,
+		/obj/item/seeds/orangeseed = 15,
+		/obj/item/seeds/plumpmycelium = 15,
+		/obj/item/seeds/poppyseed = 15,
+		/obj/item/seeds/potatoseed = 15,
+		/obj/item/seeds/onionseed = 15,
+		/obj/item/seeds/garlicseed = 15,
+		/obj/item/seeds/pumpkinseed = 15,
+		/obj/item/seeds/reishimycelium = 15,
+		/obj/item/seeds/riceseed = 15,
+		/obj/item/seeds/soyaseed = 15,
+		/obj/item/seeds/peppercornseed = 15,
+		/obj/item/seeds/sugarcaneseed = 15,
+		/obj/item/seeds/sunflowerseed = 15,
+		/obj/item/seeds/shandseed = 15,
+		/obj/item/seeds/tobaccoseed = 15,
+		/obj/item/seeds/tomatoseed = 15,
+		/obj/item/seeds/bamboo = 15,
+		/obj/item/seeds/watermelonseed = 15,
+		/obj/item/seeds/wheatseed = 15,
+		/obj/item/seeds/whitebeetseed = 15,
+		/obj/item/seeds/algaeseed = 15
 	)
 
 /obj/machinery/seed_storage/xenobotany
 	name = "Xenobotany seed storage"
 	scanner = list("stats", "produce", "soil", "temperature", "light")
 	starting_seeds = list(
-		/obj/item/seeds/appleseed = 30,
-		/obj/item/seeds/bananaseed = 30,
-		/obj/item/seeds/berryseed = 30,
-		/obj/item/seeds/blueberryseed = 30,
-		/obj/item/seeds/cabbageseed = 30,
-		/obj/item/seeds/carrotseed = 30,
-		/obj/item/seeds/chantermycelium = 30,
-		/obj/item/seeds/cherryseed = 30,
-		/obj/item/seeds/chiliseed = 30,
-		/obj/item/seeds/cocoapodseed = 30,
-		/obj/item/seeds/cornseed = 30,
-		/obj/item/seeds/peanutseed = 30,
-		/obj/item/seeds/replicapod = 30,
-		/obj/item/seeds/eggplantseed = 30,
-		/obj/item/seeds/amanitamycelium = 30,
-		/obj/item/seeds/glowshroom = 30,
-		/obj/item/seeds/grapeseed = 30,
-		/obj/item/seeds/grassseed = 30,
-		/obj/item/seeds/harebell = 30,
-		/obj/item/seeds/kudzuseed = 30,
-		/obj/item/seeds/lavenderseed = 30,
-		/obj/item/seeds/lemonseed = 30,
-		/obj/item/seeds/libertymycelium = 30,
-		/obj/item/seeds/limeseed = 30,
-		/obj/item/seeds/mtearseed = 30,
-		/obj/item/seeds/nettleseed = 30,
-		/obj/item/seeds/orangeseed = 30,
-		/obj/item/seeds/plastiseed = 30,
-		/obj/item/seeds/plumpmycelium = 30,
-		/obj/item/seeds/poppyseed = 30,
-		/obj/item/seeds/potatoseed = 30,
-		/obj/item/seeds/onionseed = 30,
-		/obj/item/seeds/garlicseed = 30,
-		/obj/item/seeds/pumpkinseed = 30,
-		/obj/item/seeds/reishimycelium = 30,
-		/obj/item/seeds/riceseed = 30,
-		/obj/item/seeds/soyaseed = 30,
-		/obj/item/seeds/peppercornseed = 30,
-		/obj/item/seeds/sugarcaneseed = 30,
-		/obj/item/seeds/sunflowerseed = 30,
-		/obj/item/seeds/shandseed = 30,
-		/obj/item/seeds/tobaccoseed = 30,
-		/obj/item/seeds/tomatoseed = 30,
-		/obj/item/seeds/towermycelium = 30,
-		/obj/item/seeds/watermelonseed = 30,
-		/obj/item/seeds/wheatseed = 30,
-		/obj/item/seeds/whitebeetseed = 30,
-		/obj/item/seeds/algaeseed = 30,
-		/obj/item/seeds/random = 10
+		/obj/item/seeds/appleseed = 15,
+		/obj/item/seeds/bananaseed = 15,
+		/obj/item/seeds/berryseed = 15,
+		/obj/item/seeds/blueberryseed = 15,
+		/obj/item/seeds/cabbageseed = 15,
+		/obj/item/seeds/carrotseed = 15,
+		/obj/item/seeds/chantermycelium = 15,
+		/obj/item/seeds/cherryseed = 15,
+		/obj/item/seeds/chiliseed = 15,
+		/obj/item/seeds/cocoapodseed = 15,
+		/obj/item/seeds/cornseed = 15,
+		/obj/item/seeds/peanutseed = 15,
+		/obj/item/seeds/replicapod = 15,
+		/obj/item/seeds/eggplantseed = 15,
+		/obj/item/seeds/amanitamycelium = 15,
+		/obj/item/seeds/glowshroom = 15,
+		/obj/item/seeds/grapeseed = 15,
+		/obj/item/seeds/grassseed = 15,
+		/obj/item/seeds/harebell = 15,
+		/obj/item/seeds/kudzuseed = 15,
+		/obj/item/seeds/lavenderseed = 15,
+		/obj/item/seeds/lemonseed = 15,
+		/obj/item/seeds/libertymycelium = 15,
+		/obj/item/seeds/limeseed = 15,
+		/obj/item/seeds/mtearseed = 15,
+		/obj/item/seeds/nettleseed = 15,
+		/obj/item/seeds/orangeseed = 15,
+		/obj/item/seeds/plastiseed = 15,
+		/obj/item/seeds/plumpmycelium = 15,
+		/obj/item/seeds/poppyseed = 15,
+		/obj/item/seeds/potatoseed = 15,
+		/obj/item/seeds/onionseed = 15,
+		/obj/item/seeds/garlicseed = 15,
+		/obj/item/seeds/pumpkinseed = 15,
+		/obj/item/seeds/reishimycelium = 15,
+		/obj/item/seeds/riceseed = 15,
+		/obj/item/seeds/soyaseed = 15,
+		/obj/item/seeds/peppercornseed = 15,
+		/obj/item/seeds/sugarcaneseed = 15,
+		/obj/item/seeds/sunflowerseed = 15,
+		/obj/item/seeds/shandseed = 15,
+		/obj/item/seeds/tobaccoseed = 15,
+		/obj/item/seeds/tomatoseed = 15,
+		/obj/item/seeds/towermycelium = 15,
+		/obj/item/seeds/watermelonseed = 15,
+		/obj/item/seeds/wheatseed = 15,
+		/obj/item/seeds/whitebeetseed = 15,
+		/obj/item/seeds/algaeseed = 15,
+		/obj/item/seeds/random = 2
 	)
 
 /obj/machinery/seed_storage/attack_hand(mob/user as mob)
@@ -152,16 +160,6 @@
 /obj/machinery/seed_storage/interact(mob/user as mob)
 	if (..())
 		return
-
-	if (!seeds_initialized)
-		for(var/typepath in starting_seeds)
-			var/amount = starting_seeds[typepath]
-			if(isnull(amount)) amount = 1
-
-			for (var/i = 1 to amount)
-				var/O = new typepath
-				add(O)
-		seeds_initialized = 1
 
 	var/dat = "<center><h1>Seed storage contents</h1></center>"
 	if (piles.len == 0)
@@ -287,7 +285,7 @@
 					if (N.amount <= 0 || N.seeds.len <= 0)
 						piles -= N
 						qdel(N)
-					O.loc = src.loc
+					O.dropInto(loc)
 				else
 					piles -= N
 					qdel(N)

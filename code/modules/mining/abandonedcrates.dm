@@ -1,9 +1,7 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "What could be inside?"
-	icon_state = "securecrate"
-	icon_opened = "securecrateopen"
-	icon_closed = "securecrate"
+	closet_appearance = /decl/closet_appearance/crate/secure
 	var/list/code = list()
 	var/list/lastattempt = list()
 	var/attempts = 10
@@ -72,7 +70,7 @@
 		if(63 to 64)
 			var/t = rand(4,7)
 			for(var/i = 0, i < t, ++i)
-				var/newcoin = pick(/obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/diamond, /obj/item/weapon/coin/phoron, /obj/item/weapon/coin/uranium, /obj/item/weapon/coin/platinum)
+				var/newcoin = pick(/obj/item/weapon/material/coin/silver, /obj/item/weapon/material/coin/silver, /obj/item/weapon/material/coin/silver, /obj/item/weapon/material/coin/iron, /obj/item/weapon/material/coin/iron, /obj/item/weapon/material/coin/iron, /obj/item/weapon/material/coin/gold, /obj/item/weapon/material/coin/diamond, /obj/item/weapon/material/coin/phoron, /obj/item/weapon/material/coin/uranium, /obj/item/weapon/material/coin/platinum)
 				new newcoin(src)
 		if(65 to 66)
 			new/obj/item/clothing/suit/ianshirt(src)

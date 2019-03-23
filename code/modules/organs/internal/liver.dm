@@ -38,14 +38,12 @@
 	if(is_broken())
 		filter_effect -= 2
 	// Robotic organs filter better but don't get benefits from dylovene for filtering.
-	if(robotic >= ORGAN_ROBOT)
+	if(BP_IS_ROBOTIC(src))
 		filter_effect += 1
 	else if(owner.chem_effects[CE_ANTITOX])
 		filter_effect += 1
 	// If you're not filtering well, you're in trouble. Ammonia buildup to toxic levels and damage from alcohol
 	if(filter_effect < 2)
-		if(owner.reagents.get_reagent_amount(/datum/reagent/ammonia) < 6)
-			owner.reagents.add_reagent(/datum/reagent/ammonia, REM)
 		if(owner.chem_effects[CE_ALCOHOL])
 			owner.adjustToxLoss(0.5 * max(2 - filter_effect, 0) * (owner.chem_effects[CE_ALCOHOL_TOXIC] + 0.5 * owner.chem_effects[CE_ALCOHOL]))
 

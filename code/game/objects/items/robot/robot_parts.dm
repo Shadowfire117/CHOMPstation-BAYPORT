@@ -25,7 +25,10 @@
 			if(icon_state in icon_states(R.icon))
 				icon = R.icon
 	else
-		SetName("robot [initial(name)]")
+		SetDefaultName()
+
+/obj/item/robot_parts/proc/SetDefaultName()
+	SetName("robot [initial(name)]")
 
 /obj/item/robot_parts/proc/can_install(mob/user)
 	return TRUE
@@ -61,6 +64,23 @@
 	part = list(BP_R_LEG, BP_R_FOOT)
 	model_info = 1
 	bp_tag = BP_R_LEG
+
+/obj/item/robot_parts/head
+	name = "head"
+	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
+	icon_state = "head"
+	part = list(BP_HEAD)
+	model_info = 1
+	bp_tag = BP_HEAD
+	var/obj/item/device/flash/flash1 = null
+	var/obj/item/device/flash/flash2 = null
+
+/obj/item/robot_parts/head/can_install(mob/user)
+	var/success = TRUE
+	if(!flash1 || !flash2)
+		to_chat(user, "<span class='warning'>You need to attach a flash to it first!</span>")
+		success = FALSE
+	return success && ..()
 
 /obj/item/robot_parts/chest
 	name = "torso"
@@ -305,7 +325,6 @@
 			// Cleanup
 			qdel(W)
 			qdel(src)
-	return
 
 /obj/item/robot_parts/chest/proc/GetCyborgSpecies()
 	. = list()
@@ -327,13 +346,6 @@
 				add_flashes(W,user)
 		else
 			add_flashes(W,user)
-	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
-		to_chat(user, "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>")
-		new /mob/living/simple_animal/spiderbot(get_turf(loc))
-		qdel(W)
-		qdel(src)
-		return
-	return
 
 /obj/item/robot_parts/head/proc/add_flashes(obj/item/W as obj, mob/user as mob) //Made into a seperate proc to avoid copypasta
 	if(src.flash1 && src.flash2)

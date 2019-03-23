@@ -18,21 +18,19 @@ var/global/list/stool_cache = list() //haha stool
 /obj/item/weapon/stool/padded
 	icon_state = "stool_padded_preview" //set for the map
 
-/obj/item/weapon/stool/New(var/newloc, var/new_material, var/new_padding_material)
+/obj/item/weapon/stool/New(newloc, new_material = DEFAULT_FURNITURE_MATERIAL, new_padding_material)
 	..(newloc)
-	if(!new_material)
-		new_material = DEFAULT_WALL_MATERIAL
-	material = get_material_by_name(new_material)
+	material = SSmaterials.get_material_by_name(new_material)
 	if(new_padding_material)
-		padding_material = get_material_by_name(new_padding_material)
+		padding_material = SSmaterials.get_material_by_name(new_padding_material)
 	if(!istype(material))
 		qdel(src)
 		return
 	force = round(material.get_blunt_damage()*0.4)
 	update_icon()
 
-/obj/item/weapon/stool/padded/New(var/newloc, var/new_material)
-	..(newloc, "steel", "carpet")
+/obj/item/weapon/stool/padded/New(newloc, new_material = DEFAULT_FURNITURE_MATERIAL)
+	..(newloc, new_material, MATERIAL_CARPET)
 
 /obj/item/weapon/stool/bar
 	name = "bar stool"
@@ -43,10 +41,10 @@ var/global/list/stool_cache = list() //haha stool
 /obj/item/weapon/stool/bar/padded
 	icon_state = "bar_stool_padded_preview"
 
-/obj/item/weapon/stool/bar/padded/New(var/newloc, var/new_material)
-	..(newloc, "steel", "carpet")
+/obj/item/weapon/stool/bar/padded/New(newloc, new_material = DEFAULT_FURNITURE_MATERIAL)
+	..(newloc, new_material, MATERIAL_CARPET)
 
-/obj/item/weapon/stool/update_icon()
+/obj/item/weapon/stool/on_update_icon()
 	// Prep icon.
 	icon_state = ""
 	// Base icon.
@@ -75,7 +73,7 @@ var/global/list/stool_cache = list() //haha stool
 		desc = "A stool. Apply butt with care. It's made of [material.use_name]."
 
 /obj/item/weapon/stool/proc/add_padding(var/padding_type)
-	padding_material = get_material_by_name(padding_type)
+	padding_material = SSmaterials.get_material_by_name(padding_type)
 	update_icon()
 
 /obj/item/weapon/stool/proc/remove_padding()
@@ -91,12 +89,12 @@ var/global/list/stool_cache = list() //haha stool
 		user.do_attack_animation(target)
 		dismantle() //This deletes self.
 
-		var/blocked = target.run_armor_check(hit_zone, "melee")
-		target.Weaken(10 * blocked_mult(blocked))
-		target.apply_damage(20, BRUTE, hit_zone, blocked, src)
-		return
+		var/blocked = target.get_blocked_ratio(hit_zone, BRUTE)
+		target.Weaken(10 * (1 - blocked))
+		target.apply_damage(20, BRUTE, hit_zone, src)
+		return 1
 
-	..()
+	return ..()
 
 /obj/item/weapon/stool/ex_act(severity)
 	switch(severity)
@@ -134,7 +132,7 @@ var/global/list/stool_cache = list() //haha stool
 			return
 		var/padding_type //This is awful but it needs to be like this until tiles are given a material var.
 		if(istype(W,/obj/item/stack/tile/carpet))
-			padding_type = "carpet"
+			padding_type = MATERIAL_CARPET
 		else if(istype(W,/obj/item/stack/material))
 			var/obj/item/stack/material/M = W
 			if(M.material && (M.material.flags & MATERIAL_PADDING))

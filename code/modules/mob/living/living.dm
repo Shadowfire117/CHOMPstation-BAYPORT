@@ -101,8 +101,8 @@ default behaviour is:
 				now_pushing = 0
 				return
 			if(tmob.a_intent != I_HELP)
-				if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-					if(prob(40) && !(FAT in src.mutations))
+				if(istype(tmob, /mob/living/carbon/human) && (MUTATION_FAT in tmob.mutations))
+					if(prob(40) && !(MUTATION_FAT in src.mutations))
 						to_chat(src, "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>")
 						now_pushing = 0
 						return
@@ -149,13 +149,12 @@ default behaviour is:
 					if(istype(tmob.buckled, /obj/structure/bed))
 						if(!tmob.buckled.anchored)
 							step(tmob.buckled, t)
-				if(ishuman(AM) && AM:grabbed_by)
-					for(var/obj/item/grab/G in AM:grabbed_by)
-						step(G:assailant, get_dir(G:assailant, AM))
+				if(ishuman(AM))
+					var/mob/living/carbon/human/M = AM
+					for(var/obj/item/grab/G in M.grabbed_by)
+						step(G.assailant, get_dir(G.assailant, AM))
 						G.adjust_position()
 				now_pushing = 0
-			return
-	return
 
 /proc/swap_density_check(var/mob/swapper, var/mob/swapee)
 	var/turf/T = get_turf(swapper)
@@ -210,25 +209,25 @@ default behaviour is:
 	take_overall_damage(0, burn_amount)
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
-	var/temperature = actual
+	var/btemperature = actual
 	var/difference = abs(actual-desired)	//get difference
 	var/increments = difference/10 //find how many increments apart they are
 	var/change = increments*incrementboost	// Get the amount to change by (x per increment)
 
 	// Too cold
 	if(actual < desired)
-		temperature += change
+		btemperature += change
 		if(actual > desired)
-			temperature = desired
+			btemperature = desired
 	// Too hot
 	if(actual > desired)
-		temperature -= change
+		btemperature -= change
 		if(actual < desired)
-			temperature = desired
+			btemperature = desired
 //	if(istype(src, /mob/living/carbon/human))
 //		log_debug("[src] ~ [src.bodytemperature] ~ [temperature]")
 
-	return temperature
+	return btemperature
 
 /mob/living/proc/getBruteLoss()
 	return maxHealth - health
@@ -432,6 +431,11 @@ default behaviour is:
 	eye_blurry = 0
 	ear_deaf = 0
 	ear_damage = 0
+	drowsyness = 0
+	druggy = 0
+	jitteriness = 0
+	confused = 0
+		
 	heal_overall_damage(getBruteLoss(), getFireLoss())
 
 	// fix all of our organs
@@ -456,9 +460,40 @@ default behaviour is:
 	reload_fullscreen()
 	return
 
+/mob/living/proc/basic_revival(var/repair_brain = TRUE)
+
+	if(repair_brain && getBrainLoss() > 50)
+		repair_brain = FALSE
+		setBrainLoss(50)
+
+	if(stat == DEAD)
+		switch_from_dead_to_living_mob_list()
+		timeofdeath = 0
+
+	stat = CONSCIOUS
+	regenerate_icons()
+
+	BITSET(hud_updateflag, HEALTH_HUD)
+	BITSET(hud_updateflag, STATUS_HUD)
+	BITSET(hud_updateflag, LIFE_HUD)
+
+	failed_last_breath = 0 //So mobs that died of oxyloss don't revive and have perpetual out of breath.
+	reload_fullscreen()
+
+/mob/living/carbon/basic_revival(var/repair_brain = TRUE)
+	if(repair_brain && should_have_organ(BP_BRAIN))
+		repair_brain = FALSE
+		var/obj/item/organ/internal/brain/brain = internal_organs_by_name[BP_BRAIN]
+		if(brain.damage > (brain.max_damage/2))
+			brain.damage = (brain.max_damage/2)
+		if(brain.status & ORGAN_DEAD)
+			brain.status &= ~ORGAN_DEAD
+			START_PROCESSING(SSobj, brain)
+		brain.update_icon()
+	..(repair_brain)
+
 /mob/living/proc/UpdateDamageIcon()
 	return
-
 
 /mob/living/proc/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"
@@ -560,7 +595,7 @@ default behaviour is:
 					if (pulling)
 						if (istype(pulling, /obj/structure/window))
 							var/obj/structure/window/W = pulling
-							if(W.is_full_window())
+							if(W.is_fulltile())
 								for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
 									stop_pulling()
 					if (pulling)
@@ -791,7 +826,7 @@ default behaviour is:
 		. += 15
 	if(confused)
 		. += 30
-	if(CLUMSY in mutations)
+	if(MUTATION_CLUMSY in mutations)
 		. += 40
 
 /mob/living/proc/ranged_accuracy_mods()
@@ -804,5 +839,47 @@ default behaviour is:
 		. -= 5
 	if(eye_blurry)
 		. -= 1
-	if(CLUMSY in mutations)
+	if(MUTATION_CLUMSY in mutations)
 		. -= 3
+
+/mob/living/can_drown()
+	return TRUE
+
+/mob/living/handle_drowning()
+	if(!can_drown() || !loc.is_flooded(lying))
+		return FALSE
+	if(prob(5))
+		to_chat(src, "<span class='danger'>You choke and splutter as you inhale water!</span>")
+	var/turf/T = get_turf(src)
+	T.show_bubbles()
+	return TRUE // Presumably chemical smoke can't be breathed while you're underwater.
+
+/mob/living/water_act(var/depth)
+	..()
+	wash_mob(src)
+	for(var/thing in get_equipped_items(TRUE))
+		if(isnull(thing)) continue
+		var/atom/movable/A = thing
+		if(A.simulated && !A.waterproof)
+			A.water_act(depth)
+
+/mob/living/proc/nervous_system_failure()
+	return FALSE
+
+/mob/living/proc/needs_wheelchair()
+	return FALSE
+
+/mob/living/proc/seizure()
+	set waitfor = 0
+	sleep(rand(5,10))
+	if(!paralysis && stat == CONSCIOUS)
+		visible_message(SPAN_DANGER("\The [src] starts having a seizure!"))
+		Paralyse(rand(8,16))
+		make_jittery(rand(150,200))
+		adjustHalLoss(rand(50,60))
+
+/mob/living/proc/get_digestion_product()
+	return null
+
+/mob/living/proc/eyecheck()
+	return FLASH_PROTECTION_NONE

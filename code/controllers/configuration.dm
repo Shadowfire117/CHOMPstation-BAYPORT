@@ -97,6 +97,7 @@ var/list/gamemode_cache = list()
 	var/wikiurl
 	var/forumurl
 	var/githuburl
+	var/issuereporturl
 
 	var/forbid_singulo_possession = 0
 
@@ -155,6 +156,9 @@ var/list/gamemode_cache = list()
 
 	var/comms_password = ""
 	var/ban_comms_password = null
+	var/list/forbidden_versions = list() // Clients with these byond versions will be autobanned. Format: string "byond_version.byond_build"; separate with ; in config, e.g. 512.1234;512.1235
+	var/minimum_byond_version = 0
+	var/minimum_byond_build = 0
 
 	var/login_export_addr = null
 
@@ -217,6 +221,8 @@ var/list/gamemode_cache = list()
 	var/error_msg_delay = 50 // How long to wait between messaging admins about occurrences of a unique error
 
 	var/max_gear_cost = 10 // Used in chargen for accessory loadout limit. 0 disables loadout, negative allows infinite points.
+
+	var/allow_ic_printing = TRUE //Whether players should be allowed to print IC circuits from scripts.
 
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
@@ -334,13 +340,6 @@ var/list/gamemode_cache = list()
 				if ("log_hrefs")
 					config.log_hrefs = 1
 
-				if ("log_runtime")
-					config.log_runtime = 1
-					var/newlog = file("data/logs/runtimes/runtime-[time2text(world.realtime, "YYYY-MM-DD")].log")
-					if(runtime_diary != newlog)
-						to_world_log("Now logging runtimes to data/logs/runtimes/runtime-[time2text(world.realtime, "YYYY-MM-DD")].log")
-						runtime_diary = newlog
-
 				if ("generate_asteroid")
 					config.generate_map = 1
 
@@ -428,6 +427,9 @@ var/list/gamemode_cache = list()
 
 				if ("githuburl")
 					config.githuburl = value
+
+				if ("issuereporturl")
+					config.issuereporturl = value
 
 				if ("ghosts_can_possess_animals")
 					config.ghosts_can_possess_animals = value
@@ -600,6 +602,15 @@ var/list/gamemode_cache = list()
 				if("ban_comms_password")
 					config.ban_comms_password = value
 
+				if("forbidden_versions")
+					config.forbidden_versions = splittext(value, ";")
+				
+				if("minimum_byond_version")
+					config.minimum_byond_version = text2num(value)
+
+				if("minimum_byond_build")
+					config.minimum_byond_build = text2num(value)
+
 				if("login_export_addr")
 					config.login_export_addr = value
 
@@ -641,6 +652,9 @@ var/list/gamemode_cache = list()
 
 				if("disable_welder_vision")
 					config.welder_vision = 0
+
+				if("disable_circuit_printing")
+					config.allow_ic_printing = FALSE
 
 				if("allow_extra_antags")
 					config.allow_extra_antags = 1
@@ -843,14 +857,13 @@ var/list/gamemode_cache = list()
 		var/datum/game_mode/M = gamemode_cache[game_mode]
 		if (M.config_tag && M.config_tag == mode_name)
 			return M
-	return gamemode_cache["extended"]
 
 /datum/configuration/proc/get_runnable_modes()
 	var/list/runnable_modes = list()
 	for(var/game_mode in gamemode_cache)
 		var/datum/game_mode/M = gamemode_cache[game_mode]
 		if(M && !M.startRequirements() && !isnull(config.probabilities[M.config_tag]) && config.probabilities[M.config_tag] > 0)
-			runnable_modes |= M
+			runnable_modes[M.config_tag] = config.probabilities[M.config_tag]
 	return runnable_modes
 
 /datum/configuration/proc/load_event(filename)

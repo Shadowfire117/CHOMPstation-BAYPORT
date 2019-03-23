@@ -40,7 +40,7 @@
 		if(ishuman(M))
 			if(istype(M:l_ear, /obj/item/clothing/ears/earmuffs) || istype(M:r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_safety += 2
-			if(HULK in M.mutations)
+			if(MUTATION_HULK in M.mutations)
 				ear_safety += 1
 			if(istype(M:head, /obj/item/clothing/head/helmet))
 				ear_safety += 1
@@ -79,7 +79,7 @@
 //This really should be in mob not every check
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name[BP_EYES]
+		var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name[H.species.vision_organ]
 		if (E && E.damage >= E.min_bruised_damage)
 			to_chat(M, "<span class='danger'>Your eyes start to burn badly!</span>")
 			if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
@@ -90,7 +90,7 @@
 		if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
 			if (prob(M.ear_damage - 10 + 5))
 				to_chat(M, "<span class='danger'>You can't hear anything!</span>")
-				M.sdisabilities |= DEAF
+				M.set_sdisability(DEAF)
 	else
 		if (M.ear_damage >= 5)
 			to_chat(M, "<span class='danger'>Your ears start to ring!</span>")

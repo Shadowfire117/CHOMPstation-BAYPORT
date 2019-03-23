@@ -12,28 +12,23 @@
 	var/innate_flash_protection = FLASH_PROTECTION_NONE
 	max_damage = 45
 
-/obj/item/organ/internal/eyes/optics
-	robotic = ORGAN_ROBOT
-	organ_tag = BP_OPTICS
-
-/obj/item/organ/internal/eyes/optics/New()
-	..()
-	robotize()
-
-/obj/item/organ/internal/eyes/robotize()
-	..()
-	name = "optical sensor"
-	icon = 'icons/obj/robot_component.dmi'
-	icon_state = "camera"
-	dead_icon = "camera_broken"
-	update_colour()
-
-/obj/item/organ/internal/eyes/robot
-	name = "optical sensor"
-
-/obj/item/organ/internal/eyes/robot/New()
-	..()
-	robotize()
+/obj/item/organ/internal/eyes/proc/change_eye_color()
+	set name = "Change Eye Color"
+	set desc = "Changes your robotic eye color."
+	set category = "IC"
+	set src in usr
+	if (owner.incapacitated())
+		return
+	var/new_eyes = input("Please select eye color.", "Eye Color", rgb(owner.r_eyes, owner.g_eyes, owner.b_eyes)) as color|null
+	if(new_eyes)
+		var/r_eyes = hex2num(copytext(new_eyes, 2, 4))
+		var/g_eyes = hex2num(copytext(new_eyes, 4, 6))
+		var/b_eyes = hex2num(copytext(new_eyes, 6, 8))
+		if(do_after(owner, 10) && owner.change_eye_color(r_eyes, g_eyes, b_eyes))
+			update_colour()
+			// Finally, update the eye icon on the mob.
+			owner.regenerate_icons()
+			owner.visible_message(SPAN_NOTICE("\The [owner] changes their eye color."),SPAN_NOTICE("You change your eye color."),)
 
 /obj/item/organ/internal/eyes/replaced(var/mob/living/carbon/human/target)
 
@@ -74,3 +69,19 @@
 
 /obj/item/organ/internal/eyes/proc/additional_flash_effects(var/intensity)
 	return -1
+
+/obj/item/organ/internal/eyes/robot
+	name = "optical sensor"
+
+/obj/item/organ/internal/eyes/robot/New()
+	..()
+	robotize()
+
+/obj/item/organ/internal/eyes/robotize()
+	..()
+	name = "optical sensor"
+	icon = 'icons/obj/robot_component.dmi'
+	icon_state = "camera"
+	dead_icon = "camera_broken"
+	verbs |= /obj/item/organ/internal/eyes/proc/change_eye_color
+	update_colour()

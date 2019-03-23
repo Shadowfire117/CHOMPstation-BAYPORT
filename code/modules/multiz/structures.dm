@@ -40,8 +40,8 @@
 		target_up = null
 	return ..()
 
-/obj/structure/ladder/attackby(obj/item/C as obj, mob/user as mob)
-	climb(user)
+/obj/structure/ladder/attackby(obj/item/I, mob/user)
+	climb(user, I)
 
 /obj/structure/ladder/attack_hand(var/mob/M)
 	climb(M)
@@ -58,14 +58,15 @@
 	climb(M)
 
 /obj/structure/ladder/proc/instant_climb(var/mob/M)
-	var/target_ladder = getTargetLadder(M)
+	var/atom/target_ladder = getTargetLadder(M)
 	if(target_ladder)
-		M.forceMove(get_turf(target_ladder))
+		M.dropInto(target_ladder.loc)
 
-/obj/structure/ladder/proc/climb(var/mob/M)
+/obj/structure/ladder/proc/climb(mob/M, obj/item/I = null)
 	if(!M.may_climb_ladders(src))
 		return
 
+	add_fingerprint(M)
 	var/obj/structure/ladder/target_ladder = getTargetLadder(M)
 	if(!target_ladder)
 		return
@@ -85,7 +86,7 @@
 	target_ladder.audible_message("<span class='notice'>You hear something coming [direction] \the [src]</span>")
 
 	if(do_after(M, climb_time, src))
-		climbLadder(M, target_ladder)
+		climbLadder(M, target_ladder, I)
 		for (var/obj/item/grab/G in M)
 			G.adjust_position(force = 1)
 
@@ -137,20 +138,30 @@
 /mob/observer/ghost/may_climb_ladders(var/ladder)
 	return TRUE
 
-/obj/structure/ladder/proc/climbLadder(var/mob/M, var/target_ladder)
+/obj/structure/ladder/proc/climbLadder(mob/user, target_ladder, obj/item/I = null)
 	var/turf/T = get_turf(target_ladder)
 	for(var/atom/A in T)
-		if(!A.CanPass(M, M.loc, 1.5, 0))
-			to_chat(M, "<span class='notice'>\The [A] is blocking \the [src].</span>")
+		if(!A.CanPass(user, user.loc, 1.5, 0))
+			to_chat(user, "<span class='notice'>\The [A] is blocking \the [src].</span>")
+
+			//We cannot use the ladder, but we probably can remove the obstruction
+			var/atom/movable/M = A
+			if(istype(M) && M.movable_flags & MOVABLE_FLAG_Z_INTERACT)
+				if(isnull(I))
+					M.attack_hand(user)
+				else
+					M.attackby(I, user)
+
 			return FALSE
+
 	playsound(src, pick(climbsounds), 50)
 	playsound(target_ladder, pick(climbsounds), 50)
-	return M.Move(T)
+	return user.Move(T)
 
 /obj/structure/ladder/CanPass(obj/mover, turf/source, height, airflow)
 	return airflow || !density
 
-/obj/structure/ladder/update_icon()
+/obj/structure/ladder/on_update_icon()
 	icon_state = "ladder[!!(allowed_directions & UP)][!!(allowed_directions & DOWN)]"
 
 /obj/structure/ladder/up
@@ -162,7 +173,7 @@
 	icon_state = "ladder11"
 
 /obj/structure/stairs
-	name = "Stairs"
+	name = "stairs"
 	desc = "Stairs leading to another deck.  Not too useful if the gravity goes out."
 	icon = 'icons/obj/stairs.dmi'
 	density = 0
@@ -181,22 +192,28 @@
 			above.ChangeTurf(/turf/simulated/open)
 	. = ..()
 
-/obj/structure/stairs/Uncross(atom/movable/A)
-	if(A.dir == dir && upperStep(A.loc))
-		// This is hackish but whatever.
-		var/turf/target = get_step(GetAbove(A), dir)
-		var/turf/source = A.loc
-		var/turf/above = GetAbove(A)
-		if(above.CanZPass(source, UP) && target.Enter(A, source))
-			A.forceMove(target)
-			if(isliving(A))
-				var/mob/living/L = A
-				if(L.pulling)
-					L.pulling.forceMove(source)
-		else
-			to_chat(A, "<span class='warning'>Something blocks the path.</span>")
-		return 0
-	return 1
+/obj/structure/stairs/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
+	if(get_dir(loc, target) == dir && upperStep(mover.loc))
+		return FALSE
+	return ..()
+
+/obj/structure/stairs/Bumped(atom/movable/A)
+	var/turf/target = get_step(GetAbove(A), dir)
+	var/turf/source = A.loc
+	var/turf/above = GetAbove(A)
+	if(above.CanZPass(source, UP) && target.Enter(A, src))
+		A.forceMove(target)
+		if(isliving(A))
+			var/mob/living/L = A
+			if(L.pulling)
+				L.pulling.forceMove(target)
+		if(ishuman(A))
+			var/mob/living/carbon/human/H = A
+			if(H.has_footsteps())
+				playsound(source, 'sound/effects/stairs_step.ogg', 50)
+				playsound(target, 'sound/effects/stairs_step.ogg', 50)
+	else
+		to_chat(A, "<span class='warning'>Something blocks the path.</span>")
 
 /obj/structure/stairs/proc/upperStep(var/turf/T)
 	return (T == loc)
@@ -224,3 +241,10 @@
 /obj/structure/stairs/west
 	dir = WEST
 	bound_width = 64
+	
+/obj/structure/stairs/short
+	bound_height = 32
+	bound_width = 32
+	
+/obj/structure/stairs/short/west
+	dir = WEST
