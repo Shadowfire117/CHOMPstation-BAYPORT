@@ -7,12 +7,12 @@
 				message = "[wagging ? "starts" : "stops"] wagging their tail."
 			else
 				return 1
-		if ("vflap")
+/*		if ("vflap")
 			if(toggle_wing_vr(message = 1))
 				m_type = 1
 				message = "[flapping ? "starts" : "stops"] flapping their wings."
 			else
-				return 1
+				return 1*/
 		if ("mlem")
 			message = "mlems [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] tongue up over [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] nose. Mlem."
 			m_type = 1
@@ -58,10 +58,11 @@
 							log_and_message_admins("lost their [breaking] with *flip, ahahah.", src)
 						else
 							src.Weaken(5)
-							if(E.cannot_break) //Prometheans go splat
+							if(E.limb_flags == ORGAN_FLAG_CAN_AMPUTATE) //Prometheans go splat // Commenting out for now cause well, eh. It wont work for now. - Jon
 								E.droplimb(0,DROPLIMB_BLUNT)
 							else
 								E.fracture()
+
 							message += " <span class='danger'>And breaks something!</span>"
 							log_and_message_admins("broke their [breaking] with *flip, ahahah.", src)
 
@@ -82,7 +83,7 @@
 		wagging = new_wagging
 		update_tail_showing()
 	return 1
-
+/*
 /mob/living/carbon/human/proc/toggle_wing_vr(var/setting,var/message = 0)
 	if(!wing_style || !wing_style.ani_state)
 		if(message)
@@ -94,9 +95,6 @@
 		flapping = setting
 		update_wing_showing()
 	return 1
-/*
-
-
 
 /mob/living/carbon/human/verb/toggle_gender_identity_vr()
 	set name = "Set Gender Identity"

@@ -75,9 +75,10 @@
 				reviving = 0 //Not boolean
 
 /mob/living/carbon/human/proc/hasnutriment()
+	var/datum/reagents/metabolism/ingested = get_ingested_reagents()
 	if (bloodstr.has_reagent("nutriment", 30) || src.bloodstr.has_reagent("protein", 15)) //protein needs half as much. For reference, a steak contains 9u protein.
 		return TRUE
-	else if (ingested.has_reagent("nutriment", 60) || src.ingested.has_reagent("protein", 30)) //try forcefeeding them, why not. Less effective.
+	else if (ingested.has_reagent("nutriment", 60) || ingested.has_reagent("protein", 30)) //try forcefeeding them, why not. Less effective.
 		return TRUE
 	else return FALSE
 
@@ -124,7 +125,7 @@
 
 	//I did have special snowflake code, but this is easier.
 	revive()
-	mutations.Remove(HUSK)
+	mutations.Remove(MUTATION_HUSK)
 	nutrition = old_nutrition
 	setBrainLoss(braindamage)
 
@@ -159,12 +160,12 @@
 	if(client && feral >= 10) // largely a copy of handle_hallucinations() without the fake attackers. Unlike hallucinations, only fires once - if they're still feral they'll get hit again anyway.
 		spawn(rand(200,500)/(feral/10))
 			if(!feral) return //just to avoid fuckery in the event that they un-feral in the time it takes for the spawn to proc
-			
+
 			//Tick down the duration
 			hallucination_duration = max(0, hallucination_duration - 1)
 			if(chem_effects[CE_MIND] > 0)
 				hallucination_duration = max(0, hallucination_duration - 1)
-			
+
 			//Adjust power if we have some chems that affect it
 			if(chem_effects[CE_MIND] < 0)
 				hallucination_power = min(hallucination_power++, 50)
@@ -172,7 +173,7 @@
 				hallucination_power = hallucination_power++
 			if(chem_effects[CE_MIND] > 0)
 				hallucination_power = max(hallucination_power - chem_effects[CE_MIND], 0)
-			
+
 			//See if hallucination is gone
 			if(!hallucination_power)
 				hallucination_duration = 0
@@ -584,11 +585,7 @@
 		else if(!T_int && (T_ext.damage >= 25 || T_ext.brute_dam >= 25))
 			T_ext.droplimb(1,DROPLIMB_EDGE) //Clean cut so it doesn't kill the prey completely.
 
-			//Is it groin/chest? You can't remove those.
-			if(T_ext.cannot_amputate)
-				T.apply_damage(25, BRUTE, T_ext)
-				visible_message("<span class='danger'>[src] severely damages [T]'s [T_ext.name]!</span>")
-			else if(B)
+			if(B)
 				T_ext.forceMove(B)
 				visible_message("<span class='warning'>[src] swallows [T]'s [T_ext.name] into their [lowertext(B.name)]!</span>")
 			else

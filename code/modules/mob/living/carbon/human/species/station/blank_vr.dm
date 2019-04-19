@@ -17,11 +17,11 @@
 	create a (hopefully) balanced species. You will see the options to customize them on the VORE tab once \
 	you select and set this species as your species. Please look at the VORE tab if you select this species."
 
-	name_language = null // Use the first-name last-name generator rather than a language scrambler
+//	name_language = null // Use the first-name last-name generator rather than a language scrambler
 	min_age = 18
 	max_age = 200
 	health_hud_intensity = 2
-	num_alternate_languages = 3
+//	num_alternate_languages = 3
 
 	spawn_flags = SPECIES_CAN_JOIN
 	appearance_flags = HAS_HAIR_COLOR | HAS_SKIN_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_EYE_COLOR

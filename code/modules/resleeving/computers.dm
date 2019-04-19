@@ -64,7 +64,7 @@
 /obj/machinery/computer/transhuman/resleeving/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
-		var/obj/machinery/clonepod/transhuman/P = M.connecting
+		var/obj/machinery/clonepod/transhuman/P = M.get_buffer()
 		if(istype(P) && !(P in pods))
 			pods += P
 			P.connected = src

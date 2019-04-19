@@ -11,9 +11,8 @@
 	//brute_mod = 1.15
 	//burn_mod =  1.15
 	//gluttonous = 1
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_SAGARU)
-	name_language = LANGUAGE_SAGARU
+	assisted_langs = list(LANGUAGE_SAGARU)
+
 	color_mult = 1
 
 	min_age = 18
@@ -72,9 +71,9 @@
 	//brute_mod = 1.15
 	//burn_mod =  1.15
 	//gluttonous = 1
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_SKRELLIAN)
-	name_language = LANGUAGE_SKRELLIAN
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_SKRELLIAN)
+//	name_language = LANGUAGE_SKRELLIAN
 	color_mult = 1
 	inherent_verbs = list(/mob/living/proc/shred_limb)
 
@@ -116,9 +115,9 @@
 	//brute_mod = 1.15
 	//burn_mod =  1.15
 	//gluttonous = 1
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_BIRDSONG)
-	name_language = LANGUAGE_BIRDSONG
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_BIRDSONG)
+//	name_language = LANGUAGE_BIRDSONG
 	color_mult = 1
 	inherent_verbs = list(/mob/living/proc/shred_limb,/mob/living/proc/flying_toggle,/mob/living/proc/start_wings_hovering)
 
@@ -155,9 +154,9 @@
 	tail = "tail"
 	icobase_tail = 1
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_TERMINUS)
-	name_language = LANGUAGE_TERMINUS
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_TERMINUS)
+//	name_language = LANGUAGE_TERMINUS
 
 	min_age = 18
 	max_age = 80
@@ -194,9 +193,9 @@
 	tail = "tail"
 	icobase_tail = 1
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_TERMINUS)
-	name_language = LANGUAGE_TERMINUS
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_TERMINUS)
+//	name_language = LANGUAGE_TERMINUS
 
 	min_age = 18
 	max_age = 80
@@ -233,8 +232,8 @@
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 //	path = /mob/living/carbon/human/vulpkanin
 //	default_language = "Sol Common"
-	secondary_langs = list(LANGUAGE_CANILUNZT)
-	name_language = LANGUAGE_CANILUNZT
+//	secondary_langs = list(LANGUAGE_CANILUNZT)
+//	name_language = LANGUAGE_CANILUNZT
 	primitive_form = "Wolpin"
 	tail = "vulptail"
 	tail_animation = 'icons/mob/species/vulpkanin/tail.dmi' // probably need more than just one of each, but w/e
@@ -242,7 +241,7 @@
 	darksight_range = 5 //worse than cats, but better than lizards. -- Poojawa
 	darksight_tint = DARKTINT_MODERATE
 //	gluttonous = 1
-	num_alternate_languages = 3
+//	num_alternate_languages = 3
 	color_mult = 1
 	inherent_verbs = list(/mob/living/proc/shred_limb)
 
@@ -274,7 +273,7 @@
 	darksight_range = 4 //Better hunters in the dark.
 	darksight_tint = DARKTINT_MODERATE
 	hunger_factor = 0.1 //In exchange, they get hungry a tad faster.
-	num_alternate_languages = 2
+//	num_alternate_languages = 2
 
 	min_age = 18
 	max_age = 80
@@ -376,9 +375,9 @@ datum/species/harpy
 	tail = "tail"
 	icobase_tail = 1
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/punch, /datum/unarmed_attack/bite)
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_BIRDSONG)
-	name_language = null
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_BIRDSONG)
+//	name_language = null
 	color_mult = 1
 	inherent_verbs = list(/mob/living/proc/flying_toggle,/mob/living/proc/start_wings_hovering)
 
@@ -418,10 +417,10 @@ datum/species/harpy
 	hunting skills that emphasized taking out their prey without themselves getting hit. They \
 	are only recently becoming known on human stations after reaching space with Skrell assistance."
 
-	num_alternate_languages = 3
-	secondary_langs = list(LANGUAGE_SCHECHI, LANGUAGE_SKRELLIAN)
-	name_language = LANGUAGE_SCHECHI
-	language = LANGUAGE_SCHECHI
+//	num_alternate_languages = 3
+//	secondary_langs = list(LANGUAGE_SCHECHI, LANGUAGE_SKRELLIAN)
+//	name_language = LANGUAGE_SCHECHI
+//	language = LANGUAGE_SCHECHI
 
 	min_age = 12
 	max_age = 45
@@ -547,11 +546,11 @@ datum/species/harpy
 	burn_mod =  1.15
 	flash_mod = 1.4
 	gluttonous = GLUT_TINY
-	num_alternate_languages = 1
-	language = LANGUAGE_SIIK_MAAS
-	additional_langs = list(LANGUAGE_SIIK_TAJR)
+//	num_alternate_languages = 1
+//	language = LANGUAGE_SIIK_MAAS
+//	additional_langs = list(LANGUAGE_SIIK_TAJR)
 	//secondary_langs =
-	name_language = LANGUAGE_SIIK_MAAS
+//	name_language = LANGUAGE_SIIK_MAAS
 	health_hud_intensity = 1.75
 
 	min_age = 19

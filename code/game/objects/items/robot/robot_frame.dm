@@ -25,13 +25,6 @@
 		if(parts[part])
 			overlays += "[part]+o"
 
-/obj/item/robot_parts/robot_suit/proc/check_completion()
-	for(var/part in required_parts)
-		if(!parts[part])
-			return FALSE
-	SSstatistics.add_field("cyborg_frames_built",1)
-	return TRUE
-
 /obj/item/robot_parts/robot_suit/attackby(obj/item/W as obj, mob/user as mob)
 
 	// Prepare the frame for ED209 construction.

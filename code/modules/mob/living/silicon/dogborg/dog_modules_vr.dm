@@ -252,7 +252,7 @@
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			water.use_charge(5)
 			target.color = initial(target.color)
-	else if(istype(target, /obj/structure/sink) || istype(target, /obj/structure/toilet)) //Dog vibes.
+	else if(istype(target, /obj/structure/sink) || istype(target, /obj/structure/hygiene/toilet)) //Dog vibes.
 		user.visible_message("[user] begins to lap up water from [target.name].", "<span class='notice'>You begin to lap up water from [target.name].</span>")
 		if(do_after (user, 50))
 			water.add_charge(100)

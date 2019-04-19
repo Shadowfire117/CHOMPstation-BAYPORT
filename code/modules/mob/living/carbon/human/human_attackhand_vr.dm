@@ -42,9 +42,6 @@
 	default_attack = u_attack
 
 /datum/unarmed_attack
-	var/attack_name = "fist"
-
-/datum/unarmed_attack
 	bite/attack_name = "bite"
 	bite/sharp/attack_name = "sharp bite"
 	bite/strong/attack_name = "strong bite"

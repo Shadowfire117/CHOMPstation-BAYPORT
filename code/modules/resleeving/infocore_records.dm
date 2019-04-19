@@ -175,7 +175,7 @@
 			continue
 
 		//Just set the data to this. 0:normal, 1:assisted, 2:mechanical, 3:digital
-		organ_data[org] = I.robotic
+		organ_data[org] = I.status
 /* Needs reviewing - Jon
 	//Genetic modifiers
 	for(var/modifier in M.modifiers)

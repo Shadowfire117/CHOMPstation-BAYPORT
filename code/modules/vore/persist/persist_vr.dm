@@ -46,7 +46,7 @@
 	// Find out of this mob is a proper mob!
 	if (persister.mind && persister.mind.loaded_from_ckey)
 		// Okay this mob has a real loaded-from-savefile mind in it!
-		var/datum/preferences/prefs = preferences_datums[persister.mind.loaded_from_ckey]
+		var/datum/preferences/prefs = SScharacter_setup.preferences_datums[persister.mind.loaded_from_ckey]
 		if(!prefs)
 			WARNING("Persist (P4P): [persister.mind] was loaded from ckey [persister.mind.loaded_from_ckey] but no prefs datum found.")
 			return
@@ -149,7 +149,7 @@
 		var/obj/item/organ/external/O = character.organs_by_name[name]
 		if(!O)
 			prefs.organ_data[name] = "amputated"
-		else if(O.robotic >= ORGAN_ROBOT)
+		else if(O.status == ORGAN_ROBOTIC)
 			prefs.organ_data[name] = "cyborg"
 			if(O.model)
 				prefs.rlimb_data[name] = O.model
@@ -164,9 +164,9 @@
 		if(I)
 			if(istype(I, /obj/item/organ/internal/mmi_holder/))
 				prefs.organ_data[name] = "digital" // Need a better way to detect this special type
-			else if(I.robotic == ORGAN_ASSISTED)
+			else if(I.status == ORGAN_ASSISTED)
 				prefs.organ_data[name] = "assisted"
-			else if(I.robotic >= ORGAN_ROBOT)
+			else if(I.status == ORGAN_ROBOTIC)
 				prefs.organ_data[name] = "mechanical"
 			else
 				prefs.organ_data.Remove(name) // Missing organ_data entry means normal

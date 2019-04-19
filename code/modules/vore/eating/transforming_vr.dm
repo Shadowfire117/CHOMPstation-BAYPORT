@@ -144,7 +144,7 @@
 	if(message)
 		to_chat(M, "<span class='notice'>Your body tingles all over...</span>")
 		to_chat(O, "<span class='notice'>You tingle as you make noticeable changes to your captive's body.</span>")
-
+/*
 /obj/belly/proc/check_wing(var/mob/living/carbon/human/M)
 	var/mob/living/carbon/human/O = owner
 	if(!istype(M) || !istype(O))
@@ -187,7 +187,7 @@
 	if(message)
 		to_chat(M, "<span class='notice'>Your body tingles all over...</span>")
 		to_chat(O, "<span class='notice'>You tingle as you make noticeable changes to your captive's body.</span>")
-
+*/
 /obj/belly/proc/check_ears(var/mob/living/carbon/human/M)
 	var/mob/living/carbon/human/O = owner
 	if(!istype(M) || !istype(O))

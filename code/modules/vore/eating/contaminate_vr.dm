@@ -58,10 +58,11 @@ var/image/gurgled_overlay = image('icons/effects/sludgeoverlay_vr.dmi')
 
 		to_chat(usr, "<span class='notice'>You start washing \the [I].</span>")
 
+/*
 		busy = TRUE
 		sleep(40)
 		busy = FALSE
-
+*/
 		if(user.loc != location) return				//User has moved
 		if(!I) return 								//Item's been destroyed while washing
 		if(user.get_active_hand() != I) return		//Person has switched hands or the item in their hands

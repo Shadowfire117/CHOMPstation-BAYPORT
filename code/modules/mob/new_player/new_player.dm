@@ -297,9 +297,10 @@
 	if(!attempt_vr(src,"spawn_checks_vr",list())) return 0 // VOREStation Insert
 
 	var/datum/spawnpoint/spawnpoint = job.get_spawnpoint(client)
-	var/turf/spawn_turf = pick(spawnpoint.turfs)
-		var/obj/S = job.get_roundstart_spawnpoint()
-		spawn_turf = get_turf(S)
+	var/turf/spawn_turf = spawnpoint.turfs
+
+	var/obj/S = job.get_roundstart_spawnpoint()
+	spawn_turf = get_turf(S)
 
 	if(!SSjobs.check_unsafe_spawn(src, spawn_turf))
 		return
