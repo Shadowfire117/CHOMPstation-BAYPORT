@@ -27,7 +27,7 @@
 	if(isnull(full_prosthetic))
 		robolimb_count = 0
 		for(var/obj/item/organ/external/E in organs)
-			if(E.robotic >= ORGAN_ROBOT)
+			if(BP_IS_ROBOTIC(E))
 				robolimb_count++
 		full_prosthetic = (robolimb_count == organs.len)
 		update_emotes()
@@ -148,7 +148,7 @@ var/list/global/organ_rel_size = list(
 			organ_rel_size[BP_L_HAND]; BP_L_HAND,
 			organ_rel_size[BP_R_HAND]; BP_R_HAND,
 			organ_rel_size[BP_L_FOOT]; BP_L_FOOT,
-			organ_rel_size[BP_R_FOOT]; BP_R_FOOT,
+			organ_rel_size[BP_R_FOOT]; BP_R_FOOT
 		)
 
 	return ran_zone
@@ -176,7 +176,7 @@ var/list/global/organ_rel_size = list(
 		miss_chance = base_miss_chance[zone]
 	miss_chance = max(miss_chance + miss_chance_mod, 0)
 	if(prob(miss_chance))
-		if(prob(70))
+		if(ranged_attack || prob(70))
 			return null
 		return pick(base_miss_chance)
 	return zone
@@ -621,7 +621,7 @@ proc/is_blind(A)
 	var/mob/living/carbon/human/H = src
 	var/obj/item/organ/internal/heart/L = H.internal_organs_by_name[BP_HEART]
 	if(L && istype(L))
-		if(L.robotic >= ORGAN_ROBOT)
+		if(BP_IS_ROBOTIC(L))
 			return 0//Robotic hearts don't get jittery.
 	if(src.jitteriness >= 400 && prob(5)) //Kills people if they have high jitters.
 		if(prob(1))
@@ -681,3 +681,28 @@ proc/is_blind(A)
 //Recalculates what planes this mob can see using their plane_holder, for humans this is checking slots, for others, could be whatever.
 /mob/proc/recalculate_vis()
 	return
+
+//This gets an input while also checking a mob for whether it is incapacitated or not.
+/mob/proc/get_input(var/message, var/title, var/default, var/choice_type, var/obj/required_item)
+	if(src.incapacitated() || (required_item && !GLOB.hands_state.can_use_topic(required_item,src)))
+		return null
+	var/choice
+	if(islist(choice_type))
+		choice = input(src, message, title, default) as null|anything in choice_type
+	else
+		switch(choice_type)
+			if(MOB_INPUT_TEXT)
+				choice = input(src, message, title, default) as null|text
+			if(MOB_INPUT_NUM)
+				choice = input(src, message, title, default) as null|num
+			if(MOB_INPUT_MESSAGE)
+				choice = input(src, message, title, default) as null|message
+	if(isnull(choice) || src.incapacitated() || (required_item && !GLOB.hands_state.can_use_topic(required_item,src)))
+		return null
+	return choice
+
+/mob/proc/set_sdisability(sdisability)
+	sdisabilities |= sdisability
+
+/mob/proc/unset_sdisability(sdisability)
+	sdisabilities &= ~sdisability

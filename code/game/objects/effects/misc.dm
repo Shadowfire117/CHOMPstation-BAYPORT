@@ -17,7 +17,7 @@
 /obj/effect/paint
 	name = "coat of paint"
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "white"
+	icon_state = "wall_paint_effect"
 	plane = TURF_PLANE
 	layer = TURF_DETAIL_LAYER
 	blend_mode = BLEND_MULTIPLY
@@ -30,7 +30,8 @@
 		W.update_icon()
 	var/obj/structure/wall_frame/WF = locate() in loc
 	if(WF)
-		WF.color = color
+		WF.paint_color = color
+		WF.update_icon()
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/paint/pink
@@ -47,6 +48,12 @@
 
 /obj/effect/paint/black
 	color = COLOR_DARK_GRAY
+
+/obj/effect/paint/green
+	color = COLOR_GREEN_GRAY
+
+/obj/effect/paint/blue
+	color = COLOR_NAVY_BLUE
 
 //Stripes the wall it spawns on, then dies
 /obj/effect/paint_stripe
@@ -91,3 +98,6 @@
 
 /obj/effect/paint_stripe/white
 	color = COLOR_SILVER
+
+/obj/effect/paint/brown
+	color = COLOR_DARK_BROWN

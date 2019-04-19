@@ -1,6 +1,3 @@
-/mob/living/carbon/human
-	var/datum/unarmed_attack/default_attack
-
 /mob/living/carbon/human/verb/check_attacks()
 	set name = "Check Attacks"
 	set category = "IC"
@@ -43,9 +40,6 @@
 
 /mob/living/carbon/human/proc/set_default_attack(var/datum/unarmed_attack/u_attack)
 	default_attack = u_attack
-
-/datum/unarmed_attack
-	var/attack_name = "fist"
 
 /datum/unarmed_attack
 	bite/attack_name = "bite"

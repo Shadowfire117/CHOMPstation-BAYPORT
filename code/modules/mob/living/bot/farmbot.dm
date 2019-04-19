@@ -10,7 +10,7 @@
 	icon_state = "farmbot0"
 	health = 50
 	maxHealth = 50
-	req_one_access = list(access_hydroponics, access_robotics)
+	req_access = list(list(access_hydroponics, access_robotics))
 
 	var/action = "" // Used to update icon
 	var/waters_trays = 1
@@ -119,7 +119,7 @@
 				target = tray
 				return
 		if(!target && refills_water && tank && tank.reagents.total_volume < tank.reagents.maximum_volume)
-			for(var/obj/structure/sink/source in view(7, src))
+			for(var/obj/structure/hygiene/sink/source in view(7, src))
 				target = source
 				return
 
@@ -190,7 +190,7 @@
 		action = ""
 		update_icons()
 		T.update_icon()
-	else if(istype(A, /obj/structure/sink))
+	else if(istype(A, /obj/structure/hygiene/sink))
 		if(!tank || tank.reagents.total_volume >= tank.reagents.maximum_volume)
 			return
 		action = "water"
@@ -234,7 +234,7 @@
 	new /obj/item/device/analyzer/plant_analyzer(Tsec)
 
 	if(tank)
-		tank.loc = Tsec
+		tank.forceMove(Tsec)
 
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
@@ -254,7 +254,7 @@
 			return 1
 		return 0
 
-	if(istype(targ, /obj/structure/sink))
+	if(istype(targ, /obj/structure/hygiene/sink))
 		if(!tank || tank.reagents.total_volume >= tank.reagents.maximum_volume)
 			return 0
 		return 1

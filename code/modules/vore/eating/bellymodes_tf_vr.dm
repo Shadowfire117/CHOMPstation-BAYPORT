@@ -93,10 +93,11 @@
 				O.nutrition -= 2
 				P.nutrition += 1.5
 
-			if(check_ears(P) || check_tail_nocolor(P) || check_wing_nocolor(P) || check_species(P))
+//			if(check_ears(P) || check_tail_nocolor(P) || check_wing_nocolor(P) || check_species(P))
+			if(check_ears(P) || check_tail_nocolor(P) || check_species(P))
 				change_ears(P)
 				change_tail_nocolor(P)
-				change_wing_nocolor(P)
+//				change_wing_nocolor(P)
 				change_species(P,1)
 
 ///////////////////////////// DM_TRANSFORM_REPLICA /////////////////////////////
@@ -118,10 +119,11 @@
 				change_skin(P,1)
 				continue
 
-			if(check_ears(P) || check_tail(P) || check_wing(P) || check_species(P))
+//			if(check_ears(P) || check_tail(P) || check_wing(P) || check_species(P))
+			if(check_ears(P) || check_tail(P) || check_species(P))
 				change_ears(P)
 				change_tail(P)
-				change_wing(P)
+//				change_wing(P)
 				change_species(P,1)
 
 ///////////////////////////// DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG /////////////////////////////
@@ -130,10 +132,11 @@
 			if(P.stat == DEAD)
 				continue
 
-			if(check_ears(P) || check_tail_nocolor(P) || check_wing_nocolor(P)|| check_species(P))
+//			if(check_ears(P) || check_tail_nocolor(P) || check_wing_nocolor(P)|| check_species(P))
+			if(check_ears(P) || check_tail_nocolor(P) || check_species(P))
 				change_ears(P)
 				change_tail_nocolor(P)
-				change_wing_nocolor(P)
+//				change_wing_nocolor(P)
 				change_species(P,1)
 				continue
 
@@ -173,10 +176,11 @@
 				change_skin(P,1)
 				continue
 
-			if(check_ears(P) || check_tail(P) || check_wing(P) || check_species(P))
+//			if(check_ears(P) || check_tail(P) || check_wing(P) || check_species(P))
+			if(check_ears(P) || check_tail(P) || check_species(P))
 				change_ears(P)
 				change_tail(P)
-				change_wing(P)
+//				change_wing(P)
 				change_species(P,1)
 				continue
 

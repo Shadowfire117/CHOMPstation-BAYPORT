@@ -12,6 +12,7 @@
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_COMBAT = 2)
 	attack_verb = list("beaten")
+	base_parry_chance = 30
 	var/stunforce = 0
 	var/agonyforce = 30
 	var/status = 0		//whether the thing is on or not
@@ -46,7 +47,7 @@
 			return 0
 	return null
 
-/obj/item/weapon/melee/baton/update_icon()
+/obj/item/weapon/melee/baton/on_update_icon()
 	if(status)
 		icon_state = "[initial(name)]_active"
 	else if(!bcell)
@@ -124,7 +125,7 @@
 		update_icon()
 
 /obj/item/weapon/melee/baton/attack(mob/M, mob/user)
-	if(status && (CLUMSY in user.mutations) && prob(50))
+	if(status && (MUTATION_CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='danger'>You accidentally hit yourself with the [src]!</span>")
 		user.Weaken(30)
 		deductcharge(hitcost)
@@ -144,8 +145,8 @@
 	var/abuser =  user ? "" : "by [user]"
 	if(user && user.a_intent == I_HURT)
 		. = ..()
-		if (!.)	//item/attack() does it's own messaging and logs
-			return 0	// item/attack() will return 1 if they hit, 0 if they missed.
+		if(.)
+			return
 
 		//whacking someone causes a much poorer electrical contact than deliberately prodding them.
 		stun *= 0.5
@@ -177,7 +178,7 @@
 			var/mob/living/carbon/human/H = target
 			H.forcesay(GLOB.hit_appends)
 
-	return 0
+	return 1
 
 /obj/item/weapon/melee/baton/emp_act(severity)
 	if(bcell)
@@ -229,7 +230,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "electrified_arm"
 
-/obj/item/weapon/melee/baton/robot/electrified_arm/update_icon()
+/obj/item/weapon/melee/baton/robot/electrified_arm/on_update_icon()
 	if(status)
 		icon_state = "electrified_arm_active"
 		set_light(0.4, 0.1, 1, 2, "#006aff")

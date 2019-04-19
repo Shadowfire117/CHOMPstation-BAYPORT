@@ -35,7 +35,7 @@
 	if(!floortype && initial_flooring)
 		floortype = initial_flooring
 	if(floortype)
-		set_flooring(get_flooring_data(floortype))
+		set_flooring(decls_repository.get_decl(floortype))
 
 /turf/simulated/floor/proc/set_flooring(var/decl/flooring/newflooring)
 	make_plating(defer_icon_update = 1)
@@ -48,6 +48,9 @@
 /turf/simulated/floor/proc/make_plating(var/place_product, var/defer_icon_update)
 
 	overlays.Cut()
+
+	for(var/obj/effect/decal/writing/W in src)
+		qdel(W)
 
 	SetName(base_name)
 	desc = base_desc
@@ -79,3 +82,15 @@
 		plane = TURF_PLANE
 	else
 		plane = PLATING_PLANE
+
+/turf/simulated/floor/can_engrave()
+	return (!flooring || flooring.can_engrave)
+
+/turf/simulated/floor/shuttle_ceiling
+	name = "hull plating"
+	icon = 'icons/turf/flooring/tiles.dmi'
+	icon_state = "reinforced_light"
+	initial_gas = null
+
+/turf/simulated/floor/shuttle_ceiling/air
+	initial_gas = list("oxygen" = MOLES_O2STANDARD, "nitrogen" = MOLES_N2STANDARD)

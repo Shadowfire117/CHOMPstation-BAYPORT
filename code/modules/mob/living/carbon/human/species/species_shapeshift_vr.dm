@@ -87,7 +87,7 @@
 			b_tail2 = new_color_rgb_list[3]
 
 	update_tail_showing()
-
+/*
 /mob/living/carbon/human/proc/shapeshifter_select_wings()
 	set name = "Select Wings"
 	set category = "Abilities"
@@ -121,4 +121,4 @@
 		g_wing = new_color_rgb_list[2]
 		b_wing = new_color_rgb_list[3]
 
-	update_wing_showing()
+	update_wing_showing()*/

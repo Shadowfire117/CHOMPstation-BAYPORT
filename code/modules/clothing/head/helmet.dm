@@ -18,6 +18,7 @@
 	max_heat_protection_temperature = HELMET_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0.7
 	w_class = ITEM_SIZE_NORMAL
+	species_restricted = list("exclude", SPECIES_NABBER, SPECIES_ADHERENT)
 
 /obj/item/clothing/head/helmet/nt
 	name = "\improper corporate security helmet"
@@ -116,7 +117,6 @@
 	icon_state = "swathelm"
 	valid_accessory_slots = null
 	sprite_sheets = list(
-		SPECIES_TAJARA = 'icons/mob/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/species/unathi/helmet.dmi'
 		)
 
@@ -174,6 +174,12 @@
 	icon_state = "m_helmet"
 
 /obj/item/clothing/head/helmet/nt/pilot
-	name = "nanotrasen pilot's helmet"
-	desc = "A nanotrasen pilot's helmet for operating the cockpit in style. For when you want to protect your noggin AND look stylish."
+	name = "corporate pilot's helmet"
+	desc = "A corporate pilot's helmet for operating the cockpit in style for a hefty paycheck."
 	icon_state = "pilotnt"
+
+/obj/item/clothing/head/helmet/skrell
+	name = "skrellian helmet"
+	desc = "A helmet built for use by a Skrell. This one appears to be fairly standard and reliable."
+	icon_state = "helmet_skrell"
+	valid_accessory_slots = null

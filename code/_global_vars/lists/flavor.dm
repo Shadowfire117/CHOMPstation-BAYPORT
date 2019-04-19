@@ -1,10 +1,3 @@
-// Used by robots and robot preferences.
-GLOBAL_LIST_INIT(robot_module_types, list(
-	"Standard", "Engineering", "Surgeon",  "Crisis",
-	"Miner",    "Janitor",     "Service",  "Clerical", "Security",
-	"Research"
-)) // This shouldn't be a static list. Am I the only one who cares about extendability around here?
-
 // Noises made when hit while typing.
 GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
 
@@ -102,7 +95,16 @@ GLOBAL_LIST_INIT(music_tracks, list(
 	"Torch: A Light in the Darkness" = /music_track/torch,
 	"Treacherous Voyage" = /music_track/treacherous_voyage,
 	"Wake" = /music_track/wake,
-	"phoron will make us rich" = /music_track/pwmur
+	"phoron will make us rich" = /music_track/pwmur,
+	"every light is blinking at once" = /music_track/elibao,
+	"In Orbit" = /music_track/inorbit,
+	"Martian Cowboy" = /music_track/martiancowboy,
+	"Monument" = /music_track/monument,
+	"As Far As It Gets" = /music_track/asfarasitgets,
+	"80s All Over Again" = /music_track/eighties,
+	"Wild Encounters" = /music_track/wildencounters,
+	"Torn" = /music_track/torn,
+	"Nebula" = /music_track/nebula
 ))
 
 /proc/setup_music_tracks(var/list/tracks)

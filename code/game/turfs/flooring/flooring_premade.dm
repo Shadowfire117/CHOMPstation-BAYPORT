@@ -11,7 +11,7 @@
 	icon_state = "bcircuit"
 	initial_flooring = /decl/flooring/reinforced/circuit
 	light_outer_range = 2
-	light_max_bright = 3
+	light_max_bright = 1
 	light_color = COLOR_BLUE
 
 /turf/simulated/floor/bluegrid/airless
@@ -44,16 +44,31 @@
 	icon_state = "wood"
 	initial_flooring = /decl/flooring/wood
 
+/turf/simulated/floor/wood/mahogany
+	icon_state = "mahogany"
+	initial_flooring = /decl/flooring/wood/mahogany
+
+/turf/simulated/floor/wood/maple
+	icon_state = "maple"
+	initial_flooring = /decl/flooring/wood/maple
+
+/turf/simulated/floor/wood/ebony
+	icon_state = "ebony"
+	initial_flooring = /decl/flooring/wood/ebony
+
+/turf/simulated/floor/wood/walnut
+	icon_state = "walnut"
+	initial_flooring = /decl/flooring/wood/walnut
+
+/turf/simulated/floor/wood/bamboo
+	icon_state = "maple"
+	initial_flooring = /decl/flooring/wood/bamboo
+
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/flooring/grass.dmi'
 	icon_state = "grass0"
 	initial_flooring = /decl/flooring/grass
-
-/turf/simulated/floor/diona
-	name = "biomass"
-	icon = 'icons/turf/floors.dmi'
-	initial_flooring = /decl/flooring/diona
 
 /turf/simulated/floor/carpet
 	name = "brown carpet"
@@ -234,10 +249,40 @@
 	icon_state = "kafel_full"
 	initial_flooring = /decl/flooring/tiling/new_tile/kafel
 
+/turf/simulated/floor/tiled/stone
+	name = "stone slab floor"
+	icon_state = "stone_full"
+	initial_flooring = /decl/flooring/tiling/stone
+
 /turf/simulated/floor/tiled/techfloor/grid
 	name = "floor"
 	icon_state = "techfloor_grid"
 	initial_flooring = /decl/flooring/tiling/tech/grid
+	
+/turf/simulated/floor/tiled/skrell
+	icon = 'icons/turf/skrellturf.dmi'
+	icon_state = "skrellblack"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell
+
+/turf/simulated/floor/tiled/skrell/white
+	icon_state = "skrellwhite"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell/white
+
+/turf/simulated/floor/tiled/skrell/red
+	icon_state = "skrellred"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell/red
+
+/turf/simulated/floor/tiled/skrell/blue
+	icon_state = "skrellblue"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell/blue
+
+/turf/simulated/floor/tiled/skrell/orange
+	icon_state = "skrellorange"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell/orange
+
+/turf/simulated/floor/tiled/skrell/green
+	icon_state = "skrellgreen"
+	initial_flooring = /decl/flooring/reinforced/shuttle/skrell/green
 
 /turf/simulated/floor/lino
 	name = "lino"
@@ -333,3 +378,9 @@
 /turf/simulated/floor/beach/water/New()
 	..()
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
+
+/turf/simulated/floor/crystal
+	name = "crystal floor"
+	icon = 'icons/turf/flooring/crystal.dmi'
+	icon_state = ""
+	initial_flooring = /decl/flooring/crystal

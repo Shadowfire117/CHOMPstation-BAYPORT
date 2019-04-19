@@ -252,7 +252,7 @@
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			water.use_charge(5)
 			target.color = initial(target.color)
-	else if(istype(target, /obj/structure/sink) || istype(target, /obj/structure/toilet)) //Dog vibes.
+	else if(istype(target, /obj/structure/sink) || istype(target, /obj/structure/hygiene/toilet)) //Dog vibes.
 		user.visible_message("[user] begins to lap up water from [target.name].", "<span class='notice'>You begin to lap up water from [target.name].</span>")
 		if(do_after (user, 50))
 			water.add_charge(100)
@@ -420,7 +420,7 @@
 		if(H.species.lightweight == 1)
 			H.Weaken(3)
 			return
-	var/armor_block = run_armor_check(T, "melee")
+	var/armor_block = get_armor_key(T, "melee")
 //	T.stun_effect_act(stun, agony, hit_zone, src)
 	if(prob(33))
 		T.apply_effect(3, WEAKEN, armor_block)

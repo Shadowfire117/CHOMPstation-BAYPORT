@@ -5,7 +5,7 @@
 	desc = "It's a table, for putting things on. Or standing on, if you really want to."
 	density = 1
 	anchored = 1
-	atom_flags = ATOM_FLAG_CLIMBABLE
+	atom_flags = ATOM_FLAG_NO_TEMP_CHANGE | ATOM_FLAG_CLIMBABLE
 	layer = TABLE_LAYER
 	throwpass = 1
 	var/flipped = 0
@@ -17,7 +17,6 @@
 	var/can_plate = 1
 
 	var/manipulating = 0
-	var/material/material = null
 	var/material/reinforced = null
 
 	// Gambling tables. I'd prefer reinforced with carpet/felt/cloth/whatever, but AFAIK it's either harder or impossible to get /obj/item/stack/material of those.
@@ -28,9 +27,9 @@
 
 /obj/structure/table/New()
 	if(istext(material))
-		material = get_material_by_name(material)
+		material = SSmaterials.get_material_by_name(material)
 	if(istext(reinforced))
-		reinforced = get_material_by_name(reinforced)
+		reinforced = SSmaterials.get_material_by_name(reinforced)
 	..()
 
 /obj/structure/table/proc/update_material()
@@ -45,7 +44,7 @@
 
 	health += maxhealth - old_maxhealth
 
-/obj/structure/table/proc/take_damage(amount)
+/obj/structure/table/take_damage(amount)
 	// If the table is made of a brittle material, and is *not* reinforced with a non-brittle material, damage is multiplied by TABLE_BRITTLE_MATERIAL_MULTIPLIER
 	if(material && material.is_brittle())
 		if(reinforced)
@@ -97,7 +96,7 @@
 				to_chat(user, "<span class='notice'>It has a few scrapes and dents.</span>")
 /obj/structure/table/attackby(obj/item/weapon/W, mob/user)
 
-	if(reinforced && istype(W, /obj/item/weapon/screwdriver))
+	if(reinforced && isScrewdriver(W))
 		remove_reinforced(W, user)
 		if(!reinforced)
 			update_desc()
@@ -123,7 +122,7 @@
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You don't have enough carpet!</span>")
-	if(!reinforced && !carpeted && material && istype(W, /obj/item/weapon/wrench))
+	if(!reinforced && !carpeted && material && isWrench(W) && user.a_intent == I_HURT) //robots dont have disarm so it's harm
 		remove_material(W, user)
 		if(!material)
 			update_connections(1)
@@ -134,7 +133,7 @@
 			update_material()
 		return 1
 
-	if(!carpeted && !reinforced && !material && istype(W, /obj/item/weapon/wrench))
+	if(!carpeted && !reinforced && !material && isWrench(W) && user.a_intent == I_HURT)
 		dismantle(W, user)
 		return 1
 
@@ -236,7 +235,7 @@
 		return M
 	user.visible_message("<span class='notice'>\The [user] removes the [M.display_name] [what] from \the [src].</span>",
 	                              "<span class='notice'>You remove the [M.display_name] [what] from \the [src].</span>")
-	new M.stack_type(src.loc)
+	M.place_sheet(src.loc)
 	manipulating = 0
 	return null
 
@@ -289,13 +288,13 @@
 	if(full_return || prob(20))
 		new /obj/item/stack/material/steel(src.loc)
 	else
-		var/material/M = get_material_by_name(DEFAULT_WALL_MATERIAL)
+		var/material/M = SSmaterials.get_material_by_name(MATERIAL_STEEL)
 		S = M.place_shard(loc)
 		if(S) shards += S
 	qdel(src)
 	return shards
 
-/obj/structure/table/update_icon()
+/obj/structure/table/on_update_icon()
 	if(flipped != 1)
 		icon_state = "blank"
 		overlays.Cut()

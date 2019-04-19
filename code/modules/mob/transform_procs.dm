@@ -12,10 +12,9 @@
 	set_invisibility(101)
 	for(var/t in organs)
 		qdel(t)
-	var/atom/movable/overlay/animation = new /atom/movable/overlay( loc )
+	var/atom/movable/overlay/animation = new /atom/movable/overlay(src)
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
 	flick("h2monkey", animation)
 	sleep(48)
 	//animation = null
@@ -106,7 +105,7 @@
 	return O
 
 //human -> robot
-/mob/living/carbon/human/proc/Robotize()
+/mob/living/carbon/human/proc/Robotize(var/supplied_robot_type = /mob/living/silicon/robot)
 	if (HAS_TRANSFORMATION_MOVEMENT_HANDLER(src))
 		return
 	QDEL_NULL_LIST(worn_underwear)
@@ -119,37 +118,28 @@
 	for(var/t in organs)
 		qdel(t)
 
-	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
+	var/mob/living/silicon/robot/O = new supplied_robot_type( loc )
 
 	O.gender = gender
 	O.set_invisibility(0)
 
-	if(mind)		//TODO
+	if(mind)
 		mind.transfer_to(O)
-		if(O.mind.assigned_role == "Robot")
+		if(O.mind && O.mind.assigned_role == "Robot")
 			O.mind.original = O
-		else if(mind && mind.special_role)
-			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
+			var/mmi_type = SSrobots.get_mmi_type_by_title(O.mind.role_alt_title ? O.mind.role_alt_title : O.mind.assigned_role)
+			if(mmi_type)
+				O.mmi = new mmi_type(O)
+				O.mmi.transfer_identity(src)
 	else
 		O.key = key
 
-	O.loc = loc
+	O.dropInto(loc)
 	O.job = "Robot"
-	if(O.mind.assigned_role == "Robot")
-		if(O.mind.role_alt_title == "Drone")
-			O.mmi = new /obj/item/device/mmi/digital/robot(O)
-		else if(O.mind.role_alt_title == "Cyborg")
-			O.mmi = new /obj/item/device/mmi(O)
-		else
-			O.mmi = new /obj/item/organ/internal/posibrain(O)
-
-		O.mmi.transfer_identity(src)
-
 	callHook("borgify", list(O))
 	O.Namepick()
 
-	spawn(0)	// Mobs still instantly del themselves, thus we need to spawn or O will never be returned
-		qdel(src)
+	qdel(src) // Queues us for a hard delete
 	return O
 
 /mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
@@ -266,9 +256,6 @@
 	if(!MP)
 		return 0	//Sanity, this should never happen.
 
-	if(ispath(MP, /mob/living/simple_animal/space_worm))
-		return 0 //Unfinished. Very buggy, they seem to just spawn additional space worms everywhere and eating your own tail results in new worms spawning.
-
 	if(ispath(MP, /mob/living/simple_animal/construct/behemoth))
 		return 0 //I think this may have been an unfinished WiP or something. These constructs should really have their own class simple_animal/construct/subtype
 
@@ -309,7 +296,7 @@
 
 /mob/living/carbon/human/proc/zombify()
 	ChangeToHusk()
-	mutations |= CLUMSY
+	mutations |= MUTATION_CLUMSY
 	src.visible_message("<span class='danger'>\The [src]'s skin decays before your very eyes!</span>", "<span class='danger'>Your entire body is ripe with pain as it is consumed down to flesh and bones. You ... hunger. Not only for flesh, but to spread this gift.</span>")
 	if (src.mind)
 		if (src.mind.special_role == "Zombie")
@@ -322,7 +309,7 @@
 	for (var/o in organs)
 		var/obj/item/organ/organ = o
 		organ.vital = 0
-		if (!organ.isrobotic())
+		if (!BP_IS_ROBOTIC(organ))
 			organ.rejuvenate(1)
 			organ.max_damage *= 3
 			organ.min_broken_damage = Floor(organ.max_damage * 0.75)

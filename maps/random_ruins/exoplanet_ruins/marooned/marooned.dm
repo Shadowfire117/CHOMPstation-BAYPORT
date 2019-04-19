@@ -33,10 +33,10 @@
 	head = /obj/item/clothing/head/beret 
 	l_pocket = /obj/item/weapon/material/butterfly/switchblade 
  
-/obj/item/weapon/gun/projectile/revolver/webley/marooned
+/obj/item/weapon/gun/projectile/revolver/medium/marooned
 	name = "worn-out revolver"
 
-/obj/item/weapon/gun/projectile/revolver/webley/marooned/Initialize()
+/obj/item/weapon/gun/projectile/revolver/medium/marooned/Initialize()
 	. = ..()
 	consume_next_projectile()
 	handle_post_fire()
@@ -52,7 +52,7 @@
 	..()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.fire_act(temperature = T0C + 3000)
+		T.fire_act(exposed_temperature = T0C + 3000)
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/weapon/paper/marooned/

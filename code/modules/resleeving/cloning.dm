@@ -76,7 +76,7 @@
 			return*/
 	if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
-		var/obj/machinery/clonepod/P = M.connecting
+		var/obj/machinery/clonepod/P = M.get_buffer()
 		if(P && !(P in pods))
 			pods += P
 			P.connected = src
@@ -318,9 +318,9 @@
 	if ((!subject.ckey) || (!subject.client))
 		scantemp = "Error: Mental interface failure."
 		return
-	if (NOCLONE in subject.mutations)
+/*	if (NOCLONE in subject.mutations) // Temporarily removing this - Jon
 		scantemp = "Error: Mental interface failure."
-		return
+		return*/
 	if (subject.species && subject.species.species_flags & SPECIES_FLAG_NO_SCAN && !brain_skip)
 		scantemp = "Error: Mental interface failure."
 		return
@@ -384,7 +384,7 @@
 	anchored = 1
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
-	req_access = list(access_genetics) //For premature unlocking.
+	req_access = list(access_medical) //For premature unlocking.
 	var/mob/living/occupant
 	var/heal_level = 20 //The clone is released once its health reaches this level.
 	var/heal_rate = 1
@@ -571,7 +571,7 @@
 			//Also heal some oxyloss ourselves because inaprovaline is so bad at preventing it!!
 			occupant.adjustOxyLoss(-4)
 
-			use_power(7500) //This might need tweaking.
+			use_power_oneoff(7500) //This might need tweaking.
 			return
 
 		else if((occupant.health >= heal_level || occupant.health == occupant.getMaxHealth()) && (!eject_wait))
@@ -634,7 +634,7 @@
 				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
-		M.connecting = src
+		M.set_buffer(src)
 		user << "<span class='notice'>You load connection data from [src] to [M].</span>"
 		M.update_icon()
 		return

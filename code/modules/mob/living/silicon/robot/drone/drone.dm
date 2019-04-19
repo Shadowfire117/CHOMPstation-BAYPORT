@@ -21,7 +21,7 @@ var/list/mob_hat_cache = list()
 /mob/living/silicon/robot/drone
 	name = "maintenance drone"
 	real_name = "drone"
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/mob/robots_drones.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
@@ -163,7 +163,7 @@ var/list/mob_hat_cache = list()
 		real_name = "[initial(name)] ([random_id(type,100,999)])"
 	SetName(real_name)
 
-/mob/living/silicon/robot/drone/update_icon()
+/mob/living/silicon/robot/drone/on_update_icon()
 
 	overlays.Cut()
 	if(stat == 0)

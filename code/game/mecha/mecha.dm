@@ -349,7 +349,7 @@
 
 /obj/mecha/relaymove(mob/user,direction)
 	if(user != src.occupant) //While not "realistic", this piece is player friendly.
-		user.forceMove(get_turf(src))
+		user.dropInto(loc)
 		to_chat(user, "You climb out from [src]")
 		return 0
 	if(connected_port)
@@ -360,9 +360,16 @@
 	if(state)
 		occupant_message("<font color='red'>Maintenance protocols in effect.</font>")
 		return
+	if(!user.skill_check(SKILL_MECH, HAS_PERK))
+		if(prob(5))
+			if((. = do_move(turn(direction, pick(90, 270)), 2)))
+				user.visible_message("<span class='warning'>\The [src] swerves wildly!</span>", "<span class='warning'>You hit the wrong control: [src] swerves wildly!</span>")
+			return
+		if(prob(5))
+			return do_move(direction, rand(5,12))
 	return do_move(direction)
 
-/obj/mecha/proc/do_move(direction)
+/obj/mecha/proc/do_move(direction, number = 1)
 	if(!can_move)
 		return 0
 	if(src.pr_inertial_movement.active())
@@ -385,6 +392,8 @@
 				src.log_message("Movement control lost. Inertial movement started.")
 		if(do_after(step_in))
 			can_move = 1
+		if(--number)
+			return .()
 		return 1
 	return 0
 
@@ -578,7 +587,7 @@
 			user.visible_message("<span class='danger'>\The [user] hits \the [src]. Nothing happens.</span>","<span class='danger'>You hit \the [src] with no visible effect.</span>")
 			src.log_append_to_last("Armor saved.")
 		return
-	else if ((HULK in user.mutations) && !deflect_hit(is_melee=1))
+	else if ((MUTATION_HULK in user.mutations) && !deflect_hit(is_melee=1))
 		src.hit_damage(damage=15, is_melee=1)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<font color='red'><b>[user] hits [src.name], doing some damage.</b></font>", "<font color='red'><b>You hit [src.name] with all your might. The metal creaks and bends.</b></font>")
@@ -612,7 +621,7 @@
 	if(Proj.damage_type == PAIN && !(src.r_deflect_coeff > 1))
 		use_power(Proj.agony * 5)
 
-	src.log_message("Hit by projectile. Type: [Proj.name]([Proj.check_armour]).",1)
+	src.log_message("Hit by projectile. Type: [Proj.name]([get_armor_key(Proj.damage_type, Proj.damage_flags())]).",1)
 	if(deflect_hit(is_melee=0))
 		src.occupant_message("<span class='notice'>The armor deflects incoming projectile.</span>")
 		src.visible_message("The [src.name] armor deflects the projectile.")
@@ -623,7 +632,7 @@
 		var/ignore_threshold
 		if(istype(Proj, /obj/item/projectile/beam/pulse))
 			ignore_threshold = 1
-		src.hit_damage(Proj.damage, Proj.check_armour, is_melee=0)
+		src.hit_damage(Proj.damage, get_armor_key(Proj.damage_type, Proj.damage_flags()), is_melee=0)
 		if(prob(25)) spark_system.start()
 		src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),ignore_threshold)
 
@@ -780,7 +789,7 @@
 		if(state>=3 && src.occupant)
 			to_chat(user, "You attempt to eject the pilot using the maintenance controls.")
 			if(src.occupant.stat)
-				src.go_out()
+				src.go_out(user)
 				src.log_message("[src.occupant] was ejected using the maintenance controls.")
 			else
 				to_chat(user, "<span class='warning'>Your attempt is rejected.</span>")
@@ -1008,11 +1017,16 @@
 		to_chat(usr, "<span class='warning'>You can't climb into the exosuit while buckled!</span>")
 		return
 
+	var/mob/living/carbon/human/H = usr
+	if (H.mob_size >= MOB_LARGE)
+		to_chat(usr, SPAN_WARNING("You're too big to fit in the exosuit!"))
+		return
+
 	src.log_message("[usr] tries to move in.")
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		if(C.handcuffed)
-			to_chat(usr, "<span class='danger'>Kinda hard to climb in while handcuffed don't you think?</span>")
+			to_chat(usr, "<span class='danger'>Kinda hard to climb in while handcuffed, don't you think?</span>")
 			return
 	if (src.occupant)
 		to_chat(usr, "<span class='danger'>The [src.name] is already occupied!</span>")
@@ -1083,28 +1097,19 @@
 	src.occupant << browse(src.get_stats_html(), "window=exosuit")
 	return
 
-/*
-/obj/mecha/verb/force_eject()
-	set category = "Object"
-	set name = "Force Eject"
-	set src in view(5)
-	src.go_out()
-	return
-*/
-
 /obj/mecha/verb/eject()
 	set name = "Eject"
 	set category = "Exosuit Interface"
 	set src = usr.loc
 	set popup_menu = 0
-	if(usr!=src.occupant)
+	if(usr != occupant)
 		return
-	src.go_out()
+	go_out(usr)
 	add_fingerprint(usr)
 	return
 
-
-/obj/mecha/proc/go_out()
+// user argument optional, for skill checking
+/obj/mecha/proc/go_out(mob/user)
 	if(!src.occupant) return
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
@@ -1151,13 +1156,15 @@
 		if(istype(mob_container, /obj/item/device/mmi))
 			var/obj/item/device/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				occupant.loc = mmi
+				occupant.forceMove(mmi)
 			mmi.mecha = null
 			src.verbs += /obj/mecha/verb/eject
+		if(occupant == user && !occupant.skill_check(SKILL_MECH, HAS_PERK) && prob(25))
+			mob_container.throw_at_random(FALSE, 3, 1)
+			user.visible_message("<span class ='notice'>\The [mob_container] is forcibly ejected by \the [src]!</span>", "<span class ='notice'>\The [src] forcibly ejects you! Are you sure that was the right button?</span>")
 		src.occupant = null
 		src.icon_state = src.reset_icon()+"-open"
 		src.set_dir(dir_in)
-	return
 
 /////////////////////////
 ////// Access stuff /////
@@ -1569,12 +1576,12 @@
 		return
 	if(href_list["add_req_access"] && add_req_access && F.getObj("id_card"))
 		if(!in_range(src, usr))	return
-		operation_req_access += F.getNum("add_req_access")
+		operation_req_access += F.get("add_req_access")
 		output_access_dialog(F.getObj("id_card"),F.getMob("user"))
 		return
 	if(href_list["del_req_access"] && add_req_access && F.getObj("id_card"))
 		if(!in_range(src, usr))	return
-		operation_req_access -= F.getNum("del_req_access")
+		operation_req_access -= F.get("del_req_access")
 		output_access_dialog(F.getObj("id_card"),F.getMob("user"))
 		return
 	if(href_list["finish_req_access"])

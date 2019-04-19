@@ -12,6 +12,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	base_parry_chance = 50
+	melee_accuracy_bonus = 10
 
 /obj/item/weapon/material/sword/replica
 	edge = 0
@@ -24,6 +25,7 @@
 	desc = "Woefully underpowered in D20. This one looks pretty sharp."
 	icon_state = "katana"
 	item_state = "katana"
+	furniture_icon = "katana_handle"
 	slot_flags = SLOT_BELT | SLOT_BACK
 
 /obj/item/weapon/material/sword/katana/replica

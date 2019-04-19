@@ -11,6 +11,7 @@
 	relative_size = 15
 	max_damage = 45
 	var/open
+	var/list/external_pump
 
 /obj/item/organ/internal/heart/open
 	open = 1
@@ -37,7 +38,7 @@
 	..()
 
 /obj/item/organ/internal/heart/proc/handle_pulse()
-	if(robotic >= ORGAN_ROBOT)
+	if(BP_IS_ROBOTIC(src))
 		pulse = PULSE_NONE	//that's it, you're dead (or your metal heart is), nothing can influence your pulse
 		return
 
@@ -69,7 +70,9 @@
 			to_chat(owner, "<span class='danger'>Your heart has stopped!</span>")
 			pulse = PULSE_NONE
 			return
-	if(pulse && oxy <= BLOOD_VOLUME_SURVIVE && !owner.chem_effects[CE_STABLE])	//I SAID MOAR OXYGEN
+
+	var/fibrillation = oxy <= BLOOD_VOLUME_SURVIVE || (prob(30) && owner.shock_stage > 120)
+	if(pulse && fibrillation && !owner.chem_effects[CE_STABLE])	//I SAID MOAR OXYGEN
 		pulse = PULSE_THREADY
 		return
 
@@ -102,13 +105,13 @@
 	if(!owner || owner.InStasis() || owner.stat == DEAD || owner.bodytemperature < 170)
 		return
 
-	if(pulse != PULSE_NONE || robotic >= ORGAN_ROBOT)
+	if(pulse != PULSE_NONE || BP_IS_ROBOTIC(src))
 		//Bleeding out
 		var/blood_max = 0
 		var/list/do_spray = list()
 		for(var/obj/item/organ/external/temp in owner.organs)
 
-			if(temp.robotic >= ORGAN_ROBOT)
+			if(BP_IS_ROBOTIC(temp))
 				continue
 
 			var/open_wound
@@ -168,10 +171,10 @@
 	if(!is_usable())
 		return FALSE
 
-	return pulse > PULSE_NONE || robotic == ORGAN_ROBOT || (owner.status_flags & FAKEDEATH)
+	return pulse > PULSE_NONE || BP_IS_ROBOTIC(src) || (owner.status_flags & FAKEDEATH)
 
 /obj/item/organ/internal/heart/listen()
-	if(robotic == ORGAN_ROBOT && is_working())
+	if(BP_IS_ROBOTIC(src) && is_working())
 		if(is_bruised())
 			return "sputtering pump"
 		else

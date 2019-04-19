@@ -74,7 +74,7 @@
 	return
 
 /obj/item/toy/water_balloon/throw_impact(atom/hit_atom)
-	if(src.reagents.total_volume >= 1)
+	if(reagents && reagents.total_volume >= 1)
 		src.visible_message("<span class='warning'>\The [src] bursts!</span>","You hear a pop and a splash.")
 		src.reagents.touch_turf(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
@@ -85,7 +85,7 @@
 				qdel(src)
 	return
 
-/obj/item/toy/water_balloon/update_icon()
+/obj/item/toy/water_balloon/on_update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "balloon"
@@ -95,7 +95,7 @@
 
 /obj/item/toy/balloon
 	name = "\improper 'criminal' balloon"
-	desc = "FUK NT!11!"
+	desc = "FUK CAPITALISM!11!"
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -111,7 +111,7 @@
 
 /obj/item/toy/balloon/nanotrasen
 	name = "\improper 'motivational' balloon"
-	desc = "Man, I love NanoTrasen soooo much. I use only NT products. You have NO idea."
+	desc = "Man, I love Profit soooo much. I use only Brand Name products. You have NO idea."
 	icon_state = "ntballoon"
 	item_state = "ntballoon"
 
@@ -141,7 +141,7 @@
 /obj/item/toy/crossbow
 	name = "foam dart crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
-	icon = 'icons/obj/gun.dmi'
+	icon = 'icons/obj/guns/energy_crossbow.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	item_icons = list(
@@ -587,8 +587,8 @@
 	icon_state = "wizard"
 
 /obj/item/toy/figure/rd
-	name = "Research Director action figure"
-	desc = "A \"Space Life\" brand Research Director action figure."
+	name = "Chief Science Officer action figure"
+	desc = "A \"Space Life\" brand Chief Science Officer action figure."
 	icon_state = "rd"
 
 /obj/item/toy/figure/roboticist
@@ -785,7 +785,7 @@
 	desc = "No bother to sink or swim when you can just float!"
 	icon_state = "inflatable"
 	item_state = "inflatable"
-	icon = 'icons/obj/clothing/belts.dmi'
+	icon = 'icons/obj/clothing/obj_belt.dmi'
 	slot_flags = SLOT_BELT
 
 /obj/item/weapon/marshalling_wand
@@ -850,7 +850,6 @@
 		user.visible_message("<span class='warning'>[user] rings \the [src] repeatedly, signalling a disqualification!</span>")
 		playsound(user.loc, 'sound/items/manydings.ogg', 60)
 
-
 //Office Desk Toys
 
 /obj/item/toy/desk
@@ -860,7 +859,7 @@
 	var/on = 0
 	var/activation_sound = 'sound/effects/flashlight.ogg'
 
-/obj/item/toy/desk/update_icon()
+/obj/item/toy/desk/on_update_icon()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 	else
@@ -892,3 +891,41 @@
 	name = "dipping bird toy"
 	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
 	icon_state= "dippybird"
+
+// tg station ports
+
+/obj/item/toy/eightball
+	name = "magic eightball"
+	desc = "A black ball with a stencilled number eight in white on the side. It seems full of dark liquid.\nThe instructions state that you should ask your question aloud, and then shake."
+	icon_state = "eightball"
+	w_class = ITEM_SIZE_TINY
+
+	var/static/list/possible_answers = list(
+		"It is certain",
+		"It is decidedly so",
+		"Without a doubt",
+		"Yes, definitely",
+		"You may rely on it",
+		"As I see it, yes",
+		"Most likely",
+		"Outlook good",
+		"Yes",
+		"Signs point to yes",
+		"Reply hazy, try again",
+		"Ask again later",
+		"Better not tell you now",
+		"Cannot predict now",
+		"Concentrate and ask again",
+		"Don't count on it",
+		"My reply is no",
+		"My sources say no",
+		"Outlook not so good",
+		"Very doubtful")
+
+/obj/item/toy/eightball/attack_self(mob/user)
+	user.visible_message("<span class='notice'>\The [user] shakes \the [src] for a moment, and it says, \"[pick(possible_answers) ].\"</span>")
+
+/obj/item/toy/eightball/afterattack(obj/O, mob/user, var/proximity)
+	. = ..()
+	if (proximity)
+		visible_message("<span class='warning'>\The [src] says, \"[pick(possible_answers) ]\" as it hits \the [O]!</span>")
