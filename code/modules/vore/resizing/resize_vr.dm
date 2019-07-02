@@ -67,6 +67,7 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 	if(size_multiplier == new_size)
 		return 1
 
+	to_chat(world,"Resize called: 1 - [new_size] | 2 - [animate]")
 	size_multiplier = new_size //Change size_multiplier so that other items can interact with them
 	if(animate)
 		var/change = new_size - size_multiplier
@@ -87,7 +88,8 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 		update_transform() //Lame way
 
 /mob/living/carbon/human/resize(var/new_size, var/animate = TRUE)
-	. = ..()/*
+	. = ..()
+	/* // No idea who commented this out, might be an issue? - Jon.
 	if(LAZYLEN(hud_list) && has_huds)
 		var/new_y_offset = 32 * (size_multiplier - 1)
 		for(var/index = 1 to hud_list.len)

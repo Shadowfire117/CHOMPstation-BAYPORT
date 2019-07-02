@@ -85,6 +85,7 @@
 	slot_flags = SLOT_MASK
 	body_parts_covered = FACE|EYES
 	sprite_sheets = list(
+	// TO DO - UPDATE PREFIXES TO THE BAYVERSION. THIS SHIT SCUFFED - Jon
 		SPECIES_TESHARI		= 'icons/mob/species/seromi/masks_vr.dmi',
 		SPECIES_VOX 		= 'icons/mob/species/vox/masks.dmi',
 		SPECIES_TAJ 		= 'icons/mob/species/tajaran/mask_vr.dmi',

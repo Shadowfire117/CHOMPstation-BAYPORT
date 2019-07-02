@@ -138,7 +138,7 @@ datum/preferences
 
 	ShowChoices(usr)
 	return 1
-
+/*
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character, is_preview_copy = FALSE)
 	// Sanitizing rather than saving as someone might still be editing when copy_to occurs.
 	player_setup.sanitize_setup()
@@ -304,7 +304,28 @@ datum/preferences
 
 	if(!character.isSynthetic())
 		character.nutrition = rand(140,360)
+*/
 
+
+/datum/preferences/proc/copy_to(mob/living/carbon/human/character, icon_updates = TRUE)
+	// Sanitizing rather than saving as someone might still be editing when copy_to occurs.
+	player_setup.sanitize_setup()
+
+	// This needs to happen before anything else becuase it sets some variables.
+	character.set_species(species)
+	// Special Case: This references variables owned by two different datums, so do it here.
+	if(be_random_name)
+		real_name = random_name(gender,species)
+
+	// Ask the preferences datums to apply their own settings to the new mob
+	player_setup.copy_to_mob(character)
+
+	if(icon_updates)
+		character.force_update_limbs()
+		character.update_icons()
+		character.update_mutations()
+		character.update_underwear()
+		character.update_hair()
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 	var/dat  = list()
