@@ -139,6 +139,11 @@ ARMCHAIR(yellow)
 	title = "bed"
 	result_type = /obj/structure/bed
 	req_amount = 2
+	
+/datum/stack_recipe/furniture/bed/double
+	title = "double bed"
+	result_type = /obj/structure/bed/double
+	req_amount = 4
 
 /datum/stack_recipe/furniture/table_frame
 	title = "table frame"

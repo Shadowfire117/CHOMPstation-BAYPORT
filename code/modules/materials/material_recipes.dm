@@ -38,6 +38,7 @@
 		. += new/datum/stack_recipe/furniture/stool(src)
 		. += new/datum/stack_recipe/furniture/bar_stool(src)
 		. += new/datum/stack_recipe/furniture/bed(src)
+		. += new/datum/stack_recipe/furniture/bed/double(src)
 		. += new/datum/stack_recipe/lock(src)
 		. += new/datum/stack_recipe/railing(src)
 		. += new/datum/stack_recipe/rod(src)

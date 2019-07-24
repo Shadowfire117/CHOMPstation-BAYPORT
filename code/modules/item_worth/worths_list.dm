@@ -620,6 +620,7 @@ var/list/worths = list(
 					/obj/structure/alien = 300,
 					/obj/structure/closet = 15,
 					/obj/structure/bed = 7,
+					/obj/structure/bed/double = 14,
 					/obj/structure/holostool = 0,
 					/obj/structure/holohoop = 0,
 					/obj/structure/bookcase = 50,
