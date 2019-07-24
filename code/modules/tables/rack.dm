@@ -36,3 +36,12 @@
 
 /obj/structure/table/rack/dark
 	color = COLOR_GRAY40
+	
+/obj/structure/table/rack/shelf
+	name = "shelving"
+	desc = "Some nice metal shelves."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "shelf"
+
+/obj/structure/table/rack/shelf/steel
+	color = "#666666"

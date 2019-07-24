@@ -153,6 +153,10 @@ ARMCHAIR(yellow)
 /datum/stack_recipe/furniture/rack
 	title = "rack"
 	result_type = /obj/structure/table/rack
+	
+/datum/stack_recipe/furniture/rack/shelf
+	title = "shelf"
+	result_type = /obj/structure/table/rack/shelf
 
 /datum/stack_recipe/furniture/closet
 	title = "closet"
