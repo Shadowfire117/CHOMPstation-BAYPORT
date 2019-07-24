@@ -36,7 +36,7 @@
 
 /obj/structure/table/rack/dark
 	color = COLOR_GRAY40
-	
+
 /obj/structure/table/rack/shelf
 	name = "shelving"
 	desc = "Some nice metal shelves."

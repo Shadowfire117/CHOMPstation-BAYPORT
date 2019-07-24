@@ -88,3 +88,50 @@
 /obj/structure/table/woodentable/walnut
 	color = WOOD_COLOR_CHOCOLATE
 	material = MATERIAL_WALNUT
+
+//BENCH PRESETS
+/obj/structure/table/bench/standard
+	icon_state = "plain_preview"
+	color = COLOR_OFF_WHITE
+	material = DEFAULT_FURNITURE_MATERIAL
+
+/obj/structure/table/bench/steel
+	icon_state = "plain_preview"
+	color = COLOR_GRAY40
+	material = MATERIAL_STEEL
+
+/obj/structure/table/bench/marble
+	color = COLOR_GRAY80
+	material = MATERIAL_MARBLE
+
+/obj/structure/table/bench/wooden
+	icon_state = "plain_preview"
+	color = WOOD_COLOR_GENERIC
+	material = MATERIAL_WOOD
+
+/obj/structure/table/bench/wooden/mahogany
+	color = WOOD_COLOR_RICH
+	material = MATERIAL_MAHOGANY
+
+/obj/structure/table/bench/wooden/maple
+	color = WOOD_COLOR_PALE
+	material = MATERIAL_MAPLE
+
+/obj/structure/table/bench/wooden/ebony
+	color = WOOD_COLOR_BLACK
+	material = MATERIAL_EBONY
+
+/obj/structure/table/bench/wooden/walnut
+	color = WOOD_COLOR_CHOCOLATE
+	material = MATERIAL_WALNUT
+
+/obj/structure/table/bench/padded
+	icon_state = "padded_preview"
+	carpeted = 1
+	material = MATERIAL_WALNUT
+
+/obj/structure/table/bench/glass
+	icon_state = "plain_preview"
+	color = COLOR_DEEP_SKY_BLUE
+	alpha = 77 // 0.3 * 255
+	material = MATERIAL_GLASS
