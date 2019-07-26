@@ -13,7 +13,5 @@
 /obj/machinery/bodyscanner/ch
 	icon = 'icons/obj/Cryogenic2_ch.dmi'
 
-/* //at the moment doesnt work, spawns invisible generic machinery
-/obj/machinery/body_scanconsole_ch
+/obj/machinery/body_scanconsole/_ch
 	icon = 'icons/obj/Cryogenic2_ch.dmi'
-*/

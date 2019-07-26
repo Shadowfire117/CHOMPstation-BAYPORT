@@ -2,7 +2,7 @@
 	var/obj/machinery/bodyscanner/connected
 	var/stored_scan_subject
 	name = "Body Scanner Console"
-	icon = 'icons/obj/Cryogenic2_ch.dmi'
+	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "body_scannerconsole"
 	density = 0
 	anchored = 1
