@@ -658,6 +658,7 @@
 #include "code\game\machinery\constructable_frame.dm"
 #include "code\game\machinery\cracker.dm"
 #include "code\game\machinery\cryo.dm"
+#include "code\game\machinery\cryo_med_ch.dm"
 #include "code\game\machinery\cryopod.dm"
 #include "code\game\machinery\cryopod_vr.dm"
 #include "code\game\machinery\deployable.dm"
