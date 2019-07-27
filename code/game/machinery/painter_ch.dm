@@ -5,6 +5,7 @@
 	icon_state = "colormate"
 	density = 1
 	anchored = 1
+	obj_flags = OBJ_FLAG_ANCHORABLE
 	var/list/processing = list()
 	var/activecolor = "#FFFFFF"
 	var/list/allowed_types = list(
