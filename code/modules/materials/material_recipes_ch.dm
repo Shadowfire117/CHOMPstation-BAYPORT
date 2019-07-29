@@ -1,5 +1,6 @@
 //TFF 28/7/19 - add sofas ported from Paradise
 /material/steel/generate_recipes(var/reinforce_material)
+	. = ..()
 	if(reinforce_material)	//recipies below don't support composite materials
 		return
 	. += new/datum/stack_recipe_list("left sofa end", create_recipe_list(/datum/stack_recipe/furniture/chair/sofa/left))

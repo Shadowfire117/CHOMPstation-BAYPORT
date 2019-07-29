@@ -2,11 +2,13 @@
 /obj/machinery/door/firedoor/hidden
 	name = "\improper Emergency Shutter System"
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas. This model fits flush with the walls, and has a panel in the floor for maintenance."
-	icon = 'icons/obj/doors/hazard/DoorHazards_ch.dmi'
-	icon_state = "door_open_r"
+	icon = 'icons/obj/doors/hazard/DoorHazardsHidden_ch.dmi'
+	icon_state = "open"
 	plane = TURF_PLANE
 
 /obj/machinery/door/firedoor/hidden/steel
 	name = "\improper Emergency Shutter System"
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas. This model fits flush with the walls, and has a panel in the floor for maintenance."
-	icon_state = "door_open_r2"
+	icon = 'icons/obj/doors/hazard/DoorHazardsHiddenSteel_ch.dmi'
+	icon_state = "open"
+	plane = TURF_PLANE

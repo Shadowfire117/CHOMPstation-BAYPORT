@@ -1,6 +1,6 @@
 //TFF 28/7/19 - add sofas ported from Paradise
 /datum/stack_recipe/furniture/chair/sofa
-	title = "sofa"
+	title = "sofa, middle"
 	req_amount = 2
 
 #define SOFA(color) /datum/stack_recipe/furniture/chair/sofa/##color{\
@@ -19,6 +19,7 @@ SOFA(yellow)
 #undef SOFA
 
 /datum/stack_recipe/furniture/chair/sofa/left
+	title = "sofa, left"
 
 #define SOFA_L(color) /datum/stack_recipe/furniture/chair/sofa/left/##color{\
 	result_type = /obj/structure/bed/chair/sofa/left/##color;\
@@ -36,6 +37,7 @@ SOFA_L(yellow)
 #undef SOFA_L
 
 /datum/stack_recipe/furniture/chair/sofa/right
+	title = "sofa, right"
 
 #define SOFA_R(color) /datum/stack_recipe/furniture/chair/sofa/right/##color{\
 	result_type = /obj/structure/bed/chair/sofa/right/##color;\
@@ -53,6 +55,7 @@ SOFA_R(yellow)
 #undef SOFA_R
 
 /datum/stack_recipe/furniture/chair/sofa/corner
+	title = "sofa, corner"
 
 #define SOFA_CO(color) /datum/stack_recipe/furniture/chair/sofa/corner/##color{\
 	result_type = /obj/structure/bed/chair/sofa/corner/##color;\
@@ -77,11 +80,14 @@ SOFA_CO(yellow)
 /datum/stack_recipe/furniture/chair/oldsofa/display_name()
 	return modifiers ? jointext(modifiers + title, " ") : title // Bypass material
 
-/datum/stack_recipe/furniture/chair/oldsofa/light
+/datum/stack_recipe/furniture/chair/oldsofa/left
+	title = "sofa, left"
 	result_type = /obj/structure/bed/chair/oldsofa/left
 
 /datum/stack_recipe/furniture/chair/oldsofa/right
+	title = "sofa, right"
 	result_type = /obj/structure/bed/chair/oldsofa/right
 
 /datum/stack_recipe/furniture/chair/oldsofa/corner
+	title = "sofa, corner"
 	result_type = /obj/structure/bed/chair/oldsofa/corner
