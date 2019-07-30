@@ -7,4 +7,4 @@
 	. += new/datum/stack_recipe_list("middle sofa", create_recipe_list(/datum/stack_recipe/furniture/chair/sofa))
 	. += new/datum/stack_recipe_list("right sofa end", create_recipe_list(/datum/stack_recipe/furniture/chair/sofa/right))
 	. += new/datum/stack_recipe_list("corner sofa", create_recipe_list(/datum/stack_recipe/furniture/chair/sofa/corner))
-	. += new/datum/stack_recipe_list("old sofa", create_recipe_list(/datum/stack_recipe/furniture/chair/oldsofa))
+	. += new/datum/stack_recipe_list("old sofa", create_recipe_list(/datum/stack_recipe/furniture/chair/sofa/old))

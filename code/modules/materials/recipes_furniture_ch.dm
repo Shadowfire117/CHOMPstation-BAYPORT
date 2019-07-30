@@ -1,14 +1,18 @@
 //TFF 28/7/19 - add sofas ported from Paradise
 /datum/stack_recipe/furniture/chair/sofa
-	title = "sofa, middle"
+	title = "sofa"
 	req_amount = 2
 
+/datum/stack_recipe/furniture/chair/sofa/middle
+	title = "sofa, middle"
+
 #define SOFA(color) /datum/stack_recipe/furniture/chair/sofa/##color{\
-	result_type = /obj/structure/bed/chair/sofa/##color;\
+	result_type = /obj/structure/bed/chair/sofa/middle/##color;\
 	modifiers = list(#color)\
 	}
 SOFA(beige)
 SOFA(black)
+SOFA(blue)
 SOFA(brown)
 SOFA(lime)
 SOFA(teal)
@@ -27,6 +31,7 @@ SOFA(yellow)
 	}
 SOFA_L(beige)
 SOFA_L(black)
+SOFA_L(blue)
 SOFA_L(brown)
 SOFA_L(lime)
 SOFA_L(teal)
@@ -45,6 +50,7 @@ SOFA_L(yellow)
 	}
 SOFA_R(beige)
 SOFA_R(black)
+SOFA_R(blue)
 SOFA_R(brown)
 SOFA_R(lime)
 SOFA_R(teal)
@@ -63,6 +69,7 @@ SOFA_R(yellow)
 	}
 SOFA_CO(beige)
 SOFA_CO(black)
+SOFA_CO(blue)
 SOFA_CO(brown)
 SOFA_CO(lime)
 SOFA_CO(teal)
@@ -72,22 +79,25 @@ SOFA_CO(green)
 SOFA_CO(yellow)
 #undef SOFA_CO
 
-/datum/stack_recipe/furniture/chair/oldsofa
-	title = "sofa"
-	result_type = /obj/structure/bed/chair/oldsofa
+/datum/stack_recipe/furniture/chair/sofa/old
+	title = "old sofa"
 	req_amount = 2
 
-/datum/stack_recipe/furniture/chair/oldsofa/display_name()
+/datum/stack_recipe/furniture/chair/sofa/old/middle
+	title = "sofa, middle"
+	result_type = /obj/structure/bed/chair/sofa/old
+
+/datum/stack_recipe/furniture/chair/sofa/old/display_name()
 	return modifiers ? jointext(modifiers + title, " ") : title // Bypass material
 
-/datum/stack_recipe/furniture/chair/oldsofa/left
+/datum/stack_recipe/furniture/chair/sofa/old/left
 	title = "sofa, left"
-	result_type = /obj/structure/bed/chair/oldsofa/left
+	result_type = /obj/structure/bed/chair/sofa/old/left
 
-/datum/stack_recipe/furniture/chair/oldsofa/right
+/datum/stack_recipe/furniture/chair/sofa/old/right
 	title = "sofa, right"
-	result_type = /obj/structure/bed/chair/oldsofa/right
+	result_type = /obj/structure/bed/chair/sofa/old/right
 
-/datum/stack_recipe/furniture/chair/oldsofa/corner
+/datum/stack_recipe/furniture/chair/sofa/old/corner
 	title = "sofa, corner"
-	result_type = /obj/structure/bed/chair/oldsofa/corner
+	result_type = /obj/structure/bed/chair/sofa/old/corner

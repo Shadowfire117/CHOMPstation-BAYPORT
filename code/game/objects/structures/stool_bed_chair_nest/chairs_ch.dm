@@ -6,34 +6,34 @@
 	icon_state = "sofamiddle"
 	base_icon = "sofamiddle"
 
-/obj/structure/bed/chair/sofa/brown/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/brown/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, MATERIAL_LEATHER)
 
-/obj/structure/bed/chair/sofa/red/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/red/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, MATERIAL_CARPET)
 
-/obj/structure/bed/chair/sofa/teal/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/teal/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "teal")
 
-/obj/structure/bed/chair/sofa/black/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/black/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "black")
 
-/obj/structure/bed/chair/sofa/green/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/green/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "green")
 
-/obj/structure/bed/chair/sofa/purple/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/purple/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "purple")
 
-/obj/structure/bed/chair/sofa/blue/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/blue/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "blue")
 
-/obj/structure/bed/chair/sofa/beige/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/beige/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "beige")
 
-/obj/structure/bed/chair/sofa/lime/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/lime/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "lime")
 
-/obj/structure/bed/chair/sofa/yellow/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
+/obj/structure/bed/chair/sofa/middle/yellow/New(newloc, newmaterial = DEFAULT_FURNITURE_MATERIAL)
 	..(newloc, newmaterial, "yellow")
 
 /obj/structure/bed/chair/sofa/left
@@ -139,21 +139,21 @@
 	..(newloc, newmaterial, "yellow")
 
 //TFF 28/7/19 - also add in original Paradise ported variation
-/obj/structure/bed/chair/oldsofa
+/obj/structure/bed/chair/sofa/old
 	name = "sofa"
 	desc = "It's a couch. It looks kinda dingy."
 	icon = 'icons/obj/furniture_ch.dmi'
 	icon_state = "sofamiddleOLD"
-	base_icon = "sofamiddleOLD"
+//	base_icon = "sofamiddleOLD"
 
-/obj/structure/bed/chair/oldsofa/left
+/obj/structure/bed/chair/sofa/old/left
 	icon_state = "sofaend_leftOLD"
-	base_icon = "sofaend_leftOLD"
+//	base_icon = "sofaend_leftOLD"
 
-/obj/structure/bed/chair/oldsofa/right
+/obj/structure/bed/chair/sofa/old/right
 	icon_state = "sofaend_rightOLD"
-	base_icon = "sofaend_rightOLD"
+//	base_icon = "sofaend_rightOLD"
 
-/obj/structure/bed/chair/oldsofa/corner
+/obj/structure/bed/chair/sofa/old/corner
 	icon_state = "sofacornerOLD"
-	base_icon = "sofacornerOLD"
+//	base_icon = "sofacornerOLD"
