@@ -1198,7 +1198,7 @@ var/list/floor_decals = list()
 
 /obj/effect/floor_decal/stoneborder/corner
 	icon_state = "stoneborder_c"
-	
+
 //Rust
 
 /obj/effect/floor_decal/rust
@@ -1240,3 +1240,22 @@ var/list/floor_decals = list()
 
 /obj/effect/floor_decal/rust/steel_decals_rusted2
 	icon_state = "steel_decals_rusted2"
+
+
+//stairs
+
+/obj/effect/floor_decal/stairs_1
+	name = "stairs"
+	icon_state = "stairs_1"
+
+/obj/effect/floor_decal/stairs_2
+	name = "stairs"
+	icon_state = "stairs_2"
+
+/obj/effect/floor_decal/stairs_3
+	name = "stairs"
+	icon_state = "stairs_3"
+
+/obj/effect/floor_decal/stairs_4
+	name = "stairs"
+	icon_state = "stairs_4"
