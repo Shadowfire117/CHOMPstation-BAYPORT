@@ -192,7 +192,7 @@
 	desc = "A nice big bed to share with someone or hog all for yourself."
 	icon_state = "doublebed"
 	base_icon = "doublebed"
-	buckle_pixel_shift = "y=16"
+	buckle_pixel_shift = "x=0;y=16"
 
 /obj/structure/bed/double/padded/New(var/newloc)
 	..(newloc,MATERIAL_ALUMINIUM,MATERIAL_COTTON)
@@ -205,7 +205,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
 	anchored = 0
-	buckle_pixel_shift = "x=0;y=16"
+	buckle_pixel_shift = "x=0;y=6"
 	var/item_form_type = /obj/item/roller	//The folded-up object path.
 	var/obj/item/weapon/reagent_containers/beaker
 	var/iv_attached = 0
