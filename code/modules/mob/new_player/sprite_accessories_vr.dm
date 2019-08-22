@@ -96,7 +96,7 @@
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
 		icon_state = "soghun_hood"
 
-	//These 5 unathi hairstyles are duplicates of the ones in accessory_unathi.dm, keeping in code for now in case of issues with the hairs in other file
+	//These 5 unathi hairstyles are duplicates of the ones in accessory_unathi.dm, keeping in code for now in case of issues with the hairs in other file.
 	/*una_spines_long
 		name = "Long Unathi Spines"
 		icon = 'icons/mob/human_face_m.dmi'
