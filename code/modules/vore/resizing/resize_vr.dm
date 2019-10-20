@@ -15,7 +15,7 @@ var/const/RESIZE_A_SMALLTINY = (RESIZE_SMALL + RESIZE_TINY) / 2
 // Adding needed defines to /mob/living
 // Note: Polaris had this on /mob/living/carbon/human We need it higher up for animals and stuff.
 /mob/living
-	var/size_multiplier
+	var/size_multiplier = 1
 	var/holder_default
 	var/has_huds = FALSE	//Whether or not we should bother initializing the above list
 
