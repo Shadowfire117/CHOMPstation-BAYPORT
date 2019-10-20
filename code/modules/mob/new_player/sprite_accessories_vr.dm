@@ -96,116 +96,159 @@
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
 		icon_state = "soghun_hood"
 
-	una_spines_long
+	//These 5 unathi hairstyles are duplicates of the ones in accessory_unathi.dm, keeping in code for now in case of issues with the hairs in other file.
+	/*una_spines_long
 		name = "Long Unathi Spines"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_longspines"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN) //Xenochimera get most hairstyles since they're abominations.
 
 	una_spines_short
 		name = "Short Unathi Spines"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_shortspines"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 
 	una_frills_long
 		name = "Long Unathi Frills"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_longfrills"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_frills_short
 		name = "Short Unathi Frills"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_shortfrills"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_horns
 		name = "Unathi Horns"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_horns"
-		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
+		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)*/
 
 	una_bighorns
 		name = "Unathi Big Horns"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "unathi_bighorn"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_smallhorns
 		name = "Unathi Small Horns"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "unathi_smallhorn"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_ramhorns
 		name = "Unathi Ram Horns"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "unathi_ramhorn"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_sidefrills
 		name = "Unathi Side Frills"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "unathi_sidefrills"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	una_doublehorns
 		name = "Double Unathi Horns"
-		icon = 'icons/mob/human_face_vr.dmi'
-		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "soghun_dubhorns"
 		species_allowed = list(SPECIES_UNATHI, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears
 		name = "Tajaran Ears"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "ears_plain"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_clean
 		name = "Tajara Clean"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_clean"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_bangs
 		name = "Tajara Bangs"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_bangs"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_braid
 		name = "Tajara Braid"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_tbraid"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_shaggy
 		name = "Tajara Shaggy"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_shaggy"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_mohawk
 		name = "Tajaran Mohawk"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_mohawk"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_plait
 		name = "Tajara Plait"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_plait"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_straight
 		name = "Tajara Straight"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_straight"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_long
 		name = "Tajara Long"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_long"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_rattail
 		name = "Tajara Rat Tail"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_rattail"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_spiky
 		name = "Tajara Spiky"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_tajspiky"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	taj_ears_messy
 		name = "Tajara Messy"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "hair_messy"
 		species_allowed = list(SPECIES_TAJARA, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
@@ -218,66 +261,130 @@
 
 //Teshari things
 	teshari
+		name = "Teshari Default"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_default"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_altdefault
+		name = "Teshari Alt. Default"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_ears"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_tight
+		name = "Teshari Tight"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_tight"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_excited
+		name = "Teshari Spiky"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_spiky"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_spike
+		name = "Teshari Spike"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_spike"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_long
+		name = "Teshari Overgrown"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_long"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_burst
+		name = "Teshari Starburst"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_burst"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_shortburst
+		name = "Teshari Short Starburst"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_burst_short"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_mohawk
+		name = "Teshari Mohawk"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_mohawk"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_pointy
+		name = "Teshari Pointy"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_pointy"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_upright
+		name = "Teshari Upright"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_upright"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_mane
+		name = "Teshari Mane"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_mane"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_droopy
+		name = "Teshari Droopy"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_droopy"
+		species_allowed = list(SPECIES_TESHARI)
 
 	teshari_mushroom
+		name = "Teshari Mushroom"
+		icon = 'icons/mob/human_face_vr.dmi'
 		icon_add = 'icons/mob/human_face_vr_add.dmi'
+		icon_state = "teshari_mushroom"
+		species_allowed = list(SPECIES_TESHARI)
 
 //Skrell 'hairstyles' - these were requested for a chimera and screw it, if one wants to eat seafood, go nuts
 	skr_tentacle_veryshort
 		name = "Skrell Very Short Tentacles"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "skrell_hair_veryshort"
 		species_allowed = list(SPECIES_SKRELL, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 		gender = MALE
 
 	skr_tentacle_short
 		name = "Skrell Short Tentacles"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "skrell_hair_short"
 		species_allowed = list(SPECIES_SKRELL, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	skr_tentacle_average
 		name = "Skrell Average Tentacles"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "skrell_hair_average"
 		species_allowed = list(SPECIES_SKRELL, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 
 	skr_tentacle_verylong
 		name = "Skrell Long Tentacles"
+		icon = 'icons/mob/human_face_m.dmi'
+		icon_add = 'icons/mob/human_face.dmi'
 		icon_state = "skrell_hair_verylong"
 		species_allowed = list(SPECIES_SKRELL, SPECIES_XENOCHIMERA, SPECIES_PROTEAN)
 		gender = FEMALE
@@ -928,13 +1035,13 @@
 		icon_state = "teshi_sf"
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_L_FOOT,BP_R_FOOT,BP_L_HAND,BP_R_HAND,BP_CHEST)
-		
+
 	spirit_lights
 		name = "Ward - Spirit FBP Lights"
 		icon_state = "lights"
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_L_LEG,BP_R_LEG,BP_L_ARM,BP_R_ARM,BP_L_HAND,BP_R_HAND,BP_CHEST,BP_HEAD)
-		
+
 	spirit_lights_body
 		name = "Ward - Spirit FBP Lights (body)"
 		icon_state = "lights"
@@ -946,13 +1053,13 @@
 		icon_state = "lights"
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_HEAD)
-		
+
 	spirit_panels
 		name = "Ward - Spirit FBP Panels"
 		icon_state = "panels"
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_L_FOOT,BP_R_FOOT,BP_L_LEG,BP_R_LEG,BP_L_ARM,BP_R_ARM,BP_L_HAND,BP_R_HAND,BP_GROIN,BP_CHEST,BP_HEAD)
-		
+
 	spirit_panels_body
 		name = "Ward - Spirit FBP Panels (body)"
 		icon_state = "panels"

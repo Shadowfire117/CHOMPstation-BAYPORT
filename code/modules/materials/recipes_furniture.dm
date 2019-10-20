@@ -140,14 +140,28 @@ ARMCHAIR(yellow)
 	result_type = /obj/structure/bed
 	req_amount = 2
 
+/datum/stack_recipe/furniture/bed/double
+	title = "double bed"
+	result_type = /obj/structure/bed/double
+	req_amount = 4
+
 /datum/stack_recipe/furniture/table_frame
 	title = "table frame"
 	result_type = /obj/structure/table
 	time = 10
 
+/datum/stack_recipe/furniture/table_frame/bench_frame
+	title = "bench frame"
+	result_type = /obj/structure/table/bench
+	time = 10
+
 /datum/stack_recipe/furniture/rack
 	title = "rack"
 	result_type = /obj/structure/table/rack
+
+/datum/stack_recipe/furniture/rack/shelf
+	title = "shelf"
+	result_type = /obj/structure/table/rack/shelf
 
 /datum/stack_recipe/furniture/closet
 	title = "closet"

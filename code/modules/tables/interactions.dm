@@ -10,9 +10,12 @@
 			return 1
 	if(istype(mover) && mover.checkpass(PASS_FLAG_TABLE))
 		return 1
+
 	var/obj/structure/table/T = (locate() in get_turf(mover))
 	return (T && !T.flipped) 	//If we are moving from a table, check if it is flipped.
 								//If the table we are standing on is not flipped, then we can move freely to another table.
+	if(locate(/obj/structure/table/bench) in get_turf(mover))
+		return 0
 
 
 //checks if projectile 'P' from turf 'from' can hit whatever is behind the table. Returns 1 if it can, 0 if bullet stops.

@@ -187,6 +187,16 @@
 /obj/structure/bed/alien/New(var/newloc)
 	..(newloc,MATERIAL_RESIN)
 
+/obj/structure/bed/double
+	name = "double bed"
+	desc = "A nice big bed to share with someone or hog all for yourself."
+	icon_state = "doublebed"
+	base_icon = "doublebed"
+	buckle_pixel_shift = "x=0;y=16"
+
+/obj/structure/bed/double/padded/New(var/newloc)
+	..(newloc,MATERIAL_ALUMINIUM,MATERIAL_COTTON)
+
 /*
  * Roller beds
  */
@@ -252,11 +262,11 @@
 		if(iv_attached)
 			detach_iv(M, usr)
 		queue_icon_update()
-		
+
 /obj/structure/bed/roller/Process()
 	if(!iv_attached || !buckled_mob || !beaker)
 		return PROCESS_KILL
-	
+
 	//SSObj fires twice as fast as SSMobs, so gotta slow down to not OD our victims.
 	if(SSobj.times_fired % 2)
 		return
@@ -264,7 +274,7 @@
 	if(beaker.volume > 0)
 		beaker.reagents.trans_to_mob(buckled_mob, beaker.amount_per_transfer_from_this, CHEM_BLOOD)
 		queue_icon_update()
-		
+
 /obj/structure/bed/roller/proc/remove_beaker(mob/user)
 	to_chat(user, "You detach \the [beaker] to \the [src].")
 	iv_attached = FALSE
@@ -300,7 +310,7 @@
 		if(user_buckle_mob(over_object, usr))
 			attach_iv(buckled_mob, usr)
 			return
-	if(beaker) 
+	if(beaker)
 		remove_beaker(usr)
 		return
 	if(buckled_mob)	return
