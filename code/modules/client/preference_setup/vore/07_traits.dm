@@ -21,28 +21,28 @@
 	sort_order = 7
 
 /datum/category_item/player_setup_item/vore/traits/load_character(var/savefile/S)
-	S["custom_species"]	>> pref.custom_species
-	S["custom_base"]	>> pref.custom_base
-	S["pos_traits"]		>> pref.pos_traits
-	S["neu_traits"]		>> pref.neu_traits
-	S["neg_traits"]		>> pref.neg_traits
-	S["blood_color"]	>> pref.blood_color
+	from_file(S["custom_species"], pref.custom_species)
+	from_file(S["custom_base"], pref.custom_base)
+	from_file(S["pos_traits"], pref.pos_traits)
+	from_file(S["neu_traits"], pref.neu_traits)
+	from_file(S["neg_traits"], pref.neg_traits)
+	from_file(S["blood_color"], pref.blood_color)
 
-	S["traits_cheating"]>> pref.traits_cheating
-	S["max_traits"]		>> pref.max_traits
-	S["trait_points"]	>> pref.starting_trait_points
+	from_file(S["traits_cheating"], pref.traits_cheating)
+	from_file(S["max_traits"], pref.max_traits)
+	from_file(S["trait_points"], pref.starting_trait_points)
 
 /datum/category_item/player_setup_item/vore/traits/save_character(var/savefile/S)
-	S["custom_species"]	<< pref.custom_species
-	S["custom_base"]	<< pref.custom_base
-	S["pos_traits"]		<< pref.pos_traits
-	S["neu_traits"]		<< pref.neu_traits
-	S["neg_traits"]		<< pref.neg_traits
-	S["blood_color"]	<< pref.blood_color
+	to_file(S["custom_species"], pref.custom_species)
+	to_file(S["custom_base"], pref.custom_base)
+	to_file(S["pos_traits"], pref.pos_traits)
+	to_file(S["neu_traits"], pref.neu_traits)
+	to_file(S["neg_traits"], pref.neg_traits)
+	to_file(S["blood_color"], pref.blood_color)
 
-	S["traits_cheating"]<< pref.traits_cheating
-	S["max_traits"]		<< pref.max_traits
-	S["trait_points"]	<< pref.starting_trait_points
+	to_file(S["traits_cheating"], pref.traits_cheating)
+	to_file(S["max_traits"], pref.max_traits)
+	to_file(S["trait_points"], pref.starting_trait_points)
 
 /datum/category_item/player_setup_item/vore/traits/sanitize_character()
 	if(!pref.pos_traits) pref.pos_traits = list()
@@ -73,21 +73,51 @@
 			if(!(path in negative_traits))
 				pref.neg_traits -= path
 
-	if(pref.species == pref.custom_base && pref.species != SPECIES_CUSTOM)
+	var/datum/species/selected_species = all_species[pref.species]
+	if(selected_species.selects_bodytype)
 		// Allowed!
 	else if(!pref.custom_base || !(pref.custom_base in custom_species_bases))
-		pref.custom_base = SPECIES_HUMAN
+		pref.custom_base = SPECIES_HUMAN2
 
-/datum/category_item/player_setup_item/vore/traits/copy_to_mob(var/mob/living/carbon/human/character)
-	character.custom_species	= pref.custom_species
-	if(pref.species == SPECIES_CUSTOM || pref.species == SPECIES_XENOCHIMERA)
+obj/item/organ/external
+	var/custom_species_override
+
+datum/preferences/copy_to(mob/living/carbon/human/character, is_preview_copy = FALSE)
+	..()
+
+	character.custom_species	= custom_species
+
+	var/datum/species/selected_species = all_species[species]
+	if(selected_species.selects_bodytype)
 		var/datum/species/custom/CS = character.species
-		var/S = pref.custom_base ? pref.custom_base : "Human"
-		var/datum/species/custom/new_CS = CS.produceCopy(S, pref.pos_traits + pref.neu_traits + pref.neg_traits, character)
+		var/S = custom_base ? custom_base : "Human"
+		var/datum/species/custom/new_CS = CS.produceCopy(S, pos_traits + neu_traits + neg_traits, character)
 
 		//Any additional non-trait settings can be applied here
-		new_CS.blood_color = pref.blood_color
+		new_CS.blood_color = blood_color
 
+	for(var/obj/item/organ/external/E in character.organs)	//Forces the base species stuff onto the limbs
+		E.custom_species_override = character.species.base_species	//Kludge to make the icon cache key proper
+		E.species = character.species	//Secondary kludge
+		if(!BP_IS_ROBOTIC(E))	//Check if the limb is robotic
+			E.force_icon = character.species.get_icobase()	//If not, force the species limb icons onto the limb because update_icons won't actually use the icon cache key stuff
+
+	character.force_update_limbs()
+	character.update_sight()
+	character.update_body(0)
+	character.update_hair()
+	character.update_icons()
+
+/datum/category_item/player_setup_item/vore/traits/content(var/mob/user)
+	. += "<b>Custom Species</b> "
+	. += "<a href='?src=\ref[src];custom_species=1'>[pref.custom_species ? pref.custom_species : "-Input Name-"]</a><br>"
+
+	var/datum/species/selected_species = all_species[pref.species]
+	if(selected_species.selects_bodytype)
+		. += "<b>Icon Base: </b> "
+		. += "<a href='?src=\ref[src];custom_base=1'>[pref.custom_base ? pref.custom_base : "Custom Human"]</a><br>"
+
+/* //commenting out since conflicts with mithra fix, gotta sort and implement it - Jack
 /datum/category_item/player_setup_item/vore/traits/content(var/mob/user)
 	. += "<b>Custom Species</b> "
 	. += "<a href='?src=\ref[src];custom_species=1'>[pref.custom_species ? pref.custom_species : "-Input Name-"]</a><br>"
@@ -95,6 +125,7 @@
 	if(pref.species == SPECIES_CUSTOM || pref.species == SPECIES_XENOCHIMERA)
 		. += "<b>Icon Base: </b> "
 		. += "<a href='?src=\ref[src];custom_base=1'>[pref.custom_base ? pref.custom_base : "Human"]</a><br>"
+*/
 
 	if(pref.species == SPECIES_CUSTOM)
 		var/points_left = pref.starting_trait_points

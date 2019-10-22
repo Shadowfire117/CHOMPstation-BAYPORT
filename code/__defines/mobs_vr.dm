@@ -28,7 +28,8 @@
 #define SPECIES_ZORREN_HIGH		"Highlander Zorren"
 #define SPECIES_CUSTOM			"Custom Species"
 #define SPECIES_TESHARI			"Teshari"
-#define SPECIES_TAJARA      "Tajara"
+#define SPECIES_TAJARA      	"Tajara"
+#define SPECIES_HUMAN2			"Custom Human" //Placeholder name maybe. Might just go with it.
 
 //Vision flags, for dealing with plane visibility
 #define VIS_FULLBRIGHT		1
