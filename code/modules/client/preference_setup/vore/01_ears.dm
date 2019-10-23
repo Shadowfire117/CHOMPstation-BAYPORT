@@ -95,6 +95,7 @@
 		pref.wing_style	= sanitize_inlist(pref.wing_style, wing_styles_list, initial(pref.wing_style))
 
 /datum/category_item/player_setup_item/vore/ears/copy_to_mob(var/mob/living/carbon/human/character)
+	..()	 
 	character.ear_style			= ear_styles_list[pref.ear_style]
 	character.r_ears			= pref.r_ears
 	character.b_ears			= pref.b_ears
