@@ -1,9 +1,9 @@
 /datum/species/customhuman
 	name = SPECIES_HUMAN2
 	name_plural = SPECIES_HUMAN2
-	icobase = 'modular_mithra/icons/mob/human_races/species/custom_human/body.dmi'
-	deform = 'modular_mithra/icons/mob/human_races/species/custom_human/deformed_body.dmi'
-	husk_icon = 'modular_mithra/icons/mob/human_races/species/custom_human/husk.dmi'
+	icobase = 'icons/mob/human_races/species/custom_human/body.dmi'
+	deform = 'icons/mob/human_races/species/custom_human/deformed_body.dmi'
+	husk_icon = 'icons/mob/human_races/species/custom_human/husk.dmi'
 //	preview_icon = 'modular_mithra/icons/mob/human_races/species/custom_human/preview.dmi' No preview icon yet. I dunno if this breaks things
 	limb_blend = ICON_MULTIPLY
 	tail_blend = ICON_MULTIPLY

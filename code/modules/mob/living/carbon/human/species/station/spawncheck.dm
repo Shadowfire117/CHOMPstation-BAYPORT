@@ -42,21 +42,6 @@
 			alert(src,"There were problems with spawning your character. Check your message log for details.","Error","OK")
 	return pass
 
-/proc/attempt_vr(callon, procname, list/args=null)	//No clue what this actually does, but it's needed
-	try
-		if(!callon || !procname)
-			error("attempt_vr: Invalid obj/proc: [callon]/[procname]")
-			return 0
-
-		var/result = call(callon,procname)(arglist(args))
-
-		return result
-
-	catch(var/exception/e)
-		error("attempt_vr runtimed when calling [procname] on [callon].")
-		error("attempt_vr catch: [e] on [e.file]:[e.line]")
-		return 0
-
 /*//////////////////////////////////////////////////////////////////////////////////
 		BIG FAT PROC OVERRIDE
 *///////////////////////////////////////////////////////////////////////////////////

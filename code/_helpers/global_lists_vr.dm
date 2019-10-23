@@ -410,6 +410,13 @@ var/global/list/cont_flavors_musky = list("drenched",
 
 	// Custom species icon bases
 	var/list/blacklisted_icons = list(SPECIES_CUSTOM,SPECIES_PROMETHEAN) //Just ones that won't work well.
+	for(var/species_name in all_species)
+		if(species_name in blacklisted_icons)
+			continue
+		var/datum/species/S = all_species[species_name]
+		if(!(S.spawn_flags & SPECIES_IS_ICONBASE))
+			continue
+		custom_species_bases += species_name
 	for(var/species_name in playable_species)
 		if(species_name in blacklisted_icons)
 			continue
