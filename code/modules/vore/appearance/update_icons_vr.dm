@@ -15,6 +15,7 @@ var/global/list/wing_icon_cache = list()
 
 
 /mob/living/carbon/human/proc/get_tail_image()
+
 /*
 	//If you are FBP with tail style and didn't set a custom one
 	var/datum/robolimb/model = isSynthetic()
