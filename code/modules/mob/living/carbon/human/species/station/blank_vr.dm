@@ -6,10 +6,11 @@
 	var/lightweight = 0 //Oof! Nonhelpful bump stumbles.
 	var/trashcan = 0 //It's always sunny in the wrestling ring.
 
+/* //Custom species replaced by Mithra's fix - delete after ensuring character creator and custom species works (including vore stuff) - Jack
 /datum/species/custom
 	name = SPECIES_CUSTOM
 	name_plural = "Custom"
-	var/base_species = "Human"
+	var/base_species = "Custom Human"
 
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/punch, /datum/unarmed_attack/bite)
 
@@ -41,6 +42,7 @@
 		BP_L_FOOT = list("path" = /obj/item/organ/external/foot, "descriptor" = "left foot"),
 		BP_R_FOOT = list("path" = /obj/item/organ/external/foot/right, "descriptor" = "right foot")
 		)
+*/
 
 /datum/species/custom/get_bodytype()
 	return base_species
@@ -66,8 +68,10 @@
 	new_copy.deform = to_copy.deform
 	new_copy.tail = to_copy.tail
 	new_copy.tail_animation = to_copy.tail_animation
-	new_copy.icobase_tail = to_copy.icobase_tail
-	new_copy.color_mult = to_copy.color_mult
+	new_copy.modular_tail = to_copy.modular_tail
+	new_copy.tail_hair = to_copy.tail_hair
+	new_copy.limb_blend = to_copy.limb_blend
+	new_copy.tail_blend = to_copy.tail_blend										 					 
 	new_copy.primitive_form = to_copy.primitive_form
 	new_copy.appearance_flags = to_copy.appearance_flags
 	new_copy.flesh_color = to_copy.flesh_color

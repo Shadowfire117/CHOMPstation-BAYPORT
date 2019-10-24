@@ -56,6 +56,11 @@
 	cost = 1
 	var_changes = list("unarmed_types" = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp))
 
+	apply(var/datum/species/S,var/mob/living/carbon/human/H) //Mithra addition
+		..(S,H)
+		for(var/u_type in S.unarmed_types)
+			S.unarmed_attacks += new u_type()
+
 /datum/trait/melee_attack_fangs
 	name = "Sharp Melee & Numbing Fangs"
 	desc = "Provides sharp melee attacks that do slightly more damage, along with fangs that makes the person bit unable to feel their body or pain."
@@ -109,4 +114,24 @@
 	desc = "Makes your nice clawed, scaled, hooved, armored, or otherwise just awfully calloused feet immune to glass shards."
 	cost = 1
 	var_changes = list("flags" = NO_MINOR_CUT) //Checked the flag is only used by shard stepping.
+*/
+
+/* //Mithra ported traits, can be decided if kept or even reworked - Jack
+/datum/trait/oxy_resist
+	name = "Haemoglobin Melior"
+	desc = "You can last a bit longer while aphyxiating due to higher blood-oxygen saturation."
+	cost = 1
+	var_changes = list("oxy_mod" = 0.75)
+	
+/datum/trait/toxin_resist
+	name = "Iron Liver"
+	desc = "Your metabolism processes toxins more efficiently, making you slightly more resistant to poisonings."
+	cost = 1
+	var_changes = list("toxins_mod" = 0.85)
+
+/datum/trait/mussel
+	name = "Muscular Hypertrophy"
+	desc = "You have higher muscle mass than normal, giving you greater strength."
+	cost = 1
+	var_changes = list("strength" = STR_HIGH)
 */
