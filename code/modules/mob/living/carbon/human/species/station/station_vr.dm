@@ -1,10 +1,12 @@
 /datum/species/sergal
 	name = SPECIES_SERGAL
 	name_plural = "Sergals"
+
 	icobase = 'icons/mob/human_races/r_sergal.dmi'
 	deform = 'icons/mob/human_races/r_def_sergal.dmi'
-	tail = "tail"
-	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
+
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 	//darksight = 8
 	//slowdown = -0.5
@@ -58,6 +60,7 @@
 		BP_R_FOOT = list("path" = /obj/item/organ/external/foot/right)
 		)
 
+
 /datum/species/akula
 	name = SPECIES_AKULA
 	name_plural = "Akula"
@@ -65,6 +68,8 @@
 	deform = 'icons/mob/human_races/r_def_akula.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 	//darksight = 8
 	//slowdown = -0.5
@@ -109,6 +114,8 @@
 	deform = 'icons/mob/human_races/r_def_nevrean.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 	//darksight = 8
 	//slowdown = -0.5
@@ -153,6 +160,8 @@
 	deform = 'icons/mob/human_races/r_def_fox.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 //	num_alternate_languages = 3
 //	secondary_langs = list(LANGUAGE_TERMINUS)
@@ -192,6 +201,8 @@
 	deform = 'icons/mob/human_races/r_def_fennec.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 //	num_alternate_languages = 3
 //	secondary_langs = list(LANGUAGE_TERMINUS)
@@ -237,6 +248,8 @@
 	primitive_form = "Wolpin"
 	tail = "vulptail"
 	tail_animation = 'icons/mob/species/vulpkanin/tail.dmi' // probably need more than just one of each, but w/e
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 	darksight_range = 5 //worse than cats, but better than lizards. -- Poojawa
 	darksight_tint = DARKTINT_MODERATE
@@ -269,6 +282,8 @@
 	deform = 'icons/mob/human_races/r_def_xenomorph.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/claws, /datum/unarmed_attack/bite/sharp)
 	darksight_range = 4 //Better hunters in the dark.
 	darksight_tint = DARKTINT_MODERATE
@@ -314,6 +329,8 @@
 	icobase = 'icons/mob/human_races/r_tajaran_vr.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran_vr.dmi'
 	tail_animation = 'icons/mob/species/tajaran/tail_vr.dmi'
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	color_mult = 1
 	min_age = 18
 	gluttonous = 0 //Moving this here so I don't have to fix this conflict every time polaris glances at station.dm
@@ -323,6 +340,8 @@
 	spawn_flags = SPECIES_CAN_JOIN
 	icobase = 'icons/mob/human_races/r_skrell_vr.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell_vr.dmi'
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	color_mult = 1
 	min_age = 18
 
@@ -335,6 +354,8 @@
 	spawn_flags = SPECIES_CAN_JOIN
 	icobase = 'icons/mob/human_races/r_seromi_vr.dmi'
 	deform = 'icons/mob/human_races/r_seromi_vr.dmi'
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	color_mult = 1
 	min_age = 18
 	push_flags = ~HEAVY //Allows them to use micro step code.
@@ -374,6 +395,8 @@ datum/species/harpy
 	deform = 'icons/mob/human_races/r_def_harpy_vr.dmi'
 	tail = "tail"
 	icobase_tail = 1
+	limb_blend = ICON_MULTIPLY
+	tail_blend = ICON_MULTIPLY
 	unarmed_types = list(/datum/unarmed_attack/stomp, /datum/unarmed_attack/kick, /datum/unarmed_attack/punch, /datum/unarmed_attack/bite)
 //	num_alternate_languages = 3
 //	secondary_langs = list(LANGUAGE_BIRDSONG)
