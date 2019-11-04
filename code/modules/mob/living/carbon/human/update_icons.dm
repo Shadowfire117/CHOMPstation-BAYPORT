@@ -137,7 +137,7 @@ Please contact me on #coderbus IRC. ~Carn x
 #define HO_HANDCUFF_LAYER   23
 #define HO_L_HAND_LAYER     24
 #define HO_R_HAND_LAYER     25
-#define HO_WING_LAYER			26	//Simply move this up a number if things are added.
+#define HO_WING_LAYER		26	//Simply move this up a number if things are added.
 #define TAIL_LAYER_ALT		27	//Simply move this up a number if things are added.
 #define SHADOW_LAYER        28
 #define HO_FIRE_LAYER       29 //If you're on fire
@@ -726,7 +726,7 @@ var/global/list/damage_icon_parts = list()
 	var/image/vr_tail_image = get_tail_image()
 
 	if(vr_tail_image)
-		vr_tail_image.layer = BODY_LAYER+HO_TAIL_LAYER
+		vr_tail_image.layer = HO_TAIL_LAYER
 		overlays_standing[HO_TAIL_LAYER] = vr_tail_image
 		return
 
@@ -816,13 +816,11 @@ var/global/list/damage_icon_parts = list()
 
 	var/image/vr_wing_image = get_wing_image()
 	if(vr_wing_image)
-		vr_wing_image.layer = BODY_LAYER+HO_WING_LAYER
+		vr_wing_image.layer = HO_WING_LAYER
 		overlays_standing[HO_WING_LAYER] = vr_wing_image
 		return
 	if(update_icons)
 		queue_icon_update()
-
- update_wing_showing(0)
 
 
 //Adds a collar overlay above the helmet layer if the suit has one
@@ -895,6 +893,7 @@ var/global/list/damage_icon_parts = list()
 #undef HO_EARS_LAYER
 #undef HO_SUIT_LAYER
 #undef HO_TAIL_LAYER
+#undef HO_WING_LAYER
 #undef HO_GLASSES_LAYER
 #undef HO_BELT_LAYER_ALT
 #undef HO_SUIT_STORE_LAYER
