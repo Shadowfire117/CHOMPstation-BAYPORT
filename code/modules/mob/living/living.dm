@@ -499,15 +499,17 @@ default behaviour is:
 	set name = "Examine Meta-Info (OOC)"
 	set category = "OOC"
 	set src in view()
-
+	//CHOMPER Edit Start - Making it so SSD people have prefs with fallback to original style.
 	if(config.allow_Metadata)
-		if(client)
+		if(ooc_notes)
+			to_chat(usr, "[src]'s Metainfo:<br>[ooc_notes]")			   							   
+		else if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
 		else
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
-		to_chat(usr, "OOC Metadata is not supported by this server!")
-
+		usr << "OOC Metadata is not supported by this server!"
+	//CHOMPER Edit End - Making it so SSD people have prefs with fallback to original style.
 	return
 
 /mob/living/Move(a, b, flag)
