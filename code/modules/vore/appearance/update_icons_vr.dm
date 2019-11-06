@@ -35,7 +35,6 @@ var/global/list/wing_icon_cache = list()
 			tail_s.Blend(rgb(src.r_skin, src.g_skin, src.b_skin), species.tail_blend ? ICON_MULTIPLY : ICON_ADD)
 			return image(tail_s)
 
-/*
 	//If you have a custom tail selected
 	if(tail_style && !(wear_suit && wear_suit.flags_inv & HIDETAIL && !isTaurTail(tail_style)))
 		var/icon/tail_s = new/icon("icon" = tail_style.icon, "icon_state" = wagging && tail_style.ani_state ? tail_style.ani_state : tail_style.icon_state)
@@ -57,7 +56,7 @@ var/global/list/wing_icon_cache = list()
 			return image(tail_s, "pixel_x" = -16)
 		else
 			return image(tail_s)
-*/
+
 	//If you have a custom tail selected
 	if(tail_style && !(wear_suit && wear_suit.flags_inv & HIDETAIL))
 		var/icon/tail_s = new/icon("icon" = tail_style.icon, "icon_state" = tail_style.ani_state ? tail_style.ani_state : tail_style.icon_state)
