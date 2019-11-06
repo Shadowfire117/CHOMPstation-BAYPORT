@@ -53,7 +53,6 @@
 	character.flavor_texts["legs"]		= pref.flavor_texts["legs"]
 	character.flavor_texts["feet"]		= pref.flavor_texts["feet"]
 	character.ooc_notes 				= pref.metadata
-	world << "Copy to mob called"
 	//CHOMPER end
 
 /datum/category_item/player_setup_item/physical/flavor/content(var/mob/user)
