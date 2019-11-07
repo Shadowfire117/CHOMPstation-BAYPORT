@@ -315,14 +315,41 @@
 		)
 	inherent_verbs = list(/mob/living/proc/shred_limb)
 
-/datum/species/unathi
+/datum/species/unathi/humanathi
+	name = SPECIES_HUMANATHI
+	name_plural = SPECIES_HUMANATHI
 	spawn_flags = SPECIES_CAN_JOIN //Species_can_join is the only spawn flag all the races get, so that none of them will be whitelist only if whitelist is enabled.
 	icobase = 'icons/mob/human_races/r_lizard_vr.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard_vr.dmi'
 	tail_animation = 'icons/mob/species/unathi/tail_vr.dmi'
+	icon_template = 'icons/mob/human_races/species/template.dmi'
+	husk_icon = 'icons/mob/human_races/species/custom_human/husk.dmi'
 	color_mult = 1
-	min_age = 18
-	inherent_verbs = list(/mob/living/proc/shred_limb)
+
+	description = "A species of furries turned scalies."
+
+	available_cultural_info = list(
+		TAG_CULTURE = list(
+			CULTURE_UNATHI
+		),
+		TAG_HOMEWORLD = list(
+			HOME_SYSTEM_MOGHES
+		),
+		TAG_FACTION = list(
+			FACTION_UNATHI_POLAR,
+			FACTION_UNATHI_DESERT,
+			FACTION_UNATHI_SAVANNAH,
+			FACTION_UNATHI_DIAMOND_PEAK,
+			FACTION_UNATHI_SALT_SWAMP
+		),
+		TAG_RELIGION =  list(
+			RELIGION_UNATHI_STRATAGEM,
+			RELIGION_UNATHI_PRECURSOR,
+			RELIGION_UNATHI_VINE,
+			RELIGION_UNATHI_LIGHTS,
+			RELIGION_OTHER
+		)
+	)
 
 /datum/species/tajaran
 	spawn_flags = SPECIES_CAN_JOIN
