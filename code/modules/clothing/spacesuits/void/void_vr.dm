@@ -74,13 +74,14 @@
 	// however the species spritesheet now means we no longer need that anyway!
 	sprite_sheets_refit = list()
 
-/* //CHOMPER Disabled for now due to undefined initialize proc that cant be determined
+
 /obj/item/clothing/suit/space/void/explorer
 	desc = "A classy red voidsuit for the needs of any semi-retro-futuristic spaceperson! This one is rather loose fitting."
 	species_restricted = list(
 		SPECIES_HUMAN,
 		SPECIES_SKRELL,
 		SPECIES_UNATHI,
+		SPECIES_HUMANATHI,
 		SPECIES_TAJARA,
 		SPECIES_TESHARI,
 		SPECIES_AKULA,
@@ -95,7 +96,7 @@
 		SPECIES_ZORREN_FLAT,
 		SPECIES_ZORREN_HIGH
 	)
-/obj/item/clothing/suit/space/void/explorer/initialize()
+/obj/item/clothing/suit/space/void/explorer/Initialize()
 	. = ..()
 	sprite_sheets += sprite_sheets_refit
 
@@ -105,6 +106,7 @@
 		SPECIES_HUMAN,
 		SPECIES_SKRELL,
 		SPECIES_UNATHI,
+		SPECIES_HUMANATHI,
 		SPECIES_TAJARA,
 		SPECIES_TESHARI,
 		SPECIES_AKULA,
@@ -119,7 +121,6 @@
 		SPECIES_ZORREN_FLAT,
 		SPECIES_ZORREN_HIGH
 	)
-/obj/item/clothing/head/helmet/space/void/explorer/initialize()
+/obj/item/clothing/head/helmet/space/void/explorer/Initialize()
 	. = ..()
 	sprite_sheets += sprite_sheets_refit
-*/
