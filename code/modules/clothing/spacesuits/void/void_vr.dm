@@ -9,7 +9,7 @@
 	sprite_sheets = list(
 		"Tajara" 				= 'icons/mob/species/tajaran/helmet.dmi',
 		"Skrell" 				= 'icons/mob/species/skrell/helmet.dmi',
-		"Unathi" 				= 'icons/mob/species/unathi/helmet.dmi',
+		"Humanathi"				= 'icons/mob/species/humanathi/helmet.dmi',
 		"Teshari"				= 'icons/mob/species/seromi/head.dmi',
 		"Nevrean" 				= 'icons/mob/species/nevrean/helmet_vr.dmi',
 		"Akula" 				= 'icons/mob/species/akula/helmet_vr.dmi',
@@ -18,13 +18,13 @@
 		"Highlander Zorren" 	= 'icons/mob/species/fox/helmet_vr.dmi',
 		"Vulpkanin"				= 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Promethean"			= 'icons/mob/species/skrell/helmet.dmi',
-		"Xenomorph Hybrid"		= 'icons/mob/species/unathi/helmet.dmi'
+		"Xenomorph Hybrid"		= 'icons/mob/species/humanathi/helmet.dmi'
 		)
 
 	sprite_sheets_obj = list(
 		"Tajara" 			= 'icons/obj/clothing/species/tajaran/hats.dmi', // Copied from void.dm
 		"Skrell"			= 'icons/obj/clothing/species/skrell/hats.dmi',  // Copied from void.dm
-		"Unathi"			= 'icons/obj/clothing/species/unathi/hats.dmi',  // Copied from void.dm
+		"Humanathi"			= 'icons/obj/clothing/species/humanathi/hats.dmi', // Copied from void.dm
 		"Teshari"			= 'icons/obj/clothing/species/seromi/hats.dmi',  // Copied from void.dm
 		"Nevrean"			= 'icons/obj/clothing/species/nevrean/hats.dmi',
 		"Akula"				= 'icons/obj/clothing/species/akula/hats.dmi',
@@ -33,14 +33,14 @@
 		"Highlander Zorren"	= 'icons/obj/clothing/species/fox/hats.dmi',
 		"Vulpkanin"			= 'icons/obj/clothing/species/vulpkanin/hats.dmi',
 		"Promethean"		= 'icons/obj/clothing/species/skrell/hats.dmi',
-		"Xenomorph Hybrid"	= 'icons/obj/clothing/species/unathi/hats.dmi'
+		"Xenomorph Hybrid"	= 'icons/obj/clothing/species/humanathi/hats.dmi'
 		)
 
 /obj/item/clothing/suit/space/void
 	sprite_sheets = list(
 		"Tajara" 				= 'icons/mob/species/tajaran/suit.dmi',
 		"Skrell" 				= 'icons/mob/species/skrell/suit.dmi',
-		"Unathi" 				= 'icons/mob/species/unathi/suit.dmi',
+		"Humanathi" 			= 'icons/mob/species/humanathi/suit.dmi',
 		"Teshari"				= 'icons/mob/species/seromi/suit.dmi',
 		"Nevrean" 				= 'icons/mob/species/nevrean/suit_vr.dmi',
 		"Akula" 				= 'icons/mob/species/akula/suit_vr.dmi',
@@ -49,7 +49,7 @@
 		"Highlander Zorren" 	= 'icons/mob/species/fox/suit_vr.dmi',
 		"Vulpkanin"				= 'icons/mob/species/vulpkanin/suit.dmi',
 		"Promethean"			= 'icons/mob/species/skrell/suit.dmi',
-		"Xenomorph Hybrid"		= 'icons/mob/species/unathi/suit.dmi'
+		"Xenomorph Hybrid"		= 'icons/mob/species/humanathi/suit.dmi'
 		)
 
 
@@ -57,7 +57,7 @@
 	sprite_sheets_obj = list(
 		"Tajara"			= 'icons/obj/clothing/species/tajaran/suits.dmi', // Copied from void.dm
 		"Skrell"			= 'icons/obj/clothing/species/skrell/suits.dmi',  // Copied from void.dm
-		"Unathi"			= 'icons/obj/clothing/species/unathi/suits.dmi',  // Copied from void.dm
+		"Humanathi"			= 'icons/obj/clothing/species/humanathi/suits.dmi',  // Copied from void.dm
 		"Teshari"			= 'icons/obj/clothing/species/seromi/suits.dmi',  // Copied from void.dm
 		"Nevrean"			= 'icons/obj/clothing/species/nevrean/suits.dmi',
 		"Akula"				= 'icons/obj/clothing/species/akula/suits.dmi',
@@ -74,13 +74,14 @@
 	// however the species spritesheet now means we no longer need that anyway!
 	sprite_sheets_refit = list()
 
+/* //CHOMPER Disabled for now due to undefined initialize proc that cant be determined
 /obj/item/clothing/suit/space/void/explorer
 	desc = "A classy red voidsuit for the needs of any semi-retro-futuristic spaceperson! This one is rather loose fitting."
 	species_restricted = list(
 		SPECIES_HUMAN,
 		SPECIES_SKRELL,
 		SPECIES_UNATHI,
-		SPECIES_TAJ,
+		SPECIES_TAJARA,
 		SPECIES_TESHARI,
 		SPECIES_AKULA,
 		SPECIES_ALRAUNE,
@@ -104,7 +105,7 @@
 		SPECIES_HUMAN,
 		SPECIES_SKRELL,
 		SPECIES_UNATHI,
-		SPECIES_TAJ,
+		SPECIES_TAJARA,
 		SPECIES_TESHARI,
 		SPECIES_AKULA,
 		SPECIES_ALRAUNE,
@@ -121,3 +122,4 @@
 /obj/item/clothing/head/helmet/space/void/explorer/initialize()
 	. = ..()
 	sprite_sheets += sprite_sheets_refit
+*/
