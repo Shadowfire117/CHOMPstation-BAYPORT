@@ -20,6 +20,7 @@
 	var/emote_time = 60 SECONDS				// How long between stomach emotes at prey
 	var/digest_brute = 2					// Brute damage per tick in digestion mode
 	var/digest_burn = 2						// Burn damage per tick in digestion mode
+	var/digest_dmg = 2						// digest damage per tick in digestion mode
 	var/immutable = 0						// Prevents this belly from being deleted
 	var/escapable = 0						// Belly can be resisted out of at any time
 	var/escapetime = 60 SECONDS				// Deciseconds, how long to escape this belly
@@ -120,6 +121,7 @@
 		"emote_time",
 		"digest_brute",
 		"digest_burn",
+		"digest_dmg",
 		"immutable",
 		"can_taste",
 		"escapable",
@@ -616,6 +618,7 @@
 	dupe.emote_time = emote_time
 	dupe.digest_brute = digest_brute
 	dupe.digest_burn = digest_burn
+	dupe.digest_dmg = digest_dmg
 	dupe.immutable = immutable
 	dupe.can_taste = can_taste
 	dupe.escapable = escapable

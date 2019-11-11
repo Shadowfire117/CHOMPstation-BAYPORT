@@ -234,6 +234,10 @@
 		//How much burn damage
 		dat += "<br><a href='?src=\ref[src];b_burn_dmg=\ref[selected]'>Digest Burn Damage:</a>"
 		dat += " [selected.digest_burn]"
+		
+		//How much digest damage
+		dat += "<br><a href='?src=\ref[src];b_digest_dmg=\ref[selected]'>Digest Damage:</a>"
+		dat += " [selected.digest_dmg]"
 
 		//Minimum size prey must be to show up.
 		dat += "<br><a href='?src=\ref[src];b_bulge_size=\ref[selected]'>Required examine size:</a>"
@@ -663,6 +667,13 @@
 			return
 		var/new_new_damage = Clamp(new_damage, 0, 6)
 		selected.digest_brute = new_new_damage
+		
+	if(href_list["b_digest_dmg"])
+		var/new_damage = input(user, "Choose the amount of digest damage prey will take per tick. Ranges from 0 to 6", "Set Belly Digest Damage.", selected.digest_dmg) as num|null
+		if(new_damage == null)
+			return
+		var/new_new_damage = Clamp(new_damage, 0, 6)
+		selected.digest_dmg = new_new_damage
 
 	if(href_list["b_escapable"])
 		if(selected.escapable == 0) //Possibly escapable and special interactions.

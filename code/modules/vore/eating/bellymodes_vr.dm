@@ -65,17 +65,19 @@
 
 				//Stripping flag
 				if(mode_flags & DM_FLAG_STRIPPING)
-					for(var/slot in slots)
-						var/obj/item/I = H.get_equipped_item(slot = slot)
-						if(I)
-							H.unEquip(I,force = TRUE)
-							if(mode_flags & DM_FLAG_ITEMWEAK)
-								I.gurgle_contaminate(contents, cont_flavor)
-								items_preserved |= I
-							else
-								digest_item(I)
-							to_update = TRUE
-							break
+					for(var/obj/item/I in H)
+						if(istype(I,/obj/item/organ))
+							continue
+							//Don't strip organs
+
+						H.drop_from_inventory(I)
+						if(mode_flags & DM_FLAG_ITEMWEAK)
+							I.gurgle_contaminate(contents, cont_flavor)
+							items_preserved |= I
+						else
+							digest_item(I)
+						to_update = TRUE
+					break
 
 ///////////////////////////// DM_HOLD /////////////////////////////
 	if(digest_mode == DM_HOLD)
@@ -130,6 +132,7 @@
 			var/old_burn = M.getFireLoss()
 			M.adjustBruteLoss(digest_brute)
 			M.adjustFireLoss(digest_burn)
+			M.adjustDigestLoss(digest_dmg)
 			var/actual_brute = M.getBruteLoss() - old_brute
 			var/actual_burn = M.getFireLoss() - old_burn
 			var/damage_gain = actual_brute + actual_burn
