@@ -290,23 +290,29 @@
 
 
 	else if(digest_mode == DM_HEAL)
+		world << "heal pass 0"
 
 		if(prob(50)) //Wet heals! The secret is you can leave this on for gurgle noises for fun.
 			play_sound = pick(digestion_sounds)
+			world << "heal noice!"
 
 		for (var/target in touchable_mobs)
 			var/mob/living/M = target
+			world << "heal pass 1"
 
 			if(M.stat == DEAD)
+				world << "heal pass 2"
 				continue
 
 			if(owner.nutrition > 90 && (M.health < M.maxHealth))
+				world << "heal pass 3"
 				M.adjustBruteLoss(-5)
 				M.adjustFireLoss(-5)
 				owner.nutrition -= 2
 				if(M.nutrition <= 400)
 					M.nutrition += 1
 			else if(owner.nutrition > 90 && (M.nutrition <= 400))
+				world << "heal pass 4"
 				owner.nutrition -= 1
 				M.nutrition += 1
 

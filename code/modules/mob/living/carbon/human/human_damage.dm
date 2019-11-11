@@ -238,6 +238,8 @@
 		return(getBruteLoss() < species.total_health / 2)
 	else if(dam_type == BURN)
 		return(getFireLoss() < species.total_health / 2)
+	else if(dam_type == DIGEST)
+		return(getDigestLoss() < species.total_health / 2)
 	return FALSE
 
 ////////////////////////////////////////////
