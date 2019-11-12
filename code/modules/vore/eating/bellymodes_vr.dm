@@ -287,7 +287,7 @@
 
 
 //**********************I also didn't know you can give Nutrition like this. Holy heck. We can explain how things work in our wiki after fixing the nutrition var and none will be the wiser************
-
+// CHOMPER Buffed healing to make it more viable
 
 	else if(digest_mode == DM_HEAL)
 		world << "heal pass 0"
@@ -306,8 +306,9 @@
 
 			if(owner.nutrition > 90 && (M.health < M.maxHealth))
 				world << "heal pass 3"
-				M.adjustBruteLoss(-5)
-				M.adjustFireLoss(-5)
+				M.adjustBruteLoss(-10)
+				M.adjustFireLoss(-10)
+				M.adjustDigestLoss(-2.5)
 				owner.nutrition -= 2
 				if(M.nutrition <= 400)
 					M.nutrition += 1

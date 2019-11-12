@@ -8,6 +8,9 @@
 
 	health = maxHealth - (getBrainLoss() + getDigestLoss()) //CHopmpstation ADD: Adds digestion as a health-affected damage type.
 
+	if(getDigestLoss() > 0 && getBruteLoss() + getFireLoss() <= 30 && stat != DEAD)
+		adjustDigestLoss(-DigestRegen)
+
 	//TODO: fix husking
 	if(((maxHealth - getFireLoss()) < config.health_threshold_dead) && stat == DEAD)
 		ChangeToHusk()
