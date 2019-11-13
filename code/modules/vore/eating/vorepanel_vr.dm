@@ -234,7 +234,7 @@
 		//How much burn damage
 		dat += "<br><a href='?src=\ref[src];b_burn_dmg=\ref[selected]'>Digest Burn Damage:</a>"
 		dat += " [selected.digest_burn]"
-		
+
 		//How much digest damage
 		dat += "<br><a href='?src=\ref[src];b_digest_dmg=\ref[selected]'>Digest Damage:</a>"
 		dat += " [selected.digest_dmg]"
@@ -617,14 +617,14 @@
 		selected.vore_verb = new_verb
 
 	if(href_list["b_sound"])
-		var/choice = input(user,"Currently set to [selected.vore_sound]","Select Sound") as null|anything in vore_sounds
+		var/choice = input(user,"Currently set to [selected.vore_sound]","Select Sound") as null|anything in GLOB.vore_sound
 		if(!choice)
 			return 0
 
 		selected.vore_sound = choice
 
 	if(href_list["b_soundtest"])
-		var/soundfile = vore_sounds[selected.vore_sound]
+		var/soundfile = GLOB.vore_sound[selected.vore_sound]
 		if(soundfile)
 			user << soundfile
 
@@ -667,7 +667,7 @@
 			return
 		var/new_new_damage = Clamp(new_damage, 0, 6)
 		selected.digest_brute = new_new_damage
-		
+
 	if(href_list["b_digest_dmg"])
 		var/new_damage = input(user, "Choose the amount of digest damage prey will take per tick. Ranges from 0 to 6", "Set Belly Digest Damage.", selected.digest_dmg) as num|null
 		if(new_damage == null)

@@ -168,7 +168,7 @@
 
 	//Sound w/ antispam flag setting
 	if(vore_sound && !recent_sound)
-		var/soundfile = vore_sounds[vore_sound]
+		var/soundfile = vore_sound[vore_sound]
 		if(soundfile)
 			playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/eating_noises)
 			recent_sound = TRUE
@@ -517,8 +517,8 @@
 		M.show_message(struggle_outer_message, 2) // hearable
 	to_chat(R,struggle_user_message)
 
-	var/strpick = pick(struggle_sounds)
-	var/strsound = struggle_sounds[strpick]
+	var/strpick = pick(GLOB.struggle_sound)
+	var/strsound = GLOB.struggle_sound[strpick]
 	playsound(src, strsound, vary = 1, vol = 100, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/digestion_noises)
 
 	if(escapable) //If the stomach has escapable enabled.
@@ -596,7 +596,7 @@
 	content.forceMove(target)
 	items_preserved -= content
 	if(!silent && target.vore_sound && !recent_sound)
-		var/soundfile = vore_sounds[target.vore_sound]
+		var/soundfile = vore_sound[target.vore_sound]
 		if(soundfile)
 			playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/digestion_noises)
 	owner.updateVRPanel()
