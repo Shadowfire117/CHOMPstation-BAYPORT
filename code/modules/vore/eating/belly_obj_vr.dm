@@ -299,7 +299,7 @@
 // This is useful in customization boxes and such. The delimiter right now is \n\n so
 // in message boxes, this looks nice and is easily delimited.
 /obj/belly/proc/get_messages(var/type, var/delim = "\n\n")
-	ASSERT(type == "smo" || type == "smi" || type == "dmo" || type == "dmp" || type == "em")
+	ASSERT(type == "smo" || type == "smi" || type == "dmo" || type == "dmp" || type == "em" || type == "e_hold" || type == "e_digest" || type == "e_absorb" || type == "e_unabsorb" || type == "e_heal" || type == "e_shrink" || type == "e_grow" || type == "e_sizesteal" || type == "e_transform")
 	var/list/raw_messages
 
 	switch(type)
@@ -313,6 +313,33 @@
 			raw_messages = digest_messages_prey
 		if("em")
 			raw_messages = examine_messages
+		if("e_hold")
+			raw_messages = emote_lists[DM_HOLD]
+		if("e_digest")
+			raw_messages = emote_lists[DM_DIGEST]
+		if("e_absorb")
+			raw_messages = emote_lists[DM_ABSORB]
+		if("e_unabsorb")
+			raw_messages = emote_lists[DM_UNABSORB]
+		if("e_heal")
+			raw_messages = emote_lists[DM_HEAL]
+		if("e_shrink")
+			raw_messages = emote_lists[DM_SHRINK]
+		if("e_grow")
+			raw_messages = emote_lists[DM_GROW]
+		if("e_sizesteal")
+			raw_messages = emote_lists[DM_SIZE_STEAL]
+		if("e_transform") //No way we are gonna bother having custom emotes for every transform mode - Jack
+			raw_messages = emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR]
+			raw_messages = emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG]
+			raw_messages = emote_lists[DM_TRANSFORM_FEMALE]
+			raw_messages = emote_lists[DM_TRANSFORM_FEMALE_EGG]
+			raw_messages = emote_lists[DM_TRANSFORM_KEEP_GENDER]
+			raw_messages = emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG]
+			raw_messages = emote_lists[DM_TRANSFORM_MALE]
+			raw_messages = emote_lists[DM_TRANSFORM_MALE_EGG]
+			raw_messages = emote_lists[DM_TRANSFORM_REPLICA]
+			raw_messages = emote_lists[DM_TRANSFORM_REPLICA_EGG]
 
 	var/messages = list2text(raw_messages,delim)
 	return messages
@@ -321,7 +348,7 @@
 // replacement strings and linebreaks as delimiters (two \n\n by default).
 // They also sanitize the messages.
 /obj/belly/proc/set_messages(var/raw_text, var/type, var/delim = "\n\n")
-	ASSERT(type == "smo" || type == "smi" || type == "dmo" || type == "dmp" || type == "em")
+	ASSERT(type == "smo" || type == "smi" || type == "dmo" || type == "dmp" || type == "em" || type == "e_hold" || type == "e_digest" || type == "e_absorb" || type == "e_unabsorb" || type == "e_heal" || type == "e_shrink" || type == "e_grow" || type == "e_sizesteal" || type == "e_transform")
 
 	var/list/raw_list = text2list(html_encode(raw_text),delim)
 	if(raw_list.len > 10)
@@ -350,6 +377,33 @@
 			digest_messages_prey = raw_list
 		if("em")
 			examine_messages = raw_list
+		if("e_hold")
+			emote_lists[DM_HOLD] = raw_list
+		if("e_digest")
+			emote_lists[DM_DIGEST] = raw_list
+		if("e_absorb")
+			emote_lists[DM_ABSORB] = raw_list
+		if("e_unabsorb")
+			emote_lists[DM_UNABSORB] = raw_list
+		if("e_heal")
+			emote_lists[DM_HEAL] = raw_list
+		if("e_shrink")
+			emote_lists[DM_SHRINK] = raw_list
+		if("e_grow")
+			emote_lists[DM_GROW] = raw_list
+		if("e_sizesteal")
+			emote_lists[DM_SIZE_STEAL] = raw_list
+		if("e_transform") //No way we are gonna bother having custom emotes for every transform mode - Jack
+			emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR] = raw_list
+			emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG] = raw_list
+			emote_lists[DM_TRANSFORM_FEMALE] = raw_list
+			emote_lists[DM_TRANSFORM_FEMALE_EGG] = raw_list
+			emote_lists[DM_TRANSFORM_KEEP_GENDER] = raw_list
+			emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG] = raw_list
+			emote_lists[DM_TRANSFORM_MALE] = raw_list
+			emote_lists[DM_TRANSFORM_MALE_EGG] = raw_list
+			emote_lists[DM_TRANSFORM_REPLICA] = raw_list
+			emote_lists[DM_TRANSFORM_REPLICA_EGG] = raw_list
 
 	return
 

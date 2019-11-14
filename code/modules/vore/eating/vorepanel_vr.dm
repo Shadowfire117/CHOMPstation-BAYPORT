@@ -566,6 +566,7 @@
 			"Struggle Message (outside)",
 			"Struggle Message (inside)",
 			"Examine Message (when full)",
+			"Belly Mode Messages (to prey)",
 			"Reset All To Default"
 		)
 
@@ -598,6 +599,146 @@
 				var/new_message = input(user,"These are sent to people who examine you when this belly has contents. Write them in 3rd person ('Their %belly is bulging')."+help,"Examine Message (when full)",selected.get_messages("em")) as message
 				if(new_message)
 					selected.set_messages(new_message,"em")
+
+			if("Belly Mode Messages (to prey)")
+				var/list/mode_messages = list(
+					"Hold Messages",
+					"Digest Messages",
+					"Absorb Messages",
+					"Unabsorb Messages",
+					"Heal Messages",
+					"Shrink Messages",
+					"Grow Messages",
+					"Size Steal Messages",
+					"Transform Messages",
+					"Delete All Messages")
+
+				var/mode_choice = input(user,"blep","Pick Type") as null|anything in mode_messages
+
+				switch(mode_choice)
+					if("Hold Messages")
+						var/confirm = alert(user,"Change hold messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when just held. Write them in 2nd person."+help,"Hold Messages",selected.get_messages("e_hold")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_hold")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom hold messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_HOLD] = initial(selected.emote_lists[DM_HOLD])
+
+					if("Digest Messages")
+						var/confirm = alert(user,"Change digest messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being digested. Write them in 2nd person."+help,"Digest Messages",selected.get_messages("e_digest")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_digest")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom digest messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_DIGEST] = initial(selected.emote_lists[DM_DIGEST])
+					if("Absorb Messages")
+						var/confirm = alert(user,"Change absorb messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being absorbed. Write them in 2nd person."+help,"Absorb Messages",selected.get_messages("e_absorb")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_absorb")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom absorb messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_ABSORB] = initial(selected.emote_lists[DM_ABSORB])
+					if("Unabsorb Messages")
+						var/confirm = alert(user,"Change unabsorb messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being unabsorbed. Write them in 2nd person."+help,"Unabsorb Messages",selected.get_messages("e_unabsorb")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_unabsorb")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom unabsprb messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_UNABSORB] = initial(selected.emote_lists[DM_UNABSORB])
+					if("Heal Messages")
+						var/confirm = alert(user,"Change heal messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being healed. Write them in 2nd person."+help,"Heal Messages",selected.get_messages("e_heal")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_heal")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom heal messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_HEAL] = initial(selected.emote_lists[DM_HEAL])
+					if("Shrink Messages")
+						var/confirm = alert(user,"Change shrink messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being shrinked. Write them in 2nd person."+help,"Shrink Messages",selected.get_messages("e_shrink")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_shrink")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom shrink messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_SHRINK] = initial(selected.emote_lists[DM_SHRINK])
+					if("Grow Messages")
+						var/confirm = alert(user,"Change grow messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being growed. Write them in 2nd person."+help,"Grow Messages",selected.get_messages("e_grow")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_grow")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom grow messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_GROW] = initial(selected.emote_lists[DM_GROW])
+					if("Size Steal Messages")
+						var/confirm = alert(user,"Change size steal messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when their size is being taken. Write them in 2nd person."+help,"Size Steal Messages",selected.get_messages("e_sizesteal")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_sizesteal")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom size steal messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_SIZE_STEAL] = initial(selected.emote_lists[DM_SIZE_STEAL])
+					if("Transform Messages")
+						var/confirm = alert(user,"Change transform messages or delete?","Confirmation","Messages","DELETE")
+						if(confirm == "Messages")
+							var/new_message = input(user,"These are messages sent to prey randomly when being transformed. Write them in 2nd person."+help,"Transform Messages",selected.get_messages("e_transform")) as message
+							if(new_message)
+								selected.set_messages(new_message,"e_transform")
+						if(confirm == "DELETE")
+							var/safetyconfirm = alert(user,"This will delete custom transform messages. Are you sure?","Confirmation","DELETE","Cancel")
+							if(safetyconfirm == "DELETE")
+								selected.emote_lists[DM_SIZE_STEAL] = initial(selected.emote_lists[DM_SIZE_STEAL])
+								selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR] = initial(selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR])
+								selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG] = initial(selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG])
+								selected.emote_lists[DM_TRANSFORM_FEMALE] = initial(selected.emote_lists[DM_TRANSFORM_FEMALE])
+								selected.emote_lists[DM_TRANSFORM_FEMALE_EGG] = initial(selected.emote_lists[DM_TRANSFORM_FEMALE_EGG])
+								selected.emote_lists[DM_TRANSFORM_KEEP_GENDER] = initial(selected.emote_lists[DM_TRANSFORM_KEEP_GENDER])
+								selected.emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG] = initial(selected.emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG])
+								selected.emote_lists[DM_TRANSFORM_MALE] = initial(selected.emote_lists[DM_TRANSFORM_MALE])
+								selected.emote_lists[DM_TRANSFORM_MALE_EGG] = initial(selected.emote_lists[DM_TRANSFORM_MALE_EGG])
+								selected.emote_lists[DM_TRANSFORM_REPLICA] = initial(selected.emote_lists[DM_TRANSFORM_REPLICA])
+								selected.emote_lists[DM_TRANSFORM_REPLICA_EGG] = initial(selected.emote_lists[DM_TRANSFORM_REPLICA_EGG])
+					if("Delete All Messages")
+						var/confirm = alert(user,"This will delete ALL mode custom messages. Are you sure?","Confirmation","DELETE","Cancel")
+						if(confirm == "DELETE")
+							selected.emote_lists[DM_HOLD] = initial(selected.emote_lists[DM_HOLD])
+							selected.emote_lists[DM_DIGEST] = initial(selected.emote_lists[DM_DIGEST])
+							selected.emote_lists[DM_ABSORB] = initial(selected.emote_lists[DM_ABSORB])
+							selected.emote_lists[DM_UNABSORB] = initial(selected.emote_lists[DM_UNABSORB])
+							selected.emote_lists[DM_HEAL] = initial(selected.emote_lists[DM_HEAL])
+							selected.emote_lists[DM_SHRINK] = initial(selected.emote_lists[DM_SHRINK])
+							selected.emote_lists[DM_GROW] = initial(selected.emote_lists[DM_GROW])
+							selected.emote_lists[DM_SIZE_STEAL] = initial(selected.emote_lists[DM_SIZE_STEAL])
+							selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR] = initial(selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR])
+							selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG] = initial(selected.emote_lists[DM_TRANSFORM_CHANGE_SPECIES_AND_TAUR_EGG])
+							selected.emote_lists[DM_TRANSFORM_FEMALE] = initial(selected.emote_lists[DM_TRANSFORM_FEMALE])
+							selected.emote_lists[DM_TRANSFORM_FEMALE_EGG] = initial(selected.emote_lists[DM_TRANSFORM_FEMALE_EGG])
+							selected.emote_lists[DM_TRANSFORM_KEEP_GENDER] = initial(selected.emote_lists[DM_TRANSFORM_KEEP_GENDER])
+							selected.emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG] = initial(selected.emote_lists[DM_TRANSFORM_KEEP_GENDER_EGG])
+							selected.emote_lists[DM_TRANSFORM_MALE] = initial(selected.emote_lists[DM_TRANSFORM_MALE])
+							selected.emote_lists[DM_TRANSFORM_MALE_EGG] = initial(selected.emote_lists[DM_TRANSFORM_MALE_EGG])
+							selected.emote_lists[DM_TRANSFORM_REPLICA] = initial(selected.emote_lists[DM_TRANSFORM_REPLICA])
+							selected.emote_lists[DM_TRANSFORM_REPLICA_EGG] = initial(selected.emote_lists[DM_TRANSFORM_REPLICA_EGG])
+
 
 			if("Reset All To Default")
 				var/confirm = alert(user,"This will delete any custom messages. Are you sure?","Confirmation","DELETE","Cancel")

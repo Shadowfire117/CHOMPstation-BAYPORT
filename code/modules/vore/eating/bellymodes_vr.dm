@@ -88,7 +88,6 @@
 
 		if(prob(50)) //Was SO OFTEN. AAAA.
 			playsound(src.loc, get_sfx("digestion"), 50, 1)
-			world << "digest test noise"
 
 		for (var/target in touchable_mobs)
 			var/mob/living/M = target
@@ -291,22 +290,17 @@
 // CHOMPER Buffed healing to make it more viable
 
 	else if(digest_mode == DM_HEAL)
-		world << "heal pass 0"
 
 		if(prob(50)) //Wet heals! The secret is you can leave this on for gurgle noises for fun.
 			playsound(src.loc, get_sfx("digestion"), 50, 1)
-			world << "heal noice!"
 
 		for (var/target in touchable_mobs)
 			var/mob/living/M = target
-			world << "heal pass 1"
 
 			if(M.stat == DEAD)
-				world << "heal pass 2"
 				continue
 
 			if(owner.nutrition > 90 && (M.health < M.maxHealth))
-				world << "heal pass 3"
 				M.adjustBruteLoss(-10)
 				M.adjustFireLoss(-10)
 				M.adjustDigestLoss(-2.5)
@@ -314,7 +308,6 @@
 				if(M.nutrition <= 400)
 					M.nutrition += 1
 			else if(owner.nutrition > 90 && (M.nutrition <= 400))
-				world << "heal pass 4"
 				owner.nutrition -= 1
 				M.nutrition += 1
 
