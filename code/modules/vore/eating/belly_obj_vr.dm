@@ -18,8 +18,8 @@
 	var/human_prey_swallow_time = 100		// Time in deciseconds to swallow /mob/living/carbon/human
 	var/nonhuman_prey_swallow_time = 30		// Time in deciseconds to swallow anything else
 	var/emote_time = 60 SECONDS				// How long between stomach emotes at prey
-	var/digest_brute = 2					// Brute damage per tick in digestion mode
-	var/digest_burn = 2						// Burn damage per tick in digestion mode
+	var/digest_brute = 0					// Brute damage per tick in digestion mode
+	var/digest_burn = 0						// Burn damage per tick in digestion mode
 	var/digest_dmg = 2						// digest damage per tick in digestion mode
 	var/immutable = 0						// Prevents this belly from being deleted
 	var/escapable = 0						// Belly can be resisted out of at any time
@@ -168,9 +168,9 @@
 
 	//Sound w/ antispam flag setting
 	if(vore_sound && !recent_sound)
-		var/soundfile = vore_sound[vore_sound]
+		var/soundfile = GLOB.vore_sounds[vore_sound]
 		if(soundfile)
-			playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/eating_noises)
+			vr_playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 			recent_sound = TRUE
 
 	//Messages if it's a mob
@@ -212,7 +212,7 @@
 	if(!silent)
 		owner.visible_message("<font color='green'><b>[owner] expels everything from their [lowertext(name)]!</b></font>")
 		if(release_sound)
-			playsound(src, 'sound/effects/splat.ogg', vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/eating_noises)
+			vr_playsound(src, 'sound/effects/splat.ogg', vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 
 	return count
 
@@ -255,7 +255,7 @@
 	if(!silent)
 		owner.visible_message("<font color='green'><b>[owner] expels [M] from their [lowertext(name)]!</b></font>")
 		if(release_sound)
-			playsound(src, 'sound/effects/splat.ogg', vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/eating_noises)
+			vr_playsound(src, 'sound/effects/splat.ogg', vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 
 	return 1
 
@@ -433,10 +433,12 @@
 			for(var/slot in slots)
 				var/obj/item/I = M.get_equipped_item(slot = slot)
 				if(I)
-					M.unEquip(I,force = TRUE)
-					I.gurgle_contaminate(contents, cont_flavor) //We do an initial contamination pass to get stuff like IDs wet.
+					M.drop_from_inventory(I)
 					if(mode_flags & DM_FLAG_ITEMWEAK)
+						I.gurgle_contaminate(contents, cont_flavor)
 						items_preserved |= I
+					else
+						digest_item(I)
 
 	//Reagent transfer
 	if(ishuman(owner))
@@ -444,7 +446,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/Prey = M
 			var/datum/reagents/ingested = Prey.get_ingested_reagents()
-			Prey.bloodstr.del_reagent("numbenzyme")
+			Prey.bloodstr.del_reagent(/datum/reagent/numbenzyme)
 			Prey.bloodstr.trans_to_holder(Pred.bloodstr, Prey.bloodstr.total_volume, 0.5, TRUE) // Copy=TRUE because we're deleted anyway
 			ingested.trans_to_holder(Pred.bloodstr, ingested.total_volume, 0.5, TRUE) // Therefore don't bother spending cpu
 			Prey.touching.trans_to_holder(Pred.bloodstr, Prey.touching.total_volume, 0.5, TRUE) // On updating the prey's reagents
@@ -573,7 +575,7 @@
 
 	var/strpick = pick(GLOB.struggle_sound)
 	var/strsound = GLOB.struggle_sound[strpick]
-	playsound(src, strsound, vary = 1, vol = 100, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/digestion_noises)
+	vr_playsound(src, strsound, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 
 	if(escapable) //If the stomach has escapable enabled.
 		if(prob(escapechance)) //Let's have it check to see if the prey escapes first.
@@ -650,9 +652,9 @@
 	content.forceMove(target)
 	items_preserved -= content
 	if(!silent && target.vore_sound && !recent_sound)
-		var/soundfile = vore_sound[target.vore_sound]
+		var/soundfile = GLOB.vore_sounds[target.vore_sound]
 		if(soundfile)
-			playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, preference = /datum/client_preference/digestion_noises)
+			vr_playsound(src, soundfile, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 	owner.updateVRPanel()
 	for(var/mob/living/M in contents)
 		M.updateVRPanel()

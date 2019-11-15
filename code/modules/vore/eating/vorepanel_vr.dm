@@ -227,6 +227,7 @@
 		dat += "<br><a href='?src=\ref[src];b_tastes=\ref[selected]'>Can Taste:</a>"
 		dat += " [selected.can_taste ? "Yes" : "No"]"
 
+		/* //CHOMPER Not used anymore, but not removed from code in case of use in future - Jack
 		//How much brute damage
 		dat += "<br><a href='?src=\ref[src];b_brute_dmg=\ref[selected]'>Digest Brute Damage:</a>"
 		dat += " [selected.digest_brute]"
@@ -234,6 +235,7 @@
 		//How much burn damage
 		dat += "<br><a href='?src=\ref[src];b_burn_dmg=\ref[selected]'>Digest Burn Damage:</a>"
 		dat += " [selected.digest_burn]"
+		*/
 
 		//How much digest damage
 		dat += "<br><a href='?src=\ref[src];b_digest_dmg=\ref[selected]'>Digest Damage:</a>"
@@ -613,7 +615,7 @@
 					"Transform Messages",
 					"Delete All Messages")
 
-				var/mode_choice = input(user,"blep","Pick Type") as null|anything in mode_messages
+				var/mode_choice = input(user,"Select a belly mode to write emote text, these messages will be randomly sent to prey during the period a mode is active.","Pick Type") as null|anything in mode_messages
 
 				switch(mode_choice)
 					if("Hold Messages")
@@ -758,14 +760,14 @@
 		selected.vore_verb = new_verb
 
 	if(href_list["b_sound"])
-		var/choice = input(user,"Currently set to [selected.vore_sound]","Select Sound") as null|anything in GLOB.vore_sound
+		var/choice = input(user,"Currently set to [selected.vore_sound]","Select Sound") as null|anything in GLOB.vore_sounds
 		if(!choice)
 			return 0
 
 		selected.vore_sound = choice
 
 	if(href_list["b_soundtest"])
-		var/soundfile = GLOB.vore_sound[selected.vore_sound]
+		var/soundfile = GLOB.vore_sounds[selected.vore_sound]
 		if(soundfile)
 			user << soundfile
 
@@ -795,6 +797,7 @@
 		else if(new_grow)
 			selected.shrink_grow_size = (new_grow*0.01)
 
+	/* //CHOMPER Not used anymore, but not removed from code in case of use in future - Jack
 	if(href_list["b_burn_dmg"])
 		var/new_damage = input(user, "Choose the amount of burn damage prey will take per tick. Ranges from 0 to 6.", "Set Belly Burn Damage.", selected.digest_burn) as num|null
 		if(new_damage == null)
@@ -808,12 +811,13 @@
 			return
 		var/new_new_damage = Clamp(new_damage, 0, 6)
 		selected.digest_brute = new_new_damage
+	*/
 
 	if(href_list["b_digest_dmg"])
-		var/new_damage = input(user, "Choose the amount of digest damage prey will take per tick. Ranges from 0 to 6", "Set Belly Digest Damage.", selected.digest_dmg) as num|null
+		var/new_damage = input(user, "Choose the amount of digest damage prey will take per tick. Ranges from 0 to 5", "Set Belly Digest Damage.", selected.digest_dmg) as num|null
 		if(new_damage == null)
 			return
-		var/new_new_damage = Clamp(new_damage, 0, 6)
+		var/new_new_damage = Clamp(new_damage, 0, 5)
 		selected.digest_dmg = new_new_damage
 
 	if(href_list["b_escapable"])

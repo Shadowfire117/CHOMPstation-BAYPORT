@@ -60,8 +60,8 @@
 
 				//Numbing flag
 				if(mode_flags & DM_FLAG_NUMBING)
-					if(H.bloodstr.get_reagent_amount("numbenzyme") < 2)
-						H.bloodstr.add_reagent("numbenzyme",4)
+					if(H.bloodstr.get_reagent_amount(/datum/reagent/numbenzyme) < 2)
+						H.bloodstr.add_reagent(/datum/reagent/numbenzyme,4)
 
 				//Stripping flag
 				if(mode_flags & DM_FLAG_STRIPPING)
@@ -87,7 +87,7 @@
 	else if(digest_mode == DM_DIGEST)
 
 		if(prob(50)) //Was SO OFTEN. AAAA.
-			playsound(src.loc, get_sfx("digestion"), 50, 1)
+			play_sound = get_sfx("digestion")
 
 		for (var/target in touchable_mobs)
 			var/mob/living/M = target
@@ -114,7 +114,7 @@
 				to_chat(owner,"<span class='notice'>" + digest_alert_owner + "</span>")
 				to_chat(M,"<span class='notice'>" + digest_alert_prey + "</span>")
 
-				playsound(src.loc, get_sfx("death_sounds"), 50, 1)
+				play_sound = get_sfx("vore_death")
 				digestion_death(M)
 				owner.update_icons()
 				if(compensation > 0)
@@ -163,7 +163,7 @@
 		for (var/target in touchable_mobs)
 			var/mob/living/carbon/M = target
 			if(prob(10)) //Less often than gurgles. People might leave this on forever.
-				playsound(src.loc, get_sfx("digestion"), 50, 1)
+				play_sound = get_sfx("digestion")
 
 			if(M.absorbed)
 				continue
@@ -210,7 +210,7 @@
 			var/mob/living/M = target
 
 			if(prob(10)) //Less often than gurgles. People might leave this on forever.
-				playsound(src.loc, get_sfx("digestion"), 50, 1)
+				play_sound = get_sfx("digestion")
 
 			if(M.nutrition >= 100) //Drain them until there's no nutrients left.
 				var/oldnutrition = (M.nutrition * 0.05)
@@ -229,7 +229,7 @@
 			var/mob/living/M = target
 
 			if(prob(10)) //Infinite gurgles!
-				playsound(src.loc, get_sfx("digestion"), 50, 1)
+				play_sound = get_sfx("digestion")
 
 			if(M.size_multiplier > shrink_grow_size) //Shrink until smol.
 				M.resize(M.size_multiplier-0.01) //Shrink by 1% per tick.
@@ -251,7 +251,7 @@
 			var/mob/living/M = target
 
 			if(prob(10))
-				playsound(src.loc, get_sfx("digestion"), 50, 1)
+				play_sound = get_sfx("digestion")
 
 			if(M.size_multiplier < shrink_grow_size) //Grow until large.
 				M.resize(M.size_multiplier+0.01) //Grow by 1% per tick.
@@ -270,7 +270,7 @@
 			var/mob/living/M = target
 
 			if(prob(10))
-				playsound(src.loc, get_sfx("digestion"), 50, 1)
+				play_sound = get_sfx("digestion")
 
 			if(M.size_multiplier > shrink_grow_size && owner.size_multiplier < 2) //Grow until either pred is large or prey is small.
 				owner.resize(owner.size_multiplier+0.01) //Grow by 1% per tick.
@@ -292,7 +292,7 @@
 	else if(digest_mode == DM_HEAL)
 
 		if(prob(50)) //Wet heals! The secret is you can leave this on for gurgle noises for fun.
-			playsound(src.loc, get_sfx("digestion"), 50, 1)
+			play_sound = get_sfx("digestion")
 
 		for (var/target in touchable_mobs)
 			var/mob/living/M = target
@@ -319,7 +319,8 @@
 		process_tf(tf_mode, touchable_mobs)
 
 /////////////////////////// Make any noise ///////////////////////////
-	playsound(src, play_sound, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
+	if(play_sound)
+		vr_playsound(src, play_sound, vol = 100, vary = 1, falloff = VORE_SOUND_FALLOFF, ignore_walls = TRUE, preference = /datum/client_preference/digestion_noises)
 	if(to_update)
 		for(var/mob/living/M in contents)
 			if(M.client)
